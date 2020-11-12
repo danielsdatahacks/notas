@@ -1,0 +1,25 @@
+# Bear Pro mit Synchronisierung, Sperrfunktion, Exportfunktion und Designs
+[assets/Pro.jpg]
+
+Wir sind auf der Zielgeraden! Wenn Sie den Rest der Bear-Tour sehen möchten, gehen Sie zu [[Willkommen bei Bear]], [[Organisieren und veröffentlichen]] und [[Tipps & Tricks]].
+
+## Zusätzliche Funktionen
+Bear und der Großteil seiner Kernfunktionen sind kostenlos auf iPad, iPhone und dem Mac zu verwenden. Wir möchten, dass jeder mit unseren einzigartigen Tools wunderbar schreiben und Notizen machen kann.
+
+## Bear Pro
+[Abonnieren Sie Bear Pro](bear://x-callback-url/open-bear-pro) für all Ihre Geräte, um weitere leistungsstarke Funktionen und elegante Designs freizuschalten und um Bears weitere Entwicklung zu unterstützen:
+
+* *Sync* alle Ihre Notizen zwischen Bear für iPad, iPhone und Mac, powered by iCloud. Erfahren Sie mehr über Bear's Synchronisierung und automatische Speicherung in [[Organisieren und veröffentlichen]]
+* *Notizen und Bear sperren*. Verschlüsseln Sie einzelne Notizen mit nur Ihnen bekannten Passwörtern und sperren Sie Bear mit Face/Touch ID oder Ihrem Gerätekennwort
+* *Exportieren* Sie Ihre Notizen in eine Vielzahl von zusätzlichen, flexiblen Formaten für das Veröffentlichen und Teilen, einschließlich PDF, Word (DOCX), HTML und JPG. Erfahren Sie mehr über die Exportfunktionen von Bear in [[Organisieren und veröffentlichen]]
+* *Elegante Designs* für eine Atmosphäre, die Ihre Kreativität freisetzt
+
+Bear Pro hat auch eine kostenlose Testversion. Das monatliche Abonnement bietet Ihnen eine kostenlose Woche zum Ausprobieren. Durch das Jahresabonnement erhalten Sie einen kostenlosen Monat. In den In-App-Einstellungen von iPad, iPhone oder Mac können Sie [Bear Pro](bear://x-callback-url/open-bear-pro) nachlesen und abonnieren.
+
+Und vielen Dank für Ihre Unterstützung!
+🐻🎉❤️📝😄
+
+### Erfahren Sie mehr
+[[Willkommen bei Bear]]
+[[Organisieren und Veröffentlichen]]
+[[Tipps & Tricks]]

@@ -1,0 +1,8 @@
+# Human-centered design (HCD)
+#Books/The_Design_of_Everyday_Things #Design
+
+The solution is human-centered design (HCD), an approach that puts human needs, capabilities, and behavior first, then designs to accommodate those needs, capabilities, and ways of behaving. Good design starts with an understanding of psychology and technology. Good design requires good communication, especially from machine to person, indicating what actions are possible, what is happening, and what is about to happen.
+
+[Design = Interplay of technology and psychology](bear://x-callback-url/open-note?id=952826D5-B141-4D57-90F9-E5718A6A1806-9540-00005D53F9C4874D)
+[Interaction design](bear://x-callback-url/open-note?id=839C4CB5-7A95-4853-B7B5-258BB2F4A73D-9540-00005C8FEE697028)
+[Experience design](bear://x-callback-url/open-note?id=76B6687E-DD87-453B-A975-07CA652A2BE7-9540-00005CAF7A85CC28)

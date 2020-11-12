@@ -1,0 +1,9 @@
+# Vitamins vs. Painkillers
+#Books/Hooked #Design
+
+Painkillers solve an obvious need, relieving a specific pain, and often have quantifiable markets.
+Vitamins, by contrast, do not necessarily solve an obvious pain point. Instead they appeal to users’ emotional rather than functional needs.
+My answer to the vitamin versus painkiller question: Habit-forming technologies are both. These services seem at first to be offering nice-to-have vitamins, but once the habit is established, they provide an ongoing pain remedy.
+Example: Facebook was vitamin first. Nice to be communicating to people. Then it become painkiller: Habit was formed. Updating the status checking the status of friends. If you do not do this you feel a discomfort (pain). —> Facebook become painkiller.
+
+[Habit](bear://x-callback-url/open-note?id=EF482DF6-B383-4422-B0F4-364AF0461861-9540-00004E03D03A7549)

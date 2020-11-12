@@ -1,0 +1,18 @@
+{
+  "net.shinyfrog.bear" : {
+    "pinned" : 0,
+    "trashedDate" : null,
+    "archived" : 0,
+    "modificationDate" : "2020-08-14T16:49:57+0200",
+    "creationDate" : "2020-08-14T16:49:08+0200",
+    "pinnedDate" : null,
+    "trashed" : 0,
+    "uniqueIdentifier" : "D5A2593B-FD64-485D-8E0C-EE4C6BC31DB8-9540-00005DA8E857DA6A",
+    "archivedDate" : null,
+    "lastEditingDevice" : "Daniel Borcherdings MacBook Pro"
+  },
+  "transient" : true,
+  "type" : "public.plain-text",
+  "creatorIdentifier" : "net.shinyfrog.bear",
+  "version" : 2
+}

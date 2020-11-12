@@ -1,0 +1,9 @@
+# Innovate vs. Reuse
+#Books/Don’t_make_me_think #Design
+
+If you’re not going to use an existing Web convention, you need to be sure that what you’re replacing it with either (a) is so clear and self-explanatory that there’s no learning curve—so it’s as good as the convention, or (b) adds so much value that it’s worth a small learning curve. 
+
+My recommendation: Innovate when you know you have a better idea, but take advantage of conventions when you don’t.
+
+[Difficulty to introduce a new product](bear://x-callback-url/open-note?id=089E4EC1-6D80-4B72-8372-F3BB9CB1B6DC-9540-00004DAEFEC91E1E)
+[Three simple steps to create truly innovative products](bear://x-callback-url/open-note?id=679E4956-EA2E-4AC5-9370-05FAFB728CB9-9540-00004F43487BB1B1)

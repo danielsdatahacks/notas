@@ -1,0 +1,14 @@
+# Things that increase user experience
+#Books/Don’t_make_me_think #Design
+
+* Know the main things that people want to do on your site and make them obvious and easy.
+* Tell me what I want to know
+* Save me steps wherever you can
+* Put effort into it
+* Know what questions I’m likely to have, and answer them
+* Provide me with creature comforts like printer-friendly pages
+* Make it easy to recover from errors
+* When in doubt, apologize.
+
+[Action](bear://x-callback-url/open-note?id=D99DF934-24D3-4301-88BA-B48172548ADC-9540-0000501E9957C25C)
+[Seven fundamental principles of design](bear://x-callback-url/open-note?id=38CDC78C-7078-4BD4-9239-61CEF53D1EAD-9540-000060B315421D06) (Goes into more detail)

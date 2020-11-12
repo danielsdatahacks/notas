@@ -1,0 +1,12 @@
+# Good taglines
+#Books/Don’t_make_me_think #Design
+
+Tagline = Words next to logo
+
+Good taglines are just long enough, but not too long. Six to eight words seem to be long enough to convey a full thought, but short enough to absorb easily.
+
+Good taglines convey differentiation and a clear benefit. Jakob Nielsen has suggested that a really good tagline is one that no one else in the world could use except you, and I think it’s an excellent way to look at it.
+
+Good taglines are personable, lively, and sometimes clever. Clever is good, but only if the cleverness helps convey—not obscure—the benefit.
+
+[Questions a home page needs to answer fast](bear://x-callback-url/open-note?id=F0B3AA22-E7D4-4AFD-B8B8-211A691A397E-9540-000051CFCAD5FD89)

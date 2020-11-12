@@ -1,0 +1,11 @@
+# Designing for tasks or activities
+#Books/The_Design_of_Everyday_Things #Design
+
+Designing for tasks is usually too restrictive. An activity is a high-level structure, perhaps “go shopping.” A task is a lower-level component of an activity, such as “drive to the market,” “find a shopping basket,” “use a shopping list to guide the purchases,” and so forth.
+
+Focusing upon tasks is too limiting. Apple’s success with its music player, the iPod, was because Apple supported the entire activity involved in listening to music: discovering it, purchasing it, getting it into the music player, developing playlists (that could be shared), and listening to the music.
+
+Design for individuals and the results may be wonderful for the particular people they were designed for, but a mismatch for others. Design for activities and the result will be usable by everyone.
+
+[Design thinking (Symptom vs. root problem)](bear://x-callback-url/open-note?id=89A4AB54-A056-4270-842D-3383838BF82E-9540-000061DBB5D09C6B) 
+[Seven fundamental principles of design](bear://x-callback-url/open-note?id=38CDC78C-7078-4BD4-9239-61CEF53D1EAD-9540-000060B315421D06)

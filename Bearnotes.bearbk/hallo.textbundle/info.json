@@ -1,0 +1,18 @@
+{
+  "net.shinyfrog.bear" : {
+    "pinned" : 0,
+    "trashedDate" : "2020-09-19T13:55:19+0200",
+    "archived" : 0,
+    "modificationDate" : "2020-09-17T21:05:22+0200",
+    "creationDate" : "2020-09-17T21:04:01+0200",
+    "pinnedDate" : null,
+    "trashed" : 1,
+    "uniqueIdentifier" : "43935C01-0961-4436-BC43-C109B085B01B-492-00000014B0B31C9F",
+    "archivedDate" : null,
+    "lastEditingDevice" : "iPad"
+  },
+  "transient" : true,
+  "type" : "public.plain-text",
+  "creatorIdentifier" : "net.shinyfrog.bear",
+  "version" : 2
+}

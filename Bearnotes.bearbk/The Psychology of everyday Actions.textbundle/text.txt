@@ -1,0 +1,11 @@
+# The Psychology of everyday Actions
+#Books/The_Design_of_Everyday_Things #Design
+
+To identify an action we make use of signifiers, constraints, mappings, and a conceptual model. We evaluate the action through the use of feedback and a comparison with our conceptual model. If we get an error we modify our conceptual model and actions until we understand how to use the device.
+
+[Conceptual models](bear://x-callback-url/open-note?id=04A68597-DE1F-4ADA-B09E-A310D567F78B-9540-00005E66653CE5B6)
+[Feedback](bear://x-callback-url/open-note?id=B41D5879-A629-4CF7-82C9-78DF850A0987-9540-00005DCE56ED047C)
+[Natural mapping](bear://x-callback-url/open-note?id=9BE0715D-8DD6-4DA7-A891-195BA20F950F-9540-00005DC844F4073A)
+[Action](bear://x-callback-url/open-note?id=D99DF934-24D3-4301-88BA-B48172548ADC-9540-0000501E9957C25C)
+[Create effective visual hierarchies](bear://x-callback-url/open-note?id=64BE6AEA-821D-49EE-8F90-7798ACC9C582-9540-0000517EB74F31F1)
+

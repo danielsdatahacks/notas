@@ -1,0 +1,39 @@
+# Willkommen bei Bear
+[assets/Welcome@2x.jpg]
+
+Bear ist eine tolle und flexible App zum Anfertigen von Notizen und Prosa. Es ist einfach, anzufangen und Bear zu meistern - wir werden es Ihnen zeigen. Sie können auch [unseren monatlichen Newsletter abonnieren](http://eepurl.com/dvs38P) für Tipps, Interviews, Neuigkeiten [und mehr](https://bear.app/faq/).
+
+## Bear hat drei Teile 🐻
+Bear hat drei Hauptspalten, in denen Sie Ihre Notizen erstellen, bearbeiten und organisieren können.
+
+[assets/Bear 3 columns.png]
+
+* *Seitenmenü* (links): Wenn Sie Tags an einer beliebigen Stelle in Ihren Notizen hinzufügen, sammelt Bear sie in dieser Sidebar. Stellen Sie sie sich vor als Ordner, die Sie spontan erstellen und verwenden können, während Sie schreiben.
+* *Liste von Notizen* (in der Mitte): Alle Ihre Notizen leben hier, geordnet nach Änderungsdatum. Sie können eine Notiz an diese Liste für schnellen Zugriff *anheften*.
+* *Editor* (rechts): Hier passiert Ihre Magie; Sie sehen es gerade an. 😄
+
+*Note*: In Bear für iPhone streichen Sie zwischen der Sidebar, der Notiz-Liste und dem Editor.
+
+## Bear hat Stil ✒️
+Bear hat viele Text- und Stil-Tools, einschließlich: *fett*, /kursiv/, _unterstreichen_, ::hervorheben::, -durchstreichen-, Überschriften 1-6 und andere. Sie können Shortcuts im *Style Panel* finden:
+
+* *Mac*: Klicken Sie auf das Stiftsymbol unten rechts im Editor
+* *iPhone oder iPad*: Befindet sich in Bear's Shortcut-Leiste über der Tastatur
+
+Bear hat auch eine Reihe von [schöne Themen](bear://x-callback-url/open-themes), um Ihnen eine bequeme Schreib-Leinwand zu bieten. Einige sind gratis und in [Bear Pro](bear://x-callback-url/open-bear-pro) gibt es noch über ein Dutzend mehr.
+
+## Tools für Jeden 🛠
+Bear ist elegant und flexibel, sodass es einfach ist, mit dem Schreiben zu beginnen und mehr zu lernen, sobald Sie fertig sind. Zum Glück gibt es in Bear noch viel mehr zu entdecken! Sie können:
+
+* [Ihre Notizen organisieren mit Tags ](https://blog.bear.app/2017/08/bear-tips-organize-notes-with-tags-and-infinite-nested-tags/) und sogar unbegrenzt verschachtelbaren Tags
+* [Notizen exportieren](https://blog.bear.app/2017/08/bear-tips-turn-your-notes-into-pdf-jpg-and-more/) um sie woanders zu teilen
+* [Notizen anheften](https://blog.bear.app/2017/09/bear-tips-pin-notes-to-the-top-to-stay-on-task/) oben an Ihre Liste für schnellen Zugriff
+* [Setzen Sie TagCons](https://blog.bear.app/2018/08/bear-tips-make-your-important-tags-stand-out-with-tagcons/), damit wichtige Tags im Seitenmenü auffallen
+* [Bear für Apple Watch](https://blog.bear-writer.com/bear-for-ios-gets-drag-and-drop-ier-arrives-on-apple-watch-aa9cf2ec43a3) verwenden, um schnell Notizen unterwegs zu schreiben
+* Fotos und Dateien hinzufügen (jede kann bis zu 250 MB groß sein)
+* [Aufgaben verfolgen](https://blog.bear.app/2017/02/bear-tips-check-your-task-progress/)
+* [Skizzen auf dem iPad erstellen](https://bear.app/faq/Attachments/Add%20Sketches%20to%20your%20notes/) mit Apple Pencil und anderen Eingabestiften
+* und mehr!
+
+Sie können sogar [Notizen in anderen Notizen verlinken](https://blog.bear.app/2017/03/bear-tips-link-notes-for-fun-and-profit/). Setzen Sie Ihre Bear-Einführung in unserer nächsten Willkommen-Notiz: [[Organisieren und veröffentlichen]]. 😉
+

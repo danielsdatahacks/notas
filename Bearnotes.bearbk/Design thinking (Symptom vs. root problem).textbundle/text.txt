@@ -1,0 +1,9 @@
+# Design thinking (Symptom vs. root problem)
+#Books/The_Design_of_Everyday_Things #Design
+
+Never try to solve the problem you are asked to solve. Rather find out what the root problem is and solve that.
+
+Good designers first identify the root problem and then come up with a range of possible solutions and implement the best one. This process is called design thinking.
+
+[Understanding what people really need](bear://x-callback-url/open-note?id=54FCB054-792B-46E4-839B-CE8C360BD9CA-9540-00005F7155BCBEB9)
+[Human-centered design (HCD)](bear://x-callback-url/open-note?id=9FB66E7B-0534-4A77-8356-1D90F8671F7A-9540-00005D976627D77C)

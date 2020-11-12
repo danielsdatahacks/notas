@@ -1,0 +1,14 @@
+# Hooked model
+#Books/Hooked #Design
+
+The hooked model consists of 4 phases. The trigger, the action, the reward and the investment. An internal trigger (emotion) leads to an action, which is ideally the usage of an app that solves the users problem. Afterwards a reward may encourages the user into an additional investment in the app, like entering more user data. This investment serves as the string to pull the user back to the app later. After a user went through these 4 phases a couple of times the user develops an association of his internal trigger with the usage of the app, i.e. the user is hooked.
+
+[Internal trigger](bear://x-callback-url/open-note?id=07243917-F4C8-4F4E-95C4-0601774F2A9E-9540-00004E4BECB642ED)
+[External triggers](bear://x-callback-url/open-note?id=23B70F17-F616-4DFF-81D6-5EF308DEA2DB-9540-00004EF7544B36CB)
+[Action](bear://x-callback-url/open-note?id=D99DF934-24D3-4301-88BA-B48172548ADC-9540-0000501E9957C25C)
+[Variable Reward](bear://x-callback-url/open-note?id=64695E48-312B-4543-8333-0387DFEDCEAA-9540-00004F865D1E2220)
+[Rewards of the tribe](bear://x-callback-url/open-note?id=34BA8D86-0E7B-4437-B67D-30DF0965D99A-9540-00004FA987531126)
+[Rewards of the hunt](bear://x-callback-url/open-note?id=7FADE0EF-BF1F-4CEE-8C47-13CB41BD4EA7-9540-00004FC74280201A)
+[User’s investment in a product](bear://x-callback-url/open-note?id=84123700-D66D-44D3-A625-1C5D60830230-9540-00004FDED517DE1C)
+[Investment = String that pulls user back to the product](bear://x-callback-url/open-note?id=D21764CA-9658-4818-A864-2994E2B28670-9540-0000503DB23C22CC) 
+[Habit](bear://x-callback-url/open-note?id=EF482DF6-B383-4422-B0F4-364AF0461861-9540-00004E03D03A7549)

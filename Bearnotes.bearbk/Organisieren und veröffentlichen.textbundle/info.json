@@ -1,0 +1,18 @@
+{
+  "net.shinyfrog.bear" : {
+    "pinned" : 0,
+    "trashedDate" : "2020-09-21T22:19:15+0200",
+    "archived" : 0,
+    "modificationDate" : "2020-08-13T20:30:28+0200",
+    "creationDate" : "2020-08-13T20:30:28+0200",
+    "pinnedDate" : null,
+    "trashed" : 1,
+    "uniqueIdentifier" : "SFNoteIntro1",
+    "archivedDate" : null,
+    "lastEditingDevice" : "Daniel Borcherdings MacBook Pro"
+  },
+  "transient" : true,
+  "type" : "public.plain-text",
+  "creatorIdentifier" : "net.shinyfrog.bear",
+  "version" : 2
+}
