@@ -1,7 +1,0 @@
-# Rewards of the hunt
-#Books/Hooked #Design
-
-The feeling we get after a successful hunt. Pinterest for example always shows a little bit of the next picture. Therefore we continue hunting it and feel a reward once we find a new exciting picture.
-
-[Variable Reward](bear://x-callback-url/open-note?id=64695E48-312B-4543-8333-0387DFEDCEAA-9540-00004F865D1E2220)
-[Rewards of the tribe](bear://x-callback-url/open-note?id=34BA8D86-0E7B-4437-B67D-30DF0965D99A-9540-00004FA987531126)

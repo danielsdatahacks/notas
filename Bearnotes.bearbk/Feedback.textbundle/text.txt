@@ -1,9 +1,0 @@
-# Feedback
-#Books/The_Design_of_Everyday_Things #Design
-
-Feedback is the communication of errors and results. It is necessary to learn  how to use a tool, i.e. create new behaviors.
-
-
-[Things that increase user experience](bear://x-callback-url/open-note?id=8F46CE2E-462C-47FE-943A-9E9D1DD2A78D-9540-000052147780A972) 
-[Habit](bear://x-callback-url/open-note?id=EF482DF6-B383-4422-B0F4-364AF0461861-9540-00004E03D03A7549)
-[Human error](bear://x-callback-url/open-note?id=54F77C81-D0DA-402E-BAD1-C99A81D49F38-9540-0000605430C7D22F)

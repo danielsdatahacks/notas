@@ -1,8 +1,0 @@
-# Overlooked purposes of navigation
-#Books/Don’t_make_me_think #Design
-
-* Tells us what’s here.
-* Tells us how to use the site
-* It gives us confidence in the people who built it
-
-[Create effective visual hierarchies](bear://x-callback-url/open-note?id=64BE6AEA-821D-49EE-8F90-7798ACC9C582-9540-0000517EB74F31F1)

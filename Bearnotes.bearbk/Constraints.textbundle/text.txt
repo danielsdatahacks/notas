@@ -1,7 +1,0 @@
-## Constraints
-#Books/The_Design_of_Everyday_Things #Design
-
-* Natural/physical constraints: For example a usual light switch can obviously only flip up or down due to physical constraints.
-* Cultural constraints: Learned artificial restrictions on behavior.
-
- [Seven fundamental principles of design](bear://x-callback-url/open-note?id=38CDC78C-7078-4BD4-9239-61CEF53D1EAD-9540-000060B315421D06)

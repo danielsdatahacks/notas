@@ -1,8 +1,0 @@
-# External triggers
-#Books/Hooked #Design #Psychology
-
-Can take weeks / months until the association between trigger and action is formed. External triggers like advertisement, notifications etc. are used to spark habits. But only associations with internal triggers keep users hooked.
-
-[Internal trigger](bear://x-callback-url/open-note?id=07243917-F4C8-4F4E-95C4-0601774F2A9E-9540-00004E4BECB642ED)
-[Habit](bear://x-callback-url/open-note?id=EF482DF6-B383-4422-B0F4-364AF0461861-9540-00004E03D03A7549) 
-[Hooked model](bear://x-callback-url/open-note?id=150435DF-838A-4E20-9973-117A71C4CAB1-9540-00005044E5C53A69)

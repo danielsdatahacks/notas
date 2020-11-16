@@ -1,9 +1,0 @@
-# Characteristics of good design
-#Books/The_Design_of_Everyday_Things #Design
-
-* Discoverability: Is it possible to even figure out what actions are possible and where and how to perform them?
-* Understanding: What does it all mean? How is the product supposed to be used? What do all the different controls and settings mean?
-
-[Things that increase user experience](bear://x-callback-url/open-note?id=8F46CE2E-462C-47FE-943A-9E9D1DD2A78D-9540-000052147780A972) 
-[Overlooked purposes of navigation](bear://x-callback-url/open-note?id=F548B425-9E95-4B4A-91BB-4568EA428EBB-9540-000051B778ED9718) 
-[Design = Interplay of technology and psychology](bear://x-callback-url/open-note?id=952826D5-B141-4D57-90F9-E5718A6A1806-9540-00005D53F9C4874D)

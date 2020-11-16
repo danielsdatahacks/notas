@@ -1,8 +1,0 @@
-# Problem and usefulness of standardized design
-#Books/The_Design_of_Everyday_Things #Design
-
-Standards simplify people’s life, because everyone immediately knows what to do. However, at the same time it becomes more difficult to innovate. For example the design of batteries has not changed for a long time even though they are often placed in a wrong direction. —> Smart use of physical constraints would have solved that problem.
-
-[Constraints](bear://x-callback-url/open-note?id=709BDAE4-58B0-4B31-A097-4C55E3550E29-9540-0000610968F86FB0)
-[Innovate vs. Reuse](bear://x-callback-url/open-note?id=F730399D-8DBD-43DE-B6F5-621110EE68E2-9540-0000507D808F13AC)
-[Difficulty to introduce a new product](bear://x-callback-url/open-note?id=089E4EC1-6D80-4B72-8372-F3BB9CB1B6DC-9540-00004DAEFEC91E1E)

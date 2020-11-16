@@ -1,8 +1,0 @@
-# Idea generation
-#Books/The_Design_of_Everyday_Things #Design
-
-* Generate numerous ideas. It is dangerous to become fixated upon one or two ideas too early in the process.
-* Be creative without regard for constraints. Avoid criticizing ideas, whether your own or those of others. Even crazy ideas, often obviously wrong, can contain creative insights that can later be extracted and put to good use in the final idea selection. Avoid premature dismissal of ideas.
-* Question everything. I am particularly fond of “stupid” questions. A stupid question asks about  things so fundamental that everyone assumes the answer is obvious. But when the question is taken seriously, it often turns out to be profound: the obvious often is not obvious at all. What we assume to be obvious is simply the way things have always been done, but now that it is questioned, we don’t actually know the reasons. Quite often the solution to problems is discovered through stupid questions, through questioning the obvious.
-
-

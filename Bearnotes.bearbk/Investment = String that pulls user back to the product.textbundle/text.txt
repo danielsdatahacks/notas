@@ -1,8 +1,0 @@
-# Investment = String that pulls user back to the product
-#Books/Hooked #Design
-
-In this chapter we have learned how an investment in the product serves as the string that pulls the user back. To do this, the habit-forming technology increases the value of the product with each pass through the Hook.
-
-Users do not stay hooked forever, though. Invariably, the next big thing will come along and provide a better, more compelling hook. However, by creating habits fueled by investments in a product or service, companies make switching to a competitor difficult. User habits are hard to break and confer powerful competitive advantages to any company fortunate enough to successfully create them.
-
-[Hooked model](bear://x-callback-url/open-note?id=150435DF-838A-4E20-9973-117A71C4CAB1-9540-00005044E5C53A69)

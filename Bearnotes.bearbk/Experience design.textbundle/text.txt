@@ -1,7 +1,0 @@
-# Experience design
- #Books/The_Design_of_Everyday_Things #Design
-
-The practice of designing products, processes, services, events, and environments with a focus placed on the quality and enjoyment of the total experience.
-
-[Interaction design](bear://x-callback-url/open-note?id=839C4CB5-7A95-4853-B7B5-258BB2F4A73D-9540-00005C8FEE697028)
-[Characteristics of good design](bear://x-callback-url/open-note?id=6AFD657F-51A6-4759-8234-58F1C03177AF-9540-00005C5E1FCB2A5D)

@@ -1,6 +1,0 @@
-# Signifier
-#Books/The_Design_of_Everyday_Things #Design
-
-I decided to provide a better answer: signifiers. Affordances determine what actions are possible. Signifiers communicate where the action should take place. We need both.
-
-[Affordance](bear://x-callback-url/open-note?id=D5A2593B-FD64-485D-8E0C-EE4C6BC31DB8-9540-00005DA8E857DA6A)

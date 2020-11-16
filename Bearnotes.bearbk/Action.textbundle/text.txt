@@ -1,9 +1,0 @@
-# Action
-
-#Books/Hooked #Design
-
-User’s action after something triggers the user.
-
-[Internal trigger](bear://x-callback-url/open-note?id=07243917-F4C8-4F4E-95C4-0601774F2A9E-9540-00004E4BECB642ED) 
-[External triggers](bear://x-callback-url/open-note?id=23B70F17-F616-4DFF-81D6-5EF308DEA2DB-9540-00004EF7544B36CB) 
-[Hooked model](bear://x-callback-url/open-note?id=150435DF-838A-4E20-9973-117A71C4CAB1-9540-00005044E5C53A69)

@@ -1,6 +1,0 @@
-# Clarity trumps consistency
-#Books/Don’t_make_me_think #Design
-
-If you can make a design significantly clearer by making it slightly inconsistent, choose in favor of clarity.
-
-[Create effective visual hierarchies](bear://x-callback-url/open-note?id=64BE6AEA-821D-49EE-8F90-7798ACC9C582-9540-0000517EB74F31F1)

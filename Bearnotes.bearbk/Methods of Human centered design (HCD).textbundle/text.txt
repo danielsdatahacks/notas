@@ -1,8 +1,0 @@
-# Methods of Human centered design (HCD)
-#Books/The_Design_of_Everyday_Things #Design
-
-Everyone has his or her own favorite method, but all are variants on the common theme: iterate through the four stages of observation, generation, prototyping, and testing. But even before this, there is one overriding principle: solve the right problem.
-
-[Human-centered design (HCD)](bear://x-callback-url/open-note?id=9FB66E7B-0534-4A77-8356-1D90F8671F7A-9540-00005D976627D77C) 
-[Understanding what people really need](bear://x-callback-url/open-note?id=54FCB054-792B-46E4-839B-CE8C360BD9CA-9540-00005F7155BCBEB9) 
-[Idea generation](bear://x-callback-url/open-note?id=0C5559FB-4608-4163-9C0C-1CB035A13D4B-9540-000061F9B0B2C019)

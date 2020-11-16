@@ -1,9 +1,0 @@
-# Docker commands
-
-Launch instance of docker image
-
-use the docker run command from  and copy the command directly into the terminal
-
-use Dockersql0705! as a password. mssql_server as a name. And mcr.microsoft.com/mssql/server:2019-latest in the end.
-
-[How to Install SQL Server on a Mac | Database.Guide](https://database.guide/how-to-install-sql-server-on-a-mac/)

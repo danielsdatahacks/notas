@@ -1,6 +1,0 @@
-# Effizienzlohn
-#Books/Gute_Ökonomie_für_harte_Zeiten #Economy
-
-Diese Logik besagt, dass der Lohn, den ein Unternehmen zahlen muss, um seinen Mitarbeiter dazu zu bewegen, eine angemessene Leistung zu erbringen, so hoch sein muss, dass es ihn empfindlich trifft, wenn er entlassen wird.
-
-Wenn man einem Mitarbeiter zu wenig zahlt ist er auch entsprechend wenig motiviert gute Leistung zu erbringen.

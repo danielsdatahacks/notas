@@ -1,5 +1,0 @@
-# Natural mapping
-#Books/The_Design_of_Everyday_Things #Design
-
-Natural mapping, by which I mean taking advantage of spatial analogies, leads to immediate understanding. For example, to move an object up, move the control up. To make it easy to determine which control works which light in a large room or auditorium, arrange the controls in the same pattern as the lights.
-
