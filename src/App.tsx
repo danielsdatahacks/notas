@@ -122,7 +122,7 @@ import Hammer from 'hammerjs';
 
 function App() {
 
-  const [graph, setGraph]: [Graph, React.Dispatch<React.SetStateAction<Graph>>] = useState({Energy: 1000, NodeDictionary: {}});
+  const [graph, setGraph]: [Graph, React.Dispatch<React.SetStateAction<Graph>>] = useState({Energy: 1000, NodeDictionary: {}, TopicDictionary: {}});
   const [selectedNode, selectNode]: [Node, React.Dispatch<React.SetStateAction<Node>>] = useState({ID: "", Name: "", Text: "", Hashtags: [] as string[], X: 0, Y: 0, LinksTowards: [] as BaseNode[], LinksFrom: [] as BaseNode[]});
   const [searchInput, setSearchInput]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   const [filterHashtag, setFilterHashtag]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
@@ -149,6 +149,12 @@ function App() {
         let fileHandleInfo: FileSystemHandle = await dirHandle2.getFileHandle("info.json");
         let infoFile: File = await fileHandleInfo.getFile();
 
+        //Regex expressions for the import
+        let linkRegEx: RegExp = /\[.+\]+\([a-zA-Z\:\/\-\?]+id=+[A-Za-z0-9\-]+\)/g;
+        let idRegEx: RegExp = /id=.+\)/g;
+        let linkNameRegEx: RegExp = /\[.+\]/g;
+        let hashtagRegEx: RegExp = /\B(\#[a-zA-Z/_\Ä\ä\Ö\ö\Ü\ü]+)(?!;)/g;
+
         //1. Get information of current note
         let infoJson: any = JSON.parse(await infoFile.text());
         let noteID: string = infoJson["net.shinyfrog.bear"]["uniqueIdentifier"];
@@ -158,14 +164,45 @@ function App() {
         let noteName = noteText.slice(2, noteText.indexOf("\n"));
         let noteBase: BaseNode = {ID: noteID, Name: noteName};
 
-        //console.log(noteID);
-        //console.log(noteName);
+        //Update the global hashtagDictionary and collect hashtags for current note
+        let hashtagDict: {[id: string]: Node} = tempGraph.TopicDictionary;
+        let hashtagsOfCurrentNote: string[] = [];
+        let regExHashtagMatch: RegExpMatchArray | null = noteText.match(hashtagRegEx);
+        if(regExHashtagMatch !== null){
+          for(let i in regExHashtagMatch){
+            let hashtag: string = regExHashtagMatch[i];
+
+            //Check whether global hashtagDict has to be extended and collect hashtags for current note.
+            let hashtagIsNew: boolean = true;
+            for(let hashtagID in hashtagDict){
+
+              if(hashtagDict[hashtagID].Name === hashtag){
+                hashtagIsNew = false;
+                hashtagsOfCurrentNote.push(hashtagID);
+                hashtagDict[hashtagID].LinksTowards.push({ID: noteID, Name: ""});
+              }
+            }
+
+            if(hashtagIsNew){
+              let newHashtagID: string = (Object.keys(hashtagDict).length + 1).toString();
+              hashtagsOfCurrentNote.push(newHashtagID);
+
+              let newHashtagNode: Node = {
+                ID: newHashtagID,
+                Name: hashtag,
+                Text: "",
+                Hashtags: [],
+                X: Math.floor(Math.random() * Math.floor(15000)),
+                Y: Math.floor(Math.random() * Math.floor(15000)),
+                LinksTowards: [{ID: noteID, Name: ""}], //This will be computed later
+                LinksFrom: [] as BaseNode[]  //This will be computed later
+              };
+              hashtagDict[newHashtagID] = newHashtagNode;
+            }
+          } 
+        }
 
         //2. Get linked notes as list https://regexr.com
-        let linkRegEx: RegExp = /\[.+\]+\([a-zA-Z\:\/\-\?]+id=+[A-Za-z0-9\-]+\)/g;
-        let idRegEx: RegExp = /id=.+\)/g;
-        let linkNameRegEx: RegExp = /\[.+\]/g;
-        let hashtagRegEx: RegExp = /\B(\#[a-zA-Z/_\Ä\ä\Ö\ö\Ü\ü]+)(?!;)/g;
         let linkIDs: BaseNode[] = [];
         noteText.match(linkRegEx)?.forEach((link: string) => {
           //console.log(link);
@@ -199,13 +236,6 @@ function App() {
 
         //console.log("New link");
 
-        //Get hashtags
-        let hashtags: string[] = [];
-        noteText.match(hashtagRegEx)?.forEach((hashtag: string) => {
-          console.log(hashtag);
-          hashtags.push(hashtag);
-        });
-
         //Get plain note text
         noteText = noteText.slice(noteText.indexOf("\n"), noteText.length);
         noteText = noteText.replace(hashtagRegEx, '');
@@ -215,13 +245,14 @@ function App() {
         if(!(noteID in tempGraph.NodeDictionary)){
           tempGraph = { 
             ...tempGraph,
+            TopicDictionary: hashtagDict,
             NodeDictionary: {
                 ...tempGraph.NodeDictionary,
                 [noteID]: {
                     ID: noteID,
                     Name: noteName,
                     Text: noteText,
-                    Hashtags: hashtags,
+                    Hashtags: hashtagsOfCurrentNote,
                     X: Math.floor(Math.random() * Math.floor(15000)),
                     Y: Math.floor(Math.random() * Math.floor(15000)),
                     LinksTowards: linkIDs,
@@ -238,7 +269,7 @@ function App() {
                     ID: noteID,
                     Name: noteName,
                     Text: noteText,
-                    Hashtags: [...tempGraph.NodeDictionary[noteID].Hashtags, ...hashtags],
+                    Hashtags: [...tempGraph.NodeDictionary[noteID].Hashtags, ...hashtagsOfCurrentNote],
                     X: tempGraph.NodeDictionary[noteID].X,
                     Y: tempGraph.NodeDictionary[noteID].Y,
                     LinksTowards: [...tempGraph.NodeDictionary[noteID].LinksTowards, ...linkIDs],
@@ -373,7 +404,7 @@ function App() {
             <NotasGraph id={"notas-graph"} Graph={graph} FilterHashtag={filterHashtag} HighlightedHashtag={highlightedHashtag} SelectedNode={selectedNode} onClickNode={onClickNode}/>
         </div>
         <div className="App-sidebar">
-          {<Sidebar Node={selectedNode}/>
+          {<Sidebar SelectedNode={selectedNode} HashtagDictionary={graph.TopicDictionary}/>
           }
         </div>
       </div>

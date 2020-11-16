@@ -5,23 +5,25 @@ import BaseNode from './models/baseNode';
 import './Stylings/bear.css';
 
 interface Props {
-    Node: Node
+    SelectedNode: Node,
+    HashtagDictionary: {[id: string]: Node}
 }
 
 function Sidebar(props: Props) {
 
   return (
     <div className="note-main">
-        <h1>{props.Node.Name}</h1>
+        <h1>{props.SelectedNode.Name}</h1>
         <p>
-        {props.Node.Hashtags.map((hashtag: string) => 
-            <span key={hashtag} className="hashtag">{hashtag}</span>
-        )}
+          {props.SelectedNode.Hashtags.map((hashtagID: string) => 
+            (hashtagID in props.HashtagDictionary) && 
+              <span key={hashtagID} className="hashtag">{props.HashtagDictionary[hashtagID].Name}</span>
+          )}
         </p>
         <br/>
-        <div>{props.Node.Text}</div>
-        {props.Node.LinksTowards.map((link: BaseNode) =>
-            <a key={link.ID} href={"bear://x-callback-url/open-note?id=" + link.ID}>{link.Name}</a>
+        <div>{props.SelectedNode.Text}</div>
+        {props.SelectedNode.LinksTowards.map((link: BaseNode) =>
+            <a key = {link.ID} href={"bear://x-callback-url/open-note?id=" + link.ID}>{link.Name}</a>
         )}
     </div>
   );

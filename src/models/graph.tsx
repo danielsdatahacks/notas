@@ -3,5 +3,6 @@ import Node from "./node";
 
 export default interface Graph {
     Energy: number,
-    NodeDictionary:  {[id: string]: Node}
+    NodeDictionary:  {[id: string]: Node},
+    TopicDictionary: {[id: string]: Node}
 }
