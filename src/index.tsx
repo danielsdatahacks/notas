@@ -24,3 +24,4 @@ serviceWorkerRegistration.register();
 reportWebVitals();
 
 //"homepage": "http://danielsdatahacks.github.io/notas",
+//"homepage": "https://nice-bay-0a8ac9503.azurestaticapps.net/notas",
