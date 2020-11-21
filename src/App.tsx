@@ -12,7 +12,7 @@ import NotasGraph from './Graphs/NotasGraph'
 import ForceTransform from './Graphs/SpringElectrical';
 import Sidebar from './Sidebar'
 import BaseNode from './models/baseNode';
-import Hammer from 'hammerjs';
+//import Hammer from 'hammerjs';
 //import '../src/Stylings/bear.css'
 
 // let graphData : Graph = {
@@ -418,3 +418,5 @@ export default App;
 //Attribute icons
 //<div>Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 //<div>Icons made by <a href="https://www.flaticon.com/authors/becris" title="Becris">Becris</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+//"azure-functions-core-tools": "^3.0.2996",
+//"hammerjs": "^2.0.8",
