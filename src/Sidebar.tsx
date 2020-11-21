@@ -21,7 +21,7 @@ function Sidebar(props: Props) {
     //To test locally the need to run the azure function locally and set the correct address here:
     //  http://localhost:7071/api/LoadNotasGraph for deployment it is enough to set:
     //  /api/LoadNotasGraph
-    fetch('/api/LoadNotasGraph')
+    fetch('http://localhost:7071/api/LoadNotasGraph')
       .then(res => res.json())
       .then((data) => {
         console.log(data);
