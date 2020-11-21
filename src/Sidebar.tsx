@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Node from '../src/models/node';
 import BaseNode from './models/baseNode';
-import Product from './models/Product';
+import Customer from './models/Customer';
 //import './Stylings/note.css';
 import './Stylings/bear.css';
 
@@ -12,7 +12,7 @@ interface Props {
 
 function Sidebar(props: Props) {
 
-  const [products, setProducts]: [Product[], React.Dispatch<React.SetStateAction<Product[]>>] = useState([] as Product[]);
+  const [customers, setCustomers]: [Customer[], React.Dispatch<React.SetStateAction<Customer[]>>] = useState([] as Customer[]);
   const [count, setCount]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
 
   //https://nice-bay-0a8ac9503.azurestaticapps.net
@@ -24,7 +24,8 @@ function Sidebar(props: Props) {
     fetch('/api/LoadNotasGraph')
       .then(res => res.json())
       .then((data) => {
-        setProducts(data);
+        console.log(data);
+        setCustomers(data);
       })
       .catch(console.log);
   }
@@ -45,8 +46,8 @@ function Sidebar(props: Props) {
         {props.SelectedNode.LinksTowards.map((link: BaseNode) =>
             <a key = {link.ID} href={"bear://x-callback-url/open-note?id=" + link.ID}>{link.Name}</a>
         )}
-        {products.map((product: Product) =>
-            <div>{product.Name + ", " + product.Description + ", " + product.Price.toString()}</div>
+        {customers.map((customer: Customer) =>
+            <div>{customer.PersonID + ", " + customer.FirstName + ", " + customer.LastName + ", " + customer.City + ", " + customer.Address}</div>
         )}
     </div>
   );
