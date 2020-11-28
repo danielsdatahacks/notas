@@ -1,0 +1,26 @@
+# Seven fundamental principles of design
+#Books/The_Design_of_Everyday_Things #Design #Psychology
+
+The [Seven Stages of Action](bear://x-callback-url/open-note?id=D3939CCF-2DFF-431B-B218-D01AE127FE57-9540-0000606817C26B49)  lead to seven principles of design that need to be thought about when designing a product.
+
+1.​Discoverability. It is possible to determine what actions are possible and the current state of the device. 
+
+2.​Feedback. There is full and continuous information about the results of actions and the current state of the product or service. After an action has been executed, it is easy to determine the new state. 
+
+3.​Conceptual model. The design projects all the information needed to create a good conceptual model of the system, leading to understanding and a feeling of control. The conceptual model enhances both discoverability and evaluation of results. 
+
+4.​Affordances. The proper affordances exist to make the desired actions possible. 
+
+5.​Signifiers. Effective use of signifiers ensures discoverability and that the feedback is well communicated and intelligible. 
+
+6.​Mappings. The relationship between controls and their actions follows the principles of good mapping, enhanced as much as possible through spatial layout and temporal contiguity. 
+
+7.​Constraints. Providing physical, logical, semantic, and cultural constraints guides actions and eases interpretation.
+
+[Seven Stages of Action As Design Aids](bear://x-callback-url/open-note?id=D3939CCF-2DFF-431B-B218-D01AE127FE57-9540-0000606817C26B49)
+[Conceptual models](bear://x-callback-url/open-note?id=04A68597-DE1F-4ADA-B09E-A310D567F78B-9540-00005E66653CE5B6)
+[Affordance](bear://x-callback-url/open-note?id=D5A2593B-FD64-485D-8E0C-EE4C6BC31DB8-9540-00005DA8E857DA6A)
+[Signifier](bear://x-callback-url/open-note?id=44528E47-9D26-46A8-AB77-AE9B1FD4AE4C-9540-00005DB5B553B091)
+[Natural mapping](bear://x-callback-url/open-note?id=9BE0715D-8DD6-4DA7-A891-195BA20F950F-9540-00005DC844F4073A) 
+[Feedback](bear://x-callback-url/open-note?id=B41D5879-A629-4CF7-82C9-78DF850A0987-9540-00005DCE56ED047C) 
+[Knowledge in our head and in the world](bear://x-callback-url/open-note?id=4C83F702-41E4-4F49-84F9-F35570C682CA-9540-000060FFAE4BF44C)

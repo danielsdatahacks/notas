@@ -1,0 +1,6 @@
+# Skeuomorphic
+#Books/The_Design_of_Everyday_Things #Design
+
+Term for incorporating old, familiar ideas into new technologies, even though they no longer play a functional role. This is often done simply because people know how technologies work and therefore feel more familiar when using the new technology.
+
+[Problem and usefulness of standardized design](bear://x-callback-url/open-note?id=094CEB2B-62BD-4948-80EA-F144E6FBA507-9540-0000612FCF18BE15)

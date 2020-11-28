@@ -1,0 +1,10 @@
+# Motivation
+#Books #Design
+
+Motivation is the amount of energy a person has to take an action.
+
+Determines whether a trigger leads to an action. Motivation must be higher than the difficulty to perform the action.
+
+[External triggers](bear://x-callback-url/open-note?id=23B70F17-F616-4DFF-81D6-5EF308DEA2DB-9540-00004EF7544B36CB) 
+[Internal trigger](bear://x-callback-url/open-note?id=07243917-F4C8-4F4E-95C4-0601774F2A9E-9540-00004E4BECB642ED) 
+[Action](bear://x-callback-url/open-note?id=D99DF934-24D3-4301-88BA-B48172548ADC-9540-0000501E9957C25C)

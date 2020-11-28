@@ -1,0 +1,8 @@
+# Understanding people’s pain
+#Books/Hooked #Design
+
+If you want to build a product that is relevant to folks, you need to put yourself in their shoes and you need to write a story from their side. So, we spend a lot of time writing what’s called user narratives.
+
+Dorsey believes a clear description of users—their desires, emotions, the context with which they use the product—is paramount to building the right solution.
+
+[Vitamins vs. Painkillers](bear://x-callback-url/open-note?id=8B1221E9-534E-4812-A956-756BD73F6543-9540-00004DE935970563)

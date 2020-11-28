@@ -1,0 +1,8 @@
+# Understanding what people really need
+#Books/The_Design_of_Everyday_Things #Design
+
+Harvard Business School marketing professor Theodore Levitt once pointed out, “People don’t want to buy a quarter-inch drill. They want a quarter-inch hole!” Levitt’s example of the drill implying that the goal is really a hole is only partially correct, however. When people go to a store to buy a drill, that is not their real goal. But why would anyone want a quarter-inch hole? Clearly that is an intermediate goal. Perhaps they wanted to hang shelves on the wall. Levitt stopped too soon. 
+
+Once you realize that they don’t really want the drill, you realize that perhaps they don’t really want the hole, either: they want to install their bookshelves. Why not develop methods that don’t require holes? Or perhaps books that don’t require bookshelves. (Yes, I know: electronic books, e-books.)
+
+[Human-centered design (HCD)](bear://x-callback-url/open-note?id=9FB66E7B-0534-4A77-8356-1D90F8671F7A-9540-00005D976627D77C)

@@ -70,6 +70,17 @@
   display: flex;
 }
 
+.settings-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.azure-upload-container {
+  display: flex;
+  margin-right: 1em;
+  color: rgb(255,106,0);
+}
+
 .App-sidebar {
   /* box-shadow: -2px 0 2px -2px rgba(0,0,0,.2); */
   flex-grow: 3;

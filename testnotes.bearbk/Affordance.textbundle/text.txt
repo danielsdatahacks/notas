@@ -1,0 +1,4 @@
+# Affordance
+#Books/The_Design_of_Everyday_Things #Design
+
+An affordance is a relationship between the properties of an object and the capabilities of the agent that determine just how the object could possibly be used. A chair affords (“is for”) support and, therefore, affords sitting.

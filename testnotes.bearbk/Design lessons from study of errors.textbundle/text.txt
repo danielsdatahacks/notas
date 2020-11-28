@@ -1,0 +1,13 @@
+# Design lessons from study of errors
+#Books/The_Design_of_Everyday_Things #Design
+
+There are two types of errors. Mistake (user has not sufficient knowledge about the system) and slips (user accidentally presses the wrong key). A good system is designed in a way that mistakes or slips do not result in serious consequences.
+
+Several design lessons can be drawn from the study of errors, one for preventing errors before they occur and one for detecting and correcting them when they do occur.
+
+* Add constraints to prevent errors
+* Undo option
+* Confirmation and error messages
+
+[Human error](bear://x-callback-url/open-note?id=54F77C81-D0DA-402E-BAD1-C99A81D49F38-9540-0000605430C7D22F)
+[Constraints](bear://x-callback-url/open-note?id=709BDAE4-58B0-4B31-A097-4C55E3550E29-9540-0000610968F86FB0)

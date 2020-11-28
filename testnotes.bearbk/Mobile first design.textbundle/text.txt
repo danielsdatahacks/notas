@@ -1,0 +1,6 @@
+# Mobile first design
+#Books/Don’t_make_me_think #Design
+
+Does not mean you should only include in the app what people do when they are mobile.
+
+People are just as likely to be using their mobile devices while sitting on the couch at home, and they want (and expect) to be able to do everything. Or at least, everybody wants to do some things, and if you add them all up it amounts to everything.

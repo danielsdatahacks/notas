@@ -1,0 +1,14 @@
+# User’s investment in a product
+#Books/Hooked #Design
+
+The more users invest time and effort into a product or service, the more they value it. In fact, there is ample evidence to suggest that our labor leads to love.
+On LinkedIn the user’s online résumé embodies the concept of data as stored value. Every time job seekers use the service, they are prompted to add more information. 
+The company found that the more information users invested in the site, the more committed they became to it.
+
+If we could get users to enter just a little information, they were much more likely to return.” The tiny bit of effort associated with providing more user data created a powerful hook to bring people back to the service.
+
+Any.do is a simple mobile task-management app used to record to-do items such as picking up dry cleaning, restocking the fridge with milk, or calling Mom. Recognizing the challenge of retaining fickle mobile consumers, the app is designed to direct users to invest early on. During the first use of the app, Any.do elegantly teaches how to use the product (figure 30). The trigger comes in the form of the app’s clear, easy-to-follow instructions. The follow-up action is doing what the app tells the user to do. The variable rewards arrive in the form of a congratulatory message and the satisfaction of mastering the app.
+
+[Internal trigger](bear://x-callback-url/open-note?id=07243917-F4C8-4F4E-95C4-0601774F2A9E-9540-00004E4BECB642ED)
+[Action](bear://x-callback-url/open-note?id=D99DF934-24D3-4301-88BA-B48172548ADC-9540-0000501E9957C25C) 
+[Variable Reward](bear://x-callback-url/open-note?id=64695E48-312B-4543-8333-0387DFEDCEAA-9540-00004F865D1E2220)

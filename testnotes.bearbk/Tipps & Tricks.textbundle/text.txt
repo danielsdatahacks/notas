@@ -1,0 +1,53 @@
+# Tipps & Tricks
+Wir haben in Bear alle möglichen nützlichen Funktionen eingebaut, damit Sie Ihre Ideen so schnell wie möglich in Notizen umsetzen können. Sie weiter, um noch mehr aus Bear herauszuholen.
+
+Aber wenn Sie ganz von vorn anfangen möchten, gehen Sie auf [[Willkommen zu Bear]], lernen Sie, wie man Notizen [[organisiert und veröffentlicht]] und lernen Sie mehr über [[Bear Pro mit Synchronisierung, Sperrfunktion, Exportfunktion und Designs]].
+
+## Erweiterte Suche 🔎
+Bear kann sofort alle Ihre Notizen durchsuchen, aber es hat auch eine Reihe von [erweiterten Suchoperatoren](https://bear.app/faq/Advanced%20search%20options%20in%20Bear/), die sich auf bestimmte Arten von Inhalten in Ihren Notizen konzentrieren.
+
+Sie können zum Beispiel `@todo` in das Suchfeld eingeben, um alle Notizen mit Aufgaben zu finden, oder `@files`, um alle Notizen mit Anhängen zu finden. Sie können auch `@images` verwenden, um _nur_ solche Anhänge zu finden. Schließlich können Sie mit doppelten Anführungszeichen bestimmte Ausdrücke suchen, z. B. `"Bear ist cool"` .
+
+## Browser- und App-Erweiterungen 🧩
+Es ist einfach, Text, Bilder, Anhänge und ganze Webseiten von anderen Apps zu sammeln. Lernen Sie, wie Sie Bear's Erweiterungen für [iPad, iPhone](https://bear.app/faq/Extensions/iOS%20App%20Extension/) und [Mac](https://bear.app/faq/Extensions/Browser%20extensions/) einrichten und verwenden können.
+
+## Klicken Sie auf diese Tags 🏷
+Sie können auf alle Tags in Bear tippen und klicken. Um es auszuprobieren, vergewissern Sie sich, dass Sie keine Notiz bearbeiten, indem Sie die Tastenkombination Befehlstaste + Eingabetaste auf der Tastatur drücken oder auf iOS streichen, um die Tastatur zu verstecken.
+
+Tippen Sie dann in einer Notiz auf ein Tag wie — die Notizen-Liste wird angezeigt und zeigt alle Notizen an, die dieses Tag enthalten.
+
+Auf dem Mac können Sie die Seitenleiste und/oder Notizen-Liste ausblenden, um störungsfreies Schreiben zu genießen (in iOS passiert dies automatisch 😉). Verwenden Sie die Layout-Auswahl (das Symbol rechts unten), um Ihre Optionen zu sehen.
+
+## Notizen miteinander verlinken ⛓
+Eine von Bear’s wirklich unterhaltsamen und nützlichen Funktionen ist das Verlinken von Notizen. Es eignet sich hervorragend, um schnell zwischen mehreren Notizen in einem Projekt zu wechseln, ein Abenteuerspiel ganz nach Wunsch zu erstellen oder mehrere Notizen zu verwenden, um Benutzer in einer unklaren, roten neuen App zu begrüßen! 😉
+
+Eine Notiz mit einer anderen verknüpfen:
+
+* Benutze dazu in einer Notiz solche doppelten Klammern: *[[*
+* Geben Sie ein paar Buchstaben der Notiz ein, die Sie verknüpfen möchten.
+* Eine Vorschlagsbox erscheint mit Notizen zum Auswählen.
+* Wählen Sie eine der vorgeschlagenen Notizen, und Bear fügt den Namen der Notiz, einen Link und zwei schließende Klammern in Ihre aktuelle Notiz ein.
+
+*Tipp*: Wenn Sie eine Tastatur mit einem Mac oder iPad verwenden, können Sie mit den Pfeiltasten und der Eingabetaste eine vorgeschlagene Notiz auswählen.
+
+## Unsere Gemeinschaft 👥
+Wir haben eine tolle Gemeinschaft von Bear-Nutzern, die Ideen, Tipps, Workflows und sogar einige ihrer eigenen Tools für die Zusammenarbeit mit Bear teilen. Hier sind einige gute Orte, um mit dem Erkunden zu beginnen und mehr über Bear zu erfahren:
+
+* [Bear Notizen & Prosa](https://blog.bear.app) - Unser Blog
+* [Reddit/r/BearApp](https://reddit.com/r/BearApp)
+* [Twitter](https://twitter.com/BearNotesApp)
+* [Facebook](https://www.facebook.com/BearNotes/)
+* [Bear Power Pack](https://github.com/sbusso/Bear-Power-Pack/blob/master/README.md) - Eine Sammlung von Tools von Drittanbietern, die für die Zusammenarbeit mit Bear entwickelt wurden
+
+## Feedback 💬
+Wir würden uns *riesig* freuen, wenn Sie uns Ihr Feedback an [bear@shinyfrog.net](mailto:bear@shinyfrog.net) schicken. 
+
+Wenn Sie Bear mögen, dann geben Sie uns doch bitte eine Bewertung im [App Store](https://itunes.apple.com/us/app/bear/id1016366447) und [Mac App Store](https://itunes.apple.com/us/app/bear/id1091189122). Sie helfen sehr!
+
+Vielen Dank, dass Sie Bear ausprobieren und fröhliches Schreiben!
+🎉 🐻 🎉
+
+### Erfahren Sie mehr
+[[Willkommen bei Bear]]
+[[Organisieren und Veröffentlichen]]
+[[Bear Pro mit Synchronisierung, Sperrfunktion, Exportfunktion und Designs]]

@@ -1,0 +1,11 @@
+# Accidents and errors
+#Books/The_Design_of_Everyday_Things #Design
+
+Accidents usually happen when a certain number of human errors happen right after each other. Design can save lives if it prevents the user from making these mistakes.
+
+For example increase the number of errors that a human needs to do so that an accident occurs. Or make is less likely that each error occurs. —> Design redundancies and layers of defense.
+
+Positive example are airplanes.
+
+[Design lessons from study of errors](bear://x-callback-url/open-note?id=F90583B9-8742-4F7C-8966-36C9B5A56B01-9540-0000617C692836A1)
+[Human error](bear://x-callback-url/open-note?id=54F77C81-D0DA-402E-BAD1-C99A81D49F38-9540-0000605430C7D22F)

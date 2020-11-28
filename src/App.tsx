@@ -364,11 +364,30 @@ function App() {
     console.log(e);
   }
 
+  function onClickAzureUpload() {
+    //To test locally the need to run the azure function locally and set the correct address here:
+    //  http://localhost:7071/api/LoadNotasGraph for deployment it is enough to set:
+    //  /api/LoadNotasGraph  (somehow does not work...)
+    //  https://loadnotasgraph.azurewebsites.net
+    fetch('http://localhost:7071/api/LoadNotasGraph',{
+      method: 'post',
+      body: JSON.stringify(graph)
+    })
+      .then(res => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch(console.log);
+  }
+
   return (
     <div className="App">
       <div className="App-header">
-        <div className="download-logo-container" onClick={onClickBearImport}>
-          <DownloadLogo/>
+        <div className="settings-container">
+          <div className="azure-upload-container" onClick={onClickAzureUpload}>Azure upload</div>
+          <div className="download-logo-container" onClick={onClickBearImport}>
+            <DownloadLogo/>
+          </div>
         </div>
         <div className="searchbar-container">
           <input 
@@ -420,3 +439,6 @@ export default App;
 //<div>Icons made by <a href="https://www.flaticon.com/authors/becris" title="Becris">Becris</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 //"azure-functions-core-tools": "^3.0.2996",
 //"hammerjs": "^2.0.8",
+
+//Server=tcp:notasserver.database.windows.net,1433;Initial Catalog=notas;Persist Security Info=False;User ID=notasadmin;Password=FqGv4hK2Vqwo;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+//"Default": "Server=localhost,1433; Database=notas; User=sa; Password =Dockersql0705!;"

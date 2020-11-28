@@ -1,0 +1,10 @@
+# Angebot und Nachfrage
+#Books/Gute_Ökonomie_für_harte_Zeiten
+
+[assets/preis-mengen-diagramm-vollstaendig.png]
+
+Abbildung zeigt eine Kurve für das Angebot (umso größer der Preis desto geringer die Nachfrage) und für die Nachfrage (umso größer der Preis desto mehr wird auch angeboten). 
+
+Der Mittelpunkt stellt das Marktgleichgewicht dar was sich idealerweise nach einer gewissen Zeit einstellt.
+
+Vereinfacht wird angenommen, dass das gleiche Konzept auch auf den Arbeitsmarkt anwendbar ist. Allerdings ist der Markt ganz anders. Viel läuft über Beziehungen und andere Faktoren als einzig und allein der Lohn. Mitarbeiter die lange in einer Firma sind werden nicht so leicht ersetzt durch andere. Eine gewisse Trägheit herrscht hier im Vergleich zum Produktmarkt.

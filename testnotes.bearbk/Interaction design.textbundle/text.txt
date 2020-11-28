@@ -1,0 +1,7 @@
+# Interaction design
+#Books/The_Design_of_Everyday_Things #Design
+
+The focus is upon how people interact with technology. The goal is to enhance people’s understanding of what can be done, what is happening, and what has just occurred. Interaction design draws upon principles of psychology, design, art, and emotion to ensure a positive, enjoyable experience.
+
+[Characteristics of good design](bear://x-callback-url/open-note?id=6AFD657F-51A6-4759-8234-58F1C03177AF-9540-00005C5E1FCB2A5D)
+[Create effective visual hierarchies](bear://x-callback-url/open-note?id=64BE6AEA-821D-49EE-8F90-7798ACC9C582-9540-0000517EB74F31F1)
