@@ -1,5 +1,6 @@
 import BaseNode from "../models/baseNode";
 import Graph from "../models/graph";
+import Link from "../models/link";
 
 export default function ForceTransform(graph: Graph): Graph {
     let transformedGraph: Graph = graph;
@@ -26,16 +27,16 @@ export default function ForceTransform(graph: Graph): Graph {
 
         //Transform hashtag nodes
         Object.keys(graph.TopicDictionary).forEach(function(i: string){
-            let xi: number = graph.TopicDictionary[i].X;
-            let yi: number = graph.TopicDictionary[i].Y;
+            let xi: number = graph.TopicDictionary[i]?.X;
+            let yi: number = graph.TopicDictionary[i]?.Y;
             let fx: number = 0;
             let fy: number = 0;
 
             //Repulsive force between all hashtag nodes
             Object.keys(graph.TopicDictionary).forEach(function(j: string){
                 if(j !== i){
-                    let xj: number = graph.TopicDictionary[j].X;
-                    let yj: number = graph.TopicDictionary[j].Y;
+                    let xj: number = graph.TopicDictionary[j]?.X;
+                    let yj: number = graph.TopicDictionary[j]?.Y;
 
                     let dij: number = Math.sqrt(Math.pow(xi-xj,2) + Math.pow(yi-yj,2));
 
@@ -56,9 +57,9 @@ export default function ForceTransform(graph: Graph): Graph {
             }
 
             //Attractive force between linked nodes
-            graph.TopicDictionary[i].LinksTowards.forEach(function(j: BaseNode){
-                let xj: number = graph.NodeDictionary[j.ID].X;
-                let yj: number = graph.NodeDictionary[j.ID].Y;
+            graph.TopicDictionary[i].LinksTowards.forEach(function(j: Link){
+                let xj: number = graph.NodeDictionary[j.ID]?.X;
+                let yj: number = graph.NodeDictionary[j.ID]?.Y;
 
                 //let dij: number = Math.sqrt(Math.pow(xi-xj,2) + Math.pow(yi-yj,2));
 
@@ -77,16 +78,16 @@ export default function ForceTransform(graph: Graph): Graph {
 
         //Transform note nodes
         Object.keys(graph.NodeDictionary).forEach(function(i: string){
-            let xi: number = graph.NodeDictionary[i].X;
-            let yi: number = graph.NodeDictionary[i].Y;
+            let xi: number = graph.NodeDictionary[i]?.X;
+            let yi: number = graph.NodeDictionary[i]?.Y;
             let fx: number = 0;
             let fy: number = 0;
 
             //Repulsive force between all nodes
             Object.keys(graph.NodeDictionary).forEach(function(j: string){
                 if(j !== i){
-                    let xj: number = graph.NodeDictionary[j].X;
-                    let yj: number = graph.NodeDictionary[j].Y;
+                    let xj: number = graph.NodeDictionary[j]?.X;
+                    let yj: number = graph.NodeDictionary[j]?.Y;
 
                     let dij: number = Math.sqrt(Math.pow(xi-xj,2) + Math.pow(yi-yj,2));
 
@@ -106,24 +107,24 @@ export default function ForceTransform(graph: Graph): Graph {
             } else {
                 //Note feels gravity only from its hashtag nodes.
                 graph.NodeDictionary[i].Hashtags.forEach(function(hashtagID: string){
-                    fx += -(xi-graph.TopicDictionary[hashtagID].X);
-                    fy += -(yi-graph.TopicDictionary[hashtagID].Y);
+                    fx += -(xi-graph.TopicDictionary[hashtagID]?.X);
+                    fy += -(yi-graph.TopicDictionary[hashtagID]?.Y);
                 });
             }
 
             //Attractive force between linked nodes
-            graph.NodeDictionary[i].LinksTowards.forEach(function(j: BaseNode){
-                let xj: number = graph.NodeDictionary[j.ID].X;
-                let yj: number = graph.NodeDictionary[j.ID].Y;
+            graph.NodeDictionary[i].LinksTowards.forEach(function(j: Link){
+                let xj: number = graph.NodeDictionary[j.ID]?.X;
+                let yj: number = graph.NodeDictionary[j.ID]?.Y;
 
                 //let dij: number = Math.sqrt(Math.pow(xi-xj,2) + Math.pow(yi-yj,2));
 
                 fx += (xj-xi)*A;
                 fy += (yj-yi)*A;
             });
-            graph.NodeDictionary[i].LinksFrom.forEach(function(j: BaseNode){
-                let xj: number = graph.NodeDictionary[j.ID].X;
-                let yj: number = graph.NodeDictionary[j.ID].Y;
+            graph.NodeDictionary[i].LinksFrom.forEach(function(j: Link){
+                let xj: number = graph.NodeDictionary[j.ID]?.X;
+                let yj: number = graph.NodeDictionary[j.ID]?.Y;
 
                 //let dij: number = Math.sqrt(Math.pow(xi-xj,2) + Math.pow(yi-yj,2));
 

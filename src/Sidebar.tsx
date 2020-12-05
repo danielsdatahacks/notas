@@ -3,12 +3,13 @@ import Node from '../src/models/node';
 import BaseNode from './models/baseNode';
 import Customer from './models/Customer';
 import Graph from './models/graph';
+import Link from './models/link';
 //import './Stylings/note.css';
 import './Stylings/bear.css';
 
 interface Props {
     SelectedNode: Node,
-    HashtagDictionary: {[id: string]: Node}
+    HashtagDictionary: {[id: string]: BaseNode}
 }
 
 function Sidebar(props: Props) {
@@ -27,7 +28,7 @@ function Sidebar(props: Props) {
         </p>
         <br/>
         <div>{props.SelectedNode.Text}</div>
-        {props.SelectedNode.LinksTowards.map((link: BaseNode) =>
+        {props.SelectedNode.LinksTowards.map((link: Link) =>
             <a key = {link.ID} href={"bear://x-callback-url/open-note?id=" + link.ID}>{link.Name}</a>
         )}
     </div>

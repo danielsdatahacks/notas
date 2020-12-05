@@ -26,256 +26,148 @@ namespace Notas.Function
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)] HttpRequest req,
             ILogger log, ExecutionContext context)
         {
-            log.LogInformation("C# HTTP trigger function processed a request.");
+            try {
+                var config = new ConfigurationBuilder()
+                    .SetBasePath(context.FunctionAppDirectory)
+                    .AddJsonFile("local.settings.json", optional:true, reloadOnChange: true)
+                    .AddEnvironmentVariables()
+                    .Build();
 
-            var config = new ConfigurationBuilder()
-                .SetBasePath(context.FunctionAppDirectory)
-                .AddJsonFile("local.settings.json", optional:true, reloadOnChange: true)
-                .AddEnvironmentVariables()
-                .Build();
+                string connection = config["sqldb_connection"];
+                //string connection = config.GetConnectionString("sqldb_connection");//["SQLSERVERCONNSTR_"];
 
-            string connection = config["sqldb_connection"];
-            //string connection = config.GetConnectionString("sqldb_connection");//["SQLSERVERCONNSTR_"];
+                //var json = await req.ReadAsStringAsync();
 
-            var json = await req.ReadAsStringAsync();
-            var graph = JsonConvert.DeserializeObject<Graph>(json);
-            //var userID = 7;
-            var graphID = 7;
+                var graph = new Graph();
+                graph.Energy = 1000;
+                graph.NodeDictionary = new Dictionary<string, Node>();
+                graph.TopicDictionary = new Dictionary<string, BaseNode>();
 
-            var ScreenName = "danielborcherding";
-            var FirstName = "Daniel";
-            var LastName = "Borcherding";
+                var ScreenName = "danielborcherding";
 
-            //SQL insert user and graph
-            var SQL_INSERT_USER_GRAPH = @"
-            if not exists(select 1 from users where ScreenName like @ScreenName)
-            begin
-                insert into users (ScreenName, FirstName, LastName, EditDate)
-                values (@ScreenName, @FirstName, @LastName, GETUTCDATE())
-            end
-
-            if not exists(
-                select 1 
-                from graphs g
+                //SQL insert user and graph
+                var SQL_GET_GRAPH = @"
+                --Load nodes
+                select 
+                n.ExternalID as StartExternalID,
+                n.Name,
+                n.Text,
+                n.GraphID,
+                n.PositionX,
+                n.PositionY,
+                n.Type
+                from nodes n
+                inner join graphs g on g.GraphID = n.GraphID
                 inner join users u on u.UserID = g.UserID
                 where u.ScreenName = @ScreenName
-            )
-            begin
-                insert into graphs (UserID, EditDate)
+
+                --Load links
                 select 
-                    u.UserID,
-                    GETUTCDATE()
-                from users u
+                ns.ExternalID as StartExternalID,
+                ne.ExternalID as EndExternalID,
+                ns.Type StartNodeType,
+                ne.Type EndNodeType
+                from links l
+                inner join nodes ns on ns.NodeID = l.StartNodeID
+                inner join nodes ne on ne.NodeID = l.EndNodeID
+                inner join graphs g on g.GraphID = l.GraphID
+                inner join users u on u.UserID = g.UserID
                 where u.ScreenName = @ScreenName
-            end
-            ";
+                ";
 
-            //SQL query to insert and update
-            var SQL_NODE_UPSERT = @"
-            --Insert statement
-            insert into dbo.Nodes (ExternalID, Name, Text, GraphID, PositionX, PositionY, EditDate)
-            select
-            n.ExternalID,
-            n.Name,
-            n.Text,
-            n.GraphID,
-            n.PositionX,
-            n.PositionY,
-            GETUTCDATE()
-            from @Nodes n
-            where not exists (
-                select 1 
-                from nodes ns
-                where ns.ExternalID = n.ExternalID
-            )
+                using (SqlConnection conn = new SqlConnection(connection)){
+                    conn.Open();
 
-            --Update statement
-            update n
-            set n.Name = nnew.Name, n.Text = nnew.Text, n.PositionX = nnew.PositionX, n.PositionY = nnew.PositionY
-            from nodes n
-            inner join @Nodes nnew on nnew.ExternalID = n.ExternalID and nnew.GraphID = n.GraphID
-            where n.Name <> nnew.Name or n.Text <> nnew.Text or n.PositionX <> nnew.PositionX or n.PositionY <> nnew.PositionY
-            ";
+                    SqlCommand cmd = conn.CreateCommand();
+                    cmd.Connection = conn;
 
-            var SQL_UPSERT_LINKS = @"
-                --INSERT
-                insert into dbo.Links (StartNodeID, EndNodeID, Text, GraphID, EditDate)
-                select
-                ns.NodeID,
-                ne.NodeID,
-                '',
-                l.GraphID,
-                GETUTCDATE()
-                from @Links l
-                inner join nodes ns on ns.ExternalID = l.StartExternalID and ns.GraphID = l.GraphID
-                inner join nodes ne on ne.ExternalID = l.EndExternalID and ne.GraphID = l.GraphID
-                where not exists (
-                    select 1 
-                    from links lo
-                    where lo.StartNodeID = ns.NodeID and lo.EndNodeID = ne.NodeID and lo.GraphID = l.GraphID
-                )";
 
-            var SQL_UPSERT_HASHTAGS = @"
-                --Insert statement
-                insert into dbo.hashtags (ExternalID, Name, GraphID, EditDate)
-                select
-                hn.ExternalID,
-                hn.Name,
-                hn.GraphID,
-                GETUTCDATE()
-                from @Hashtags hn
-                where not exists (
-                    select 1 
-                    from hashtags h
-                    where h.ExternalID = hn.ExternalID and h.GraphID = hn.GraphID
-                )
-
-                --Update statement
-                update h
-                set h.Name = hn.Name
-                from hashtags h
-                inner join @Hashtags hn on hn.ExternalID = h.ExternalID
-                where hn.Name <> h.Name and h.GraphID = hn.GraphID
-            ";
-
-            var SQL_INSERT_HASHTAGNODES = @"
-                --Insert statement
-                insert into dbo.hashtagnodes (HashtagID, NodeID, EditDate)
-                select
-                h.HashtagID,
-                n.NodeID,
-                GETUTCDATE()
-                from @HasthtagNodes hn
-                inner join hashtags h on h.ExternalID = hn.HasthtagExternalID and h.GraphID = hn.GraphID
-                inner join nodes n on n.ExternalID = hn.NodeExternalID and h.GraphID = hn.GraphID
-                where not exists (
-                    select 1 
-                    from hashtagnodes ho
-                    where ho.HashtagID = h.HashtagID and ho.NodeID = n.NodeID
-            )";
-
-            using (SqlConnection conn = new SqlConnection(connection)){
-                conn.Open();
-
-                SqlCommand cmd = conn.CreateCommand();
-                SqlTransaction tran;
-                
-                tran = conn.BeginTransaction("SampleTransaction");
-
-                cmd.Connection = conn;
-                cmd.Transaction = tran;
-
-                try{
-                    cmd.CommandText = SQL_INSERT_USER_GRAPH;
+                    cmd.CommandText = SQL_GET_GRAPH;
                     cmd.Parameters.Add("@ScreenName", SqlDbType.VarChar).Value = ScreenName;
-                    cmd.Parameters.Add("@FirstName",SqlDbType.VarChar).Value = FirstName;
-                    cmd.Parameters.Add("@LastName", SqlDbType.VarChar).Value = LastName;
-                    cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    tran.Commit();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Message: {0}", ex.Message);
-                    tran.Rollback();
-                }              
-            }
-        
+                    //Nodes
+                    if(reader.HasRows){
+                        while (reader.Read()){
 
-            using (SqlConnection conn = new SqlConnection(connection)){
-                conn.Open();
+                            var type = (NotasGraph.Type)reader.GetFieldValue<Byte>("Type");
 
-                SqlCommand cmd = conn.CreateCommand();
-                SqlTransaction tran;
-                
-                tran = conn.BeginTransaction("SampleTransaction");
-
-                cmd.Connection = conn;
-                cmd.Transaction = tran;
-
-                try
-                {   
-                    //Upsert nodes
-                    var dtn = new DataTable();
-                    dtn.Columns.Add("ExternalID");
-                    dtn.Columns.Add("Name");
-                    dtn.Columns.Add("Text");
-                    dtn.Columns.Add("PositionX", typeof(decimal));
-                    dtn.Columns.Add("PositionY", typeof(decimal));
-                    dtn.Columns.Add("GraphID", typeof(Int32));
-                    foreach(var externalID in graph.NodeDictionary.Keys){
-                        var name = graph.NodeDictionary[externalID].Name;
-                        var text = graph.NodeDictionary[externalID].Text;
-                        var positionX = graph.NodeDictionary[externalID].X;
-                        var positionY = graph.NodeDictionary[externalID].Y;
-                        dtn.Rows.Add(externalID, name, text, positionX, positionY, graphID);
-                    }
-                    cmd.CommandText = SQL_NODE_UPSERT;
-                    var nodeTvpParameter = cmd.Parameters.AddWithValue("@Nodes", dtn);
-                    nodeTvpParameter.SqlDbType = SqlDbType.Structured;
-                    nodeTvpParameter.TypeName = "dbo.Nodes";
-                    cmd.ExecuteNonQuery();
-
-
-                    //Insert links
-                    var dtl = new DataTable();
-                    dtl.Columns.Add("StartExternalID");
-                    dtl.Columns.Add("EndExternalID");
-                    dtl.Columns.Add("GraphID", typeof(Int32));
-                    foreach(var startExternalID in graph.NodeDictionary.Keys){
-                        foreach(var endExternalID in graph.NodeDictionary[startExternalID].LinksTowards){
-                            dtl.Rows.Add(startExternalID, endExternalID, graphID);
+                            if(type == NotasGraph.Type.Note){
+                                var node = new Node();
+                                node.ID = reader.GetFieldValue<string>("StartExternalID");
+                                node.Name = reader.GetFieldValue<string>("Name");
+                                node.Text = reader.GetFieldValue<string>("Text");
+                                node.X = reader.GetFieldValue<decimal>("PositionX");
+                                node.Y = reader.GetFieldValue<decimal>("PositionY");
+                                node.Hashtags = new List<string>();
+                                node.LinksTowards = new List<Link>();
+                                node.LinksFrom = new List<Link>();
+                                graph.NodeDictionary.TryAdd(node.ID, node);
+                            }
+                            else if(type == NotasGraph.Type.Hashtag){
+                                var node = new BaseNode();
+                                node.ID = reader.GetFieldValue<string>("StartExternalID");
+                                node.Name = reader.GetFieldValue<string>("Name");
+                                node.X = reader.GetFieldValue<decimal>("PositionX");
+                                node.Y = reader.GetFieldValue<decimal>("PositionY");
+                                node.LinksTowards = new List<Link>();
+                                graph.TopicDictionary.TryAdd(node.ID, node);
+                            }
+                            else{
+                                Console.WriteLine("Error: Wrong node type. Continuing with the next node.");
+                            }                            
                         }
                     }
-                    cmd.CommandText = SQL_UPSERT_LINKS;
-                    var linkTvpParameter = cmd.Parameters.AddWithValue("@Links", dtl);
-                    linkTvpParameter.SqlDbType = SqlDbType.Structured;
-                    linkTvpParameter.TypeName = "dbo.Links";
-                    cmd.ExecuteNonQuery();
 
+                    reader.NextResult();
 
-                    //Upsert hashtags
-                    var dth = new DataTable();
-                    dth.Columns.Add("ExternalID");
-                    dth.Columns.Add("Name");
-                    dth.Columns.Add("GraphID", typeof(Int32));
-                    foreach(var externalID in graph.TopicDictionary.Keys){
-                        dtl.Rows.Add(externalID, graph.TopicDictionary[externalID].Name, graphID);
-                    }
-                    cmd.CommandText = SQL_UPSERT_HASHTAGS;
-                    var hashtagTvpParameter = cmd.Parameters.AddWithValue("@Hashtags", dth);
-                    hashtagTvpParameter.SqlDbType = SqlDbType.Structured;
-                    hashtagTvpParameter.TypeName = "dbo.Hashtags";
-                    cmd.ExecuteNonQuery();
+                    //Links
+                    if(reader.HasRows){
+                        while (reader.Read()){
+                            var startExternalID = reader.GetFieldValue<string>("StartExternalID");
+                            var startNodeType = (NotasGraph.Type)reader.GetFieldValue<Byte>("StartNodeType");
+                            var endExternalID = reader.GetFieldValue<string>("EndExternalID");
+                            var endNodeType = (NotasGraph.Type)reader.GetFieldValue<Byte>("EndNodeType");
 
+                            if(startNodeType == NotasGraph.Type.Note && endNodeType == NotasGraph.Type.Note){
+                                if(graph.NodeDictionary.ContainsKey(startExternalID) && graph.NodeDictionary.ContainsKey(endExternalID)){
+                                    var link1 = new Link();
+                                    link1.ID = endExternalID;
+                                    link1.Name = "";
+                                    graph.NodeDictionary[startExternalID].LinksTowards.Add(link1);
 
-                    //Insert hashtagnodes
-                    var dthn = new DataTable();
-                    dthn.Columns.Add("HashtagExternalID");
-                    dthn.Columns.Add("NodeExternalID");
-                    dthn.Columns.Add("GraphID", typeof(Int32));
-                    foreach(var hashtagExternalID in graph.TopicDictionary.Keys){
-                        foreach(var node in graph.TopicDictionary[hashtagExternalID].LinksTowards){
-                            dthn.Rows.Add(hashtagExternalID, node.ID, graphID);
+                                    var link2 = new Link();
+                                    link2.ID = startExternalID;
+                                    link2.Name = "";
+                                    graph.NodeDictionary[endExternalID].LinksFrom.Add(link2);
+                                }
+                            }
+                            else if(startNodeType == NotasGraph.Type.Hashtag && endNodeType == NotasGraph.Type.Note){
+                                if(graph.TopicDictionary.ContainsKey(startExternalID) && graph.NodeDictionary.ContainsKey(endExternalID)){
+                                    var link = new Link();
+                                    link.ID = endExternalID;
+                                    link.Name = "";
+                                    graph.TopicDictionary[startExternalID].LinksTowards.Add(link);
+
+                                    graph.NodeDictionary[endExternalID].Hashtags.Add(startExternalID);
+                                }
+                            }
+                            else{
+                                Console.WriteLine("Error: Wrong node type combination for a link. Continuing with next link.");
+                            }
                         }
                     }
-                    cmd.CommandText = SQL_INSERT_HASHTAGNODES;
-                    var hashtagnodesTvpParameter = cmd.Parameters.AddWithValue("@HasthtagNodes", dthn);
-                    hashtagnodesTvpParameter.SqlDbType = SqlDbType.Structured;
-                    hashtagnodesTvpParameter.TypeName = "dbo.Hashtagnodes";
-                    cmd.ExecuteNonQuery();
+                    reader.Close();
+                    cmd.Dispose();
 
-                    tran.Commit();
+                    return new OkObjectResult(JsonConvert.SerializeObject(graph));
+                     
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Message: {0}", ex.Message);
-                    tran.Rollback();
-                }              
             }
-
-            //return new OkObjectResult(JsonConvert.SerializeObject(customers));
-            return new OkObjectResult("Finished graph upsert.");
+            catch (Exception ex){
+                Console.WriteLine("Message: {0}", ex.Message);
+                return new OkObjectResult(ex.Message);
+            }
         }
     }
 }

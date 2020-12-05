@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import BaseNode from "../models/baseNode";
 import Graph from "../models/graph";
+import Link from "../models/link";
 //import ForceTransform from "./SpringElectrical";
 
 //const graphData : Graph = {
@@ -134,9 +135,9 @@ export default class NotasGraph extends Component<Props, State> {
             >
                 {
                     Object.keys(this.state.Graph.NodeDictionary).map((id1: string) =>
-                        this.state.Graph.NodeDictionary[id1].LinksTowards.map((id2: BaseNode) =>
+                        this.state.Graph.NodeDictionary[id1].LinksTowards.map((id2: Link) =>
                             <line
-                                key={id1 + id2}
+                                key={id1 + id2.ID}
                                 x1={this.state.Graph.NodeDictionary[id1].X.toString()} 
                                 y1={this.state.Graph.NodeDictionary[id1].Y.toString()} 
                                 x2={this.state.Graph.NodeDictionary[id2.ID].X.toString()} 

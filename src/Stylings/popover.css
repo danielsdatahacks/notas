@@ -1,0 +1,25 @@
+.list-group-item {
+    border-left: none !important;
+    border-right: none !important;
+}
+
+.popover-body {
+    padding: 0px !important;
+}
+
+.list-group-item {
+    border: none !important;
+    background-color: whitesmoke !important;
+}
+
+.popover-header {
+    background-color: whitesmoke !important;
+}
+
+.bs-popover-auto[x-placement^=bottom]>.arrow::after, .bs-popover-bottom>.arrow::after {
+    border-bottom-color: whitesmoke !important;
+}
+
+.logout-item {
+    text-align: center;
+}

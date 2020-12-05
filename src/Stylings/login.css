@@ -1,0 +1,39 @@
+.login-container{
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.login-input{
+    padding:10px;
+}
+
+.login-logo-container{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    padding: 2em;
+}
+
+.notas-logo-login {
+    height: 2em;
+    width: auto;
+    margin: 0.3em;
+    /*box-shadow: 0px 0px 10px #fff;*/
+  }
+
+  .notas-logo-login-writing{
+      font-size:1.1em;
+  }
+
+  .login-button {
+      padding:10px;
+      display: flex;
+      justify-content: center;
+  }
+
+  /* .btn-outline-orange {
+    color: rgb(253,107,33) !important;
+    border-color: rgb(253,107,33) !important;
+} */

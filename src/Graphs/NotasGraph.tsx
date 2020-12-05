@@ -1,6 +1,7 @@
 import React from "react";
 import BaseNode from "../models/baseNode";
 import Graph from "../models/graph";
+import Link from "../models/link";
 import Node from "../models/node";
 
 //const graphData : Graph = {
@@ -113,7 +114,7 @@ export default function NotasGraph(props: Props) {
             {
                 Object.keys(props.Graph.NodeDictionary).map((id1: string) =>
                     (props.FilterHashtag === "" || props.Graph.NodeDictionary[id1].Hashtags.map(function(el){return props.Graph.TopicDictionary[el].Name}).includes(props.FilterHashtag)) &&
-                        props.Graph.NodeDictionary[id1].LinksTowards.map((id2: BaseNode) =>
+                        props.Graph.NodeDictionary[id1].LinksTowards.map((id2: Link) =>
                             <line
                                 key={id1 + id2.ID}
                                 x1={props.Graph.NodeDictionary[id1].X.toString()} 
