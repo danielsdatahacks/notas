@@ -12,7 +12,7 @@ interface Props {
 
 export default function LoginPage(props: Props) {
 
-    const [userDetails, setUserDetails]: [any, React.Dispatch<React.SetStateAction<any>>] = useState({});
+    //const [userDetails, setUserDetails]: [any, React.Dispatch<React.SetStateAction<any>>] = useState({});
 
     function onClickLogin() {
         props.setLogin(!props.loggedIn);
@@ -23,7 +23,7 @@ export default function LoginPage(props: Props) {
             .then(res => res.json())
             .then((data) => {
                 console.log(data);
-                setUserDetails(data);
+                //setUserDetails(data);
             })
         .catch(console.log);
 
@@ -53,9 +53,9 @@ export default function LoginPage(props: Props) {
             <div className="login-input" onClick={getUserInfo}>
                 GET USER DETAILS
             </div>
-            <div className="login-input">
+            {/* <div className="login-input">
                 {userDetails}
-            </div>
+            </div> */}
             <div className="login-button" onClick={onClickLogin}>
                 <Button variant="outline-dark">Login</Button>
             </div>
