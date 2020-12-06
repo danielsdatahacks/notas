@@ -12,7 +12,7 @@ interface Props {
 
 export default function LoginPage(props: Props) {
 
-    const [userDetails, setUserDetails]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
+    const [userDetails, setUserDetails]: [any, React.Dispatch<React.SetStateAction<any>>] = useState({});
 
     function onClickLogin() {
         props.setLogin(!props.loggedIn);
