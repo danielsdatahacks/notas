@@ -12,12 +12,22 @@ interface Props {
 
 export default function LoginPage(props: Props) {
 
+    const [userDetails, setUserDetails]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
+
     function onClickLogin() {
         props.setLogin(!props.loggedIn);
     }
 
+    async function getUserInfo() {
+        const response = await fetch("/.auth/me");
+        const payload = await response.json();
+        const { clientPrincipal } = payload;
+        console.log(clientPrincipal);
+        setUserDetails(clientPrincipal);
+    }
+
     return (
-        <div className="login-container" onClick={onClickLogin}>
+        <div className="login-container">
             <div className="login-logo-container">
                 <img className="notas-logo-login" src={NotasLogo} alt=""/>
                 <div className="notas-logo-login-writing">Notas</div>
@@ -28,7 +38,16 @@ export default function LoginPage(props: Props) {
             <div className="login-input">
                 <Form.Control type="password" placeholder="Password" />
             </div>
-            <div className="login-button">
+            <div className="login-input">
+                <a href="/.auth/login/aad">Login</a>
+            </div>
+            <div className="login-input" onClick={getUserInfo}>
+                GET USER DETAILS
+            </div>
+            <div className="login-input">
+                {userDetails}
+            </div>
+            <div className="login-button" onClick={onClickLogin}>
                 <Button variant="outline-dark">Login</Button>
             </div>
         </div>

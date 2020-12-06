@@ -33,8 +33,8 @@ namespace Notas.Function
                     .AddEnvironmentVariables()
                     .Build();
 
-                string connection = config["sqldb_connection"];
-                //string connection = config.GetConnectionString("sqldb_connection");//["SQLSERVERCONNSTR_"];
+                //string connection = config["sqldb_connection"];
+                string connection = config.GetConnectionString("sqldb_connection");//["SQLSERVERCONNSTR_"];
 
                 //var json = await req.ReadAsStringAsync();
 
