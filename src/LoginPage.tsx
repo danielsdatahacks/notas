@@ -19,11 +19,20 @@ export default function LoginPage(props: Props) {
     }
 
     async function getUserInfo() {
-        const response = await fetch("/.auth/me");
-        const payload = await response.json();
-        const { clientPrincipal } = payload;
-        console.log(clientPrincipal);
-        setUserDetails(clientPrincipal);
+        fetch("/.auth/me")
+            .then(res => res.json())
+            .then((data) => {
+                console.log(data);
+                setUserDetails(data);
+            })
+        .catch(console.log);
+
+
+        // const response = await fetch("/.auth/me");
+        // const payload = await response.json();
+        // const { clientPrincipal } = payload;
+        // console.log(clientPrincipal);
+        // setUserDetails(clientPrincipal);
     }
 
     return (
