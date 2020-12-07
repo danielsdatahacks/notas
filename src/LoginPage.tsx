@@ -50,6 +50,9 @@ export default function LoginPage(props: Props) {
             <div className="login-input">
                 <a href="/.auth/login/aad">Login</a>
             </div>
+            <div className="login-input">
+                <a href="/.auth/logout">Log out</a>
+            </div>
             <div className="login-input" onClick={getUserInfo}>
                 GET USER DETAILS
             </div>
