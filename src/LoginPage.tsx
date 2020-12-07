@@ -48,7 +48,13 @@ export default function LoginPage(props: Props) {
                 <Form.Control type="password" placeholder="Password" />
             </div>
             <div className="login-input">
-                <a href="/.auth/login/aad">Login</a>
+                <a href="/.auth/login/aad">Login microsoft</a>
+            </div>
+            <div className="login-input">
+                <a href="/.auth/login/apple">Login apple</a>
+            </div>
+            <div className="login-input">
+                <a href="/.auth/login/google">Login google</a>
             </div>
             <div className="login-input">
                 <a href="/.auth/logout">Log out</a>
