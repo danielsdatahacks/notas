@@ -1,18 +1,19 @@
 import React, {useState} from 'react';
 import App from './App';
 import LoginPage from './LoginPage';
+import Identity from './models/identity';
 
 
 export default function Main() {
-    const [loggedIn, setLogin] = useState(false);
+    const [identity, setIdentity]: [Identity, React.Dispatch<React.SetStateAction<Identity>>] = useState({loggedIn: 0, clientPrincipal: {identityProvider: "", userDetails: "", userId: "", userRoles: [] as string[]}});
 
     return (
         <React.Fragment>
             {
-                !loggedIn && <LoginPage loggedIn={loggedIn} setLogin={setLogin}/>
+                identity.loggedIn == 0 && <LoginPage setIdentity={setIdentity}/>
             }
             {
-                loggedIn && <App/>
+                identity.loggedIn == 1 && <App/>
             }
         </React.Fragment>
     )

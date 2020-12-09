@@ -26,6 +26,7 @@ import funnelIcon from '@iconify-icons/ph/funnel';
 import plusCircle from '@iconify-icons/ph/plus-circle';
 import {bearImport} from "./Imports/BearImport";
 import slidersIcon from '@iconify-icons/ph/sliders';
+import Identity from './models/identity';
 
 
 //import Hammer from 'hammerjs';
@@ -40,7 +41,7 @@ function App() {
   const [searchInput, setSearchInput]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   const [filterHashtag, setFilterHashtag]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   const [highlightedHashtag, setHighlightHashtag]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
-  
+
   // async function onClick() {
   //   let fileHandle: FileSystemFileHandle;
   //   [fileHandle] = await window.showOpenFilePicker();
