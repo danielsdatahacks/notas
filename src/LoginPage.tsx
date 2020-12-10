@@ -58,7 +58,7 @@ export default function LoginPage(props: Props) {
     //Is called on each render
     useEffect(() => {
         getUserIdentity();
-    },[props.identity]);
+    },[]);
 
     return (
         <div className="login-container">
