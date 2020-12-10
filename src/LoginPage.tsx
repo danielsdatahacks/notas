@@ -73,7 +73,7 @@ export default function LoginPage(props: Props) {
             {/* <div className="login-input">
                 <a href="/.auth/login/aad">Login microsoft</a>
             </div> */}
-            <a href="/.auth/login/aad" className="login-input">
+            <a href="/.auth/login/github" className="login-input">
                 <GithubLoginButton/>
             </a>
             {/* <a href="/.auth/login/github">Login github</a> */}
