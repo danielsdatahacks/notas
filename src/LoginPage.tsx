@@ -33,7 +33,7 @@ export default function LoginPage(props: Props) {
                     let userDetails: string = data.clientPrincipal.userDetails;
                     let userID: string = data.clientPrincipal.userID;
                     let userRoles: string[] = [];
-                    data.clientPrincipal.userID.map((role: string) =>
+                    data.clientPrincipal.userRoles.map((role: string) =>
                         userRoles.push(role)
                     );
                     identity.clientPrincipal.identityProvider = identityProvider;
