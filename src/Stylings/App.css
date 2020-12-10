@@ -115,6 +115,24 @@
   padding: 2em;
 }
 
+.notas-logout-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-details {
+  font-size: 75%;
+  margin-top: 0.75em;
+}
+
+.logout-link {
+  color: grey
+}
+
+.notas-spinner {
+  color: rgb(253,107,33)
+}
+
 .notas-logo {
   height: 1.25em;
   width: auto;

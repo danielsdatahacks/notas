@@ -10,10 +10,10 @@ export default function Main() {
     return (
         <React.Fragment>
             {
-                identity.loggedIn == 0 && <LoginPage setIdentity={setIdentity}/>
+                identity.loggedIn == 0 && <LoginPage identity={identity} setIdentity={setIdentity}/>
             }
             {
-                identity.loggedIn == 1 && <App/>
+                identity.loggedIn == 1 && <App identity={identity}/>
             }
         </React.Fragment>
     )

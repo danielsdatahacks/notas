@@ -27,15 +27,20 @@ import plusCircle from '@iconify-icons/ph/plus-circle';
 import {bearImport} from "./Imports/BearImport";
 import slidersIcon from '@iconify-icons/ph/sliders';
 import Identity from './models/identity';
+import Spinner from 'react-bootstrap/Spinner';
 
 
 //import Hammer from 'hammerjs';
 //import '../src/Stylings/bear.css'
+interface Props {
+  identity: Identity
+}
 
+function App(props: Props) {
 
-
-function App() {
-
+  const [showAzureDownloadSpinner, setAzureDownloadSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
+  const [showAzureUploadSpinner, setAzureUploadSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
+  const [showBearImportSpinner, setBearImportSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
   const [graph, setGraph]: [Graph, React.Dispatch<React.SetStateAction<Graph>>] = useState({Energy: 0, NodeDictionary: {}, TopicDictionary: {}});
   const [selectedNode, selectNode]: [Node, React.Dispatch<React.SetStateAction<Node>>] = useState({ID: "", Name: "", Text: "", Hashtags: [] as string[], X: 0, Y: 0, LinksTowards: [] as Link[], LinksFrom: [] as Link[]});
   const [searchInput, setSearchInput]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
@@ -52,8 +57,10 @@ function App() {
   // }
 
   async function onClickBearImport () {
+    setBearImportSpinner(1);
     bearImport(graph).then((g: Graph) => {
       setGraph(g);
+      setBearImportSpinner(0);
       console.log("Finished import");
     }
   );
@@ -108,6 +115,7 @@ function App() {
   }
 
   function onClickAzureUpload() {
+    setAzureUploadSpinner(1);
     //  To test locally the need to run the azure function locally and set the correct address here:
     //  http://localhost:7071/api/UploadNotasGraph for deployment it is enough to set:
     //  /api/LoadNotasGraph  (somehow does not work...)
@@ -118,12 +126,17 @@ function App() {
     })
       .then(res => res.json())
       .then((data) => {
+        setAzureUploadSpinner(0);
         console.log(data);
       })
-      .catch(console.log);
+      .catch((e) => {
+        console.log(e);
+        setAzureUploadSpinner(0);
+      });
   }
 
   function onClickAzureDownload() {
+    setAzureDownloadSpinner(1);
     //To test locally: http://localhost:7071/api/LoadNotasGraph
     //For production use: 
     fetch('https://notasfunctions.azurewebsites.net/api/LoadNotasGraph',{
@@ -132,22 +145,56 @@ function App() {
       .then(res => res.json())
       .then((data) => {
         console.log(data);
+        setAzureDownloadSpinner(0);
         if(typeof(data) == typeof(graph)){
           setGraph(data);
         }
       })
-      .catch(console.log);
+      .catch((e) => {
+        console.log(e);
+        setAzureDownloadSpinner(0);
+      });
   }
+
 
   const popover = (
     <Popover id="popover-basic">
       <Popover.Title as="h3">Settings</Popover.Title>
       <Popover.Content>
         <ListGroup>
-          <ListGroup.Item action onClick={onClickBearImport}><Icon width="1.5em" icon={downloadSimple} color="rgb(253,107,33)" />  Bear import</ListGroup.Item>
-          <ListGroup.Item action onClick={onClickAzureDownload}><Icon width="1.5em" icon={cloudArrowDown} color="rgb(253,107,33)" />  Cloud download</ListGroup.Item>
-          <ListGroup.Item action onClick={onClickAzureUpload}><Icon width="1.5em" icon={cloudArrowUp} color="rgb(253,107,33)" />  Cloud upload</ListGroup.Item>
-          <ListGroup.Item className="logout-item">Logout</ListGroup.Item>
+          <ListGroup.Item action onClick={onClickAzureDownload}>
+            {showAzureDownloadSpinner === 0 &&
+              <Icon width="1.5em" icon={cloudArrowDown} color="rgb(253,107,33)" />
+            }
+            {showAzureDownloadSpinner === 1 &&
+              <Spinner className="notas-spinner" animation="border" size="sm" />
+            }
+             {" Cloud download"}
+          </ListGroup.Item>
+          <ListGroup.Item action onClick={onClickAzureUpload}>
+            {showAzureUploadSpinner === 0 &&
+              <Icon width="1.5em" icon={cloudArrowUp} color="rgb(253,107,33)" />
+            }
+            {showAzureUploadSpinner === 1 &&
+              <Spinner className="notas-spinner" animation="border" size="sm" />
+            }
+            {" Cloud upload"}
+          </ListGroup.Item>
+          <ListGroup.Item action onClick={onClickBearImport}>
+            {showBearImportSpinner === 0 &&
+              <Icon width="1.5em" icon={downloadSimple} color="rgb(253,107,33)" />
+            }
+            {showBearImportSpinner === 1 &&
+              <Spinner className="notas-spinner" animation="border" size="sm" />
+            }
+            {" Bear import"}
+          </ListGroup.Item>
+          <ListGroup.Item className="logout-item">
+            <div className="notas-logout-container">
+              <a className="logout-link" href="/.auth/logout">Logout</a>
+              <div className="user-details">{props.identity.clientPrincipal?.userDetails}</div>
+            </div>
+          </ListGroup.Item>
         </ListGroup>
       </Popover.Content>
     </Popover>

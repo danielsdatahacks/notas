@@ -9,6 +9,7 @@ import Identity from './models/identity';
 
 
 interface Props {
+    identity: Identity,
     setIdentity: React.Dispatch<React.SetStateAction<Identity>>
 }
 
@@ -57,7 +58,7 @@ export default function LoginPage(props: Props) {
     //Is called on each render
     useEffect(() => {
         getUserIdentity();
-    });
+    },[props.identity]);
 
     return (
         <div className="login-container">
@@ -76,9 +77,9 @@ export default function LoginPage(props: Props) {
                 <GithubLoginButton/>
             </a>
             {/* <a href="/.auth/login/github">Login github</a> */}
-            <div className="login-input" onClick={getUserIdentity}>
+            {/* <div className="login-input" onClick={getUserIdentity}>
                 GET USER DETAILS
-            </div>
+            </div> */}
             {/* <div className="login-input">
                 {userDetails}
             </div> */}
