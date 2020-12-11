@@ -1,6 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import React, {useEffect} from 'react';
 import NotasLogo from './Icons/logo512.png';
 import { GithubLoginButton } from "react-social-login-buttons";
 import { MicrosoftLoginButton } from "react-social-login-buttons";

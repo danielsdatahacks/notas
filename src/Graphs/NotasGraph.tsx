@@ -1,5 +1,4 @@
 import React from "react";
-import BaseNode from "../models/baseNode";
 import Graph from "../models/graph";
 import Link from "../models/link";
 import Node from "../models/node";

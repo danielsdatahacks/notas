@@ -4,8 +4,6 @@ import './Stylings/App.css';
 import './Stylings/note.css';
 import './Stylings/dropdown.css';
 import NotasLogo from './Icons/logo512.png';
-import Filter from './Icons/filter_extreme_orange.png';
-import DownloadLogo from './Icons/download-logo'
 import Graph from './models/graph';
 import Node from './models/node';
 import NotasGraph from './Graphs/NotasGraph'
@@ -17,13 +15,11 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Popover from 'react-bootstrap/Popover';
 import ListGroup from 'react-bootstrap/ListGroup';
 import './Stylings/popover.css';
-import gearLight from '@iconify-icons/ph/gear-light';
-import { Icon, InlineIcon } from '@iconify/react';
+import { Icon } from '@iconify/react';
 import downloadSimple from '@iconify-icons/ph/download-simple';
 import cloudArrowDown from '@iconify-icons/ph/cloud-arrow-down';
 import cloudArrowUp from '@iconify-icons/ph/cloud-arrow-up';
 import funnelIcon from '@iconify-icons/ph/funnel';
-import plusCircle from '@iconify-icons/ph/plus-circle';
 import {bearImport} from "./Imports/BearImport";
 import slidersIcon from '@iconify-icons/ph/sliders';
 import Identity from './models/identity';
@@ -60,6 +56,7 @@ function App(props: Props) {
     setBearImportSpinner(1);
     bearImport(graph).then((g: Graph) => {
       setGraph(g);
+
       setBearImportSpinner(0);
       console.log("Finished import");
     }
@@ -84,16 +81,16 @@ function App(props: Props) {
     //     console.log(e);
     //   });
     // }
-    console.log("useEffect");
-    console.log()
+    //console.log("useEffect");
+    //console.log(graph);
 
     //Force graph animation
     if(graph.Energy > 40){
-      console.log("useEffect inside if");
+      //console.log("useEffect inside if");
       const timer = setTimeout(() => {setGraph({...ForceTransform(graph)});}, 40);
       return () => clearTimeout(timer);
     };
-  });
+  },[graph]);
 
   function onClickNode(id: string) {
     if(id in graph.NodeDictionary) {
@@ -110,9 +107,9 @@ function App(props: Props) {
     setFilterHashtag(searchInput);
   }
 
-  function handlePinch(e: any) {
-    console.log(e);
-  }
+  // function handlePinch(e: any) {
+  //   console.log(e);
+  // }
 
   function onClickAzureUpload() {
     setAzureUploadSpinner(1);

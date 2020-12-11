@@ -1,8 +1,6 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Node from '../src/models/node';
 import BaseNode from './models/baseNode';
-import Customer from './models/Customer';
-import Graph from './models/graph';
 import Link from './models/link';
 //import './Stylings/note.css';
 import './Stylings/bear.css';

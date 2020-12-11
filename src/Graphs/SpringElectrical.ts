@@ -1,4 +1,3 @@
-import BaseNode from "../models/baseNode";
 import Graph from "../models/graph";
 import Link from "../models/link";
 

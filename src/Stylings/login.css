@@ -33,6 +33,10 @@
       justify-content: center;
   }
 
+  a:hover {
+    text-decoration: unset !important;
+  }
+
   /* .btn-outline-orange {
     color: rgb(253,107,33) !important;
     border-color: rgb(253,107,33) !important;

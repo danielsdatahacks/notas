@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import BaseNode from "../models/baseNode";
 import Graph from "../models/graph";
 import Link from "../models/link";
-//import ForceTransform from "./SpringElectrical";
+//import ForceTransform from "./SpringElectrical"
 
 //const graphData : Graph = {
 //    Energy: 10000000,
