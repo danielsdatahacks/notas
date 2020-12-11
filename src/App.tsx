@@ -135,8 +135,8 @@ function App(props: Props) {
   function onClickAzureDownload() {
     setAzureDownloadSpinner(1);
     //To test locally: http://localhost:7071/api/LoadNotasGraph
-    //For production use: 
-    fetch('https://notasfunctions.azurewebsites.net/api/LoadNotasGraph',{
+    //For production use: https://notasfunctions.azurewebsites.net/api/LoadNotasGraph
+    fetch('/api/LoadNotasGraph',{
       method: 'post'
     })
       .then(res => res.json())
