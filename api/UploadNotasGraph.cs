@@ -37,7 +37,8 @@ namespace Notas.Function
                     .Build();
 
                 //string connection = config["sqldb_connection"];
-                string connection = config.GetConnectionString("sqldb_connection");//["SQLSERVERCONNSTR_"];
+                //string connection = config.GetConnectionString("sqldb_connection");//["SQLSERVERCONNSTR_"];
+                string connection = config["sqldb_connection"];
 
                 var json = await req.ReadAsStringAsync();
                 var graph = JsonConvert.DeserializeObject<Graph>(json);
