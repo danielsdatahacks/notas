@@ -113,11 +113,10 @@ function App(props: Props) {
 
   function onClickAzureUpload() {
     setAzureUploadSpinner(1);
-    //  To test locally the need to run the azure function locally and set the correct address here:
-    //  http://localhost:7071/api/UploadNotasGraph for deployment it is enough to set:
-    //  /api/LoadNotasGraph  (somehow does not work...)
-    //  https://loadnotasgraph.azurewebsites.net
-    fetch('https://notasfunctions.azurewebsites.net/api/UploadNotasGraph',{
+    //  To test locally: http://localhost:7071/api/UploadNotasGraph
+    //  External Azure function: https://notasfunctions.azurewebsites.net/api/UploadNotasGraph
+    //  Internal Azure function: /api/UploadNotasGraph
+    fetch('/api/UploadNotasGraph',{
       method: 'post',
       body: JSON.stringify(graph)
     })
@@ -135,7 +134,8 @@ function App(props: Props) {
   function onClickAzureDownload() {
     setAzureDownloadSpinner(1);
     //To test locally: http://localhost:7071/api/LoadNotasGraph
-    //For production use: https://notasfunctions.azurewebsites.net/api/LoadNotasGraph
+    //External Azure Function: https://notasfunctions.azurewebsites.net/api/LoadNotasGraph
+    //Internal Azure Function: /api/LoadNotasGraph
     fetch('/api/LoadNotasGraph',{
       method: 'post'
     })
