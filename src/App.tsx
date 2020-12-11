@@ -253,3 +253,9 @@ export default App;
 //Server=tcp:notasserver.database.windows.net,1433;Initial Catalog=notas;Persist Security Info=False;User ID=notasadmin;Password=FqGv4hK2Vqwo;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
 //"Default": "Server=localhost,1433; Database=notas; User=sa; Password =Dockersql0705!;"
 //Icons used from https://iconify.design/icon-sets/ph/
+
+//        {
+//   "route": "/*",
+//   "serve": "/index.html",
+//   "statusCode": 200
+// },
