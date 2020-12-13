@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import NotasLogo from './Icons/logo512.png';
 import { GithubLoginButton } from "react-social-login-buttons";
 import { MicrosoftLoginButton } from "react-social-login-buttons";
+import { GoogleLoginButton } from "react-social-login-buttons";
 import './Stylings/login.css';
 import Identity from './models/identity';
 
@@ -66,6 +67,9 @@ export default function LoginPage(props: Props) {
             </div>
             <a href="/.auth/login/aad" className="login-input">
                 <MicrosoftLoginButton/>
+            </a>
+            <a href="/.auth/login/google" className="login-input">
+                <GoogleLoginButton/>
             </a>
             {/* <a href="/.auth/login/aad">Login microsoft</a> */}
             {/* <div className="login-input">

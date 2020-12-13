@@ -42,8 +42,39 @@ namespace Notas.Function
 
                 var json = await req.ReadAsStringAsync();
                 var graph = JsonConvert.DeserializeObject<Graph>(json);
-                //var userID = 7;
-                var graphID = 1;
+                var externalUserID = graph.ExternalUserID;
+
+                //Load graphID of logged in user
+                var SQL_GET_GRAPHID = @"
+                SELECT
+                GraphID
+                from graphs g
+                inner join users u on u.UserID = g.UserID
+                where u.ExternalID = @ExternalUserID
+                ";
+
+                //Insert new user
+                var SQL_INSERT_USER = @"
+                insert into users (ScreenName, FirstName, LastName, EditDate, ExternalID)
+                select '', '', '', GETUTCDATE(), @ExternalUserID
+                where @ExternalUserID <> '' and not exists (
+                    select 1 from users u
+                    where u.ExternalID = @ExternalUserID
+                )
+                ";
+
+                //Insert new graph
+                var SQL_INSERT_GRAPH = @"
+                insert into graphs (UserID, EditDate)
+                output INSERTED.GraphID 
+                select u.UserID, GETUTCDATE()
+                from users u
+                where u.ExternalID = @ExternalUserID and not exists (
+                    select 1 from graphs g
+                    inner join users u2 on u2.UserID = g.UserID   
+                    where u2.ExternalID = @ExternalUserID
+                )
+                ";
 
                 //SQL query to insert and update
                 var SQL_NODE_UPSERT = @"
@@ -61,7 +92,7 @@ namespace Notas.Function
                 where not exists (
                     select 1 
                     from nodes ns
-                    where ns.ExternalID = n.ExternalID
+                    where ns.ExternalID = n.ExternalID and ns.GraphID = n.GraphID
                 )
 
                 update n
@@ -131,6 +162,7 @@ namespace Notas.Function
                 using (SqlConnection conn = new SqlConnection(connection)){
                     conn.Open();
 
+
                     SqlCommand cmd = conn.CreateCommand();
                     SqlTransaction tran;
 
@@ -141,6 +173,19 @@ namespace Notas.Function
 
                     try
                     {   
+                        //Load graphID / check whether user and graph exists.
+                        cmd.CommandText = SQL_GET_GRAPHID;
+                        cmd.Parameters.Add("@ExternalUserID", SqlDbType.VarChar).Value = externalUserID;
+                        var graphID = cmd.ExecuteScalar();
+
+                        if(graphID == null){
+                            cmd.CommandText = SQL_INSERT_USER;
+                            cmd.ExecuteNonQuery();
+
+                            cmd.CommandText = SQL_INSERT_GRAPH;
+                            graphID = (int)cmd.ExecuteScalar();
+                        }
+
                         //Upsert nodes
                         var dtn = new DataTable();
                         dtn.Columns.Add("ExternalID");

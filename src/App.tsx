@@ -37,7 +37,7 @@ function App(props: Props) {
   const [showAzureDownloadSpinner, setAzureDownloadSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
   const [showAzureUploadSpinner, setAzureUploadSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
   const [showBearImportSpinner, setBearImportSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
-  const [graph, setGraph]: [Graph, React.Dispatch<React.SetStateAction<Graph>>] = useState({Energy: 0, NodeDictionary: {}, TopicDictionary: {}});
+  const [graph, setGraph]: [Graph, React.Dispatch<React.SetStateAction<Graph>>] = useState({ExternalUserID: "", Energy: 0, NodeDictionary: {}, TopicDictionary: {}});
   const [selectedNode, selectNode]: [Node, React.Dispatch<React.SetStateAction<Node>>] = useState({ID: "", Name: "", Text: "", Hashtags: [] as string[], X: 0, Y: 0, LinksTowards: [] as Link[], LinksFrom: [] as Link[]});
   const [searchInput, setSearchInput]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   const [filterHashtag, setFilterHashtag]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
@@ -113,44 +113,57 @@ function App(props: Props) {
 
   function onClickAzureUpload() {
     setAzureUploadSpinner(1);
-    //  To test locally: http://localhost:7071/api/UploadNotasGraph
-    //  External Azure function: https://notasfunctions.azurewebsites.net/api/UploadNotasGraph
-    //  Internal Azure function: /api/UploadNotasGraph
-    fetch('/api/UploadNotasGraph',{
-      method: 'post',
-      body: JSON.stringify(graph)
-    })
-      .then(res => res.json())
-      .then((data) => {
-        setAzureUploadSpinner(0);
-        console.log(data);
+    if(props.identity.clientPrincipal.userId !== "" ){
+      let uploadGraph = graph;
+      uploadGraph.ExternalUserID = props.identity.clientPrincipal.userId;
+      //  To test locally: http://localhost:7071/api/UploadNotasGraph
+      //  External Azure function: https://notasfunctions.azurewebsites.net/api/UploadNotasGraph
+      //  Internal Azure function: /api/UploadNotasGraph
+      fetch('/api/UploadNotasGraph',{
+        method: 'post',
+        body: JSON.stringify(uploadGraph)
       })
-      .catch((e) => {
-        console.log(e);
-        setAzureUploadSpinner(0);
-      });
+        .then(res => res.json())
+        .then((data) => {
+          setAzureUploadSpinner(0);
+          console.log(data);
+        })
+        .catch((e) => {
+          console.log(e);
+          setAzureUploadSpinner(0);
+        });
+    } else {
+      //Show some error. User is not authenticated.
+      setAzureUploadSpinner(0);
+    }
   }
 
   function onClickAzureDownload() {
     setAzureDownloadSpinner(1);
-    //To test locally: http://localhost:7071/api/LoadNotasGraph
-    //External Azure Function: https://notasfunctions.azurewebsites.net/api/LoadNotasGraph
-    //Internal Azure Function: /api/LoadNotasGraph
-    fetch('/api/LoadNotasGraph',{
-      method: 'post'
-    })
-      .then(res => res.json())
-      .then((data) => {
-        console.log(data);
-        setAzureDownloadSpinner(0);
-        if(typeof(data) == typeof(graph)){
-          setGraph(data);
-        }
+    if(props.identity.clientPrincipal.userId !== "" ){
+      //To test locally: http://localhost:7071/api/LoadNotasGraph
+      //External Azure Function: https://notasfunctions.azurewebsites.net/api/LoadNotasGraph
+      //Internal Azure Function: /api/LoadNotasGraph
+      fetch('/api/LoadNotasGraph',{
+        method: 'post',
+        body: JSON.stringify(props.identity.clientPrincipal.userId)
       })
-      .catch((e) => {
-        console.log(e);
-        setAzureDownloadSpinner(0);
-      });
+        .then(res => res.json())
+        .then((data) => {
+          console.log(data);
+          setAzureDownloadSpinner(0);
+          if(typeof(data) == typeof(graph)){
+            setGraph(data);
+          }
+        })
+        .catch((e) => {
+          console.log(e);
+          setAzureDownloadSpinner(0);
+        });
+    } else {
+      //Show some error. User is not authenticated.
+      setAzureUploadSpinner(0);
+    }
   }
 
 

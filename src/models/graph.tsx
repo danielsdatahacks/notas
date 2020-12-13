@@ -3,6 +3,7 @@ import BaseNode from "./baseNode";
 //import DirectedLink from "./directedlink";
 
 export default interface Graph {
+    ExternalUserID: string,
     Energy: number,
     NodeDictionary:  {[id: string]: Node},
     TopicDictionary: {[id: string]: BaseNode}

@@ -37,14 +37,13 @@ namespace Notas.Function
                 //string connection = config.GetConnectionString("sqldb_connection");//["SQLSERVERCONNSTR_"];
                 //string connection2 = config.
 
-                //var json = await req.ReadAsStringAsync();
+                var json = await req.ReadAsStringAsync();
+                var externalUserID = JsonConvert.DeserializeObject<string>(json);
 
                 var graph = new Graph();
                 graph.Energy = 1000;
                 graph.NodeDictionary = new Dictionary<string, Node>();
                 graph.TopicDictionary = new Dictionary<string, BaseNode>();
-
-                var ScreenName = "danielborcherding";
 
                 //SQL insert user and graph
                 var SQL_GET_GRAPH = @"
@@ -60,7 +59,7 @@ namespace Notas.Function
                 from nodes n
                 inner join graphs g on g.GraphID = n.GraphID
                 inner join users u on u.UserID = g.UserID
-                where u.ScreenName = @ScreenName
+                where u.ExternalID = @ExternalUserID
 
                 --Load links
                 select 
@@ -73,7 +72,7 @@ namespace Notas.Function
                 inner join nodes ne on ne.NodeID = l.EndNodeID
                 inner join graphs g on g.GraphID = l.GraphID
                 inner join users u on u.UserID = g.UserID
-                where u.ScreenName = @ScreenName
+                where u.ExternalID = @ExternalUserID
                 ";
 
                 using (SqlConnection conn = new SqlConnection(connection)){
@@ -82,9 +81,8 @@ namespace Notas.Function
                     SqlCommand cmd = conn.CreateCommand();
                     cmd.Connection = conn;
 
-
                     cmd.CommandText = SQL_GET_GRAPH;
-                    cmd.Parameters.Add("@ScreenName", SqlDbType.VarChar).Value = ScreenName;
+                    cmd.Parameters.Add("@ExternalUserID", SqlDbType.VarChar).Value = externalUserID;
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     //Nodes

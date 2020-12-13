@@ -4,6 +4,8 @@ namespace NotasGraph
 {
     public class Graph
     {
+        public string ExternalUserID {get; set;}
+
         public decimal Energy { get; set; }
 
         public Dictionary<string, Node> NodeDictionary { get; set; }
