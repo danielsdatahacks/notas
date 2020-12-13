@@ -36,13 +36,18 @@ namespace Notas.Function
                     .AddEnvironmentVariables()
                     .Build();
 
-                //string connection = config["sqldb_connection"];
-                //string connection = config.GetConnectionString("sqldb_connection");//["SQLSERVERCONNSTR_"];
                 string connection = config["sqldb_connection"];
+                //string connection = config.GetConnectionString("sqldb_connection");//["SQLSERVERCONNSTR_"];
+                //string connection = config["sqldb_connection"];
 
                 var json = await req.ReadAsStringAsync();
                 var graph = JsonConvert.DeserializeObject<Graph>(json);
                 var externalUserID = graph.ExternalUserID;
+
+                log.LogInformation("User information: " + externalUserID);
+                if(externalUserID == null || externalUserID == ""){
+                    throw new Exception("No user information was provided.");
+                }
 
                 //Load graphID of logged in user
                 var SQL_GET_GRAPHID = @"
@@ -185,6 +190,7 @@ namespace Notas.Function
                             cmd.CommandText = SQL_INSERT_GRAPH;
                             graphID = (int)cmd.ExecuteScalar();
                         }
+                        log.LogInformation("Created new user and graph");
 
                         //Upsert nodes
                         var dtn = new DataTable();
@@ -206,6 +212,7 @@ namespace Notas.Function
                         }
 
                         summary += String.Format("Trying to insert {0} note nodes. \n", dtn.Rows.Count);
+                        log.LogInformation(summary);
 
                         //Hashtag nodes
                         foreach(var externalID in graph.TopicDictionary.Keys){
@@ -217,6 +224,8 @@ namespace Notas.Function
                         }
 
                         summary += String.Format("Trying to insert {0} note nodes + hashtag nodes. \n", dtn.Rows.Count);
+                        log.LogInformation(summary);
+
 
                         cmd.CommandText = SQL_NODE_UPSERT;
                         var nodeTvpParameter = cmd.Parameters.AddWithValue("@Nodes", dtn);
@@ -239,6 +248,7 @@ namespace Notas.Function
                         }
 
                         summary += String.Format("Trying to insert {0} note links. \n", dtl.Rows.Count);
+                        log.LogInformation(summary);
 
                         //Hashtag note links
                         foreach(var hashtagExternalID in graph.TopicDictionary.Keys){
@@ -248,6 +258,7 @@ namespace Notas.Function
                         }
 
                         summary += String.Format("Trying to insert {0} note links + note-hashtag links. \n", dtl.Rows.Count);
+                        log.LogInformation(summary);
 
                         cmd.CommandText = SQL_UPSERT_LINKS;
                         var linkTvpParameter = cmd.Parameters.AddWithValue("@Links", dtl);
@@ -292,6 +303,7 @@ namespace Notas.Function
                     }
                     catch (Exception ex)
                     {
+                        log.LogInformation(ex.Message);
                         Console.WriteLine("Message: {0}", ex.Message);
                         tran.Rollback();
                     }              
@@ -300,6 +312,7 @@ namespace Notas.Function
                 return new OkObjectResult(summary);
             }
             catch (Exception ex){
+                log.LogInformation(ex.Message);
                 Console.WriteLine("Message: {0}", ex.Message);
                 return new OkObjectResult(ex.Message);
             }

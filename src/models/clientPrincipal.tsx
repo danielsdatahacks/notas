@@ -1,6 +1,6 @@
 export default interface ClientPrincipal {
     identityProvider: string,
     userDetails: string,
-    userId: string,
+    userID: string,
     userRoles: string[]
 }

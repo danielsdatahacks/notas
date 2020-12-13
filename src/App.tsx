@@ -113,13 +113,13 @@ function App(props: Props) {
 
   function onClickAzureUpload() {
     setAzureUploadSpinner(1);
-    if(props.identity.clientPrincipal.userId !== "" ){
+    if(props.identity.clientPrincipal.userID !== "" ){
       let uploadGraph = graph;
-      uploadGraph.ExternalUserID = props.identity.clientPrincipal.userId;
+      uploadGraph.ExternalUserID = props.identity.clientPrincipal.userID;
       //  To test locally: http://localhost:7071/api/UploadNotasGraph
       //  External Azure function: https://notasfunctions.azurewebsites.net/api/UploadNotasGraph
       //  Internal Azure function: /api/UploadNotasGraph
-      fetch('https://notasfunctions.azurewebsites.net/api/UploadNotasGraph',{
+      fetch('/api/UploadNotasGraph',{
         method: 'post',
         body: JSON.stringify(uploadGraph)
       })
@@ -140,13 +140,13 @@ function App(props: Props) {
 
   function onClickAzureDownload() {
     setAzureDownloadSpinner(1);
-    if(props.identity.clientPrincipal.userId !== "" ){
+    if(props.identity.clientPrincipal.userID !== "" ){
       //To test locally: http://localhost:7071/api/LoadNotasGraph
       //External Azure Function: https://notasfunctions.azurewebsites.net/api/LoadNotasGraph
       //Internal Azure Function: /api/LoadNotasGraph
-      fetch('https://notasfunctions.azurewebsites.net/api/LoadNotasGraph',{
+      fetch('/api/LoadNotasGraph',{
         method: 'post',
-        body: JSON.stringify(props.identity.clientPrincipal.userId)
+        body: JSON.stringify(props.identity.clientPrincipal.userID)
       })
         .then(res => res.json())
         .then((data) => {

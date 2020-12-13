@@ -27,18 +27,18 @@ export default function LoginPage(props: Props) {
                 console.log(data);
                 console.log(data["clientPrincipal"]);
                 //setUserDetails(data);
-                let identity: Identity = {clientPrincipal: {identityProvider: "", userDetails: "", userId: "", userRoles: [] as string[]}, loggedIn: 0};
+                let identity: Identity = {clientPrincipal: {identityProvider: "", userDetails: "", userID: "", userRoles: [] as string[]}, loggedIn: 0};
                 if(data.clientPrincipal !== null){
                     let identityProvider: string = data.clientPrincipal.identityProvider;
                     let userDetails: string = data.clientPrincipal.userDetails;
-                    let userID: string = data.clientPrincipal.userID;
+                    let userID: string = data.clientPrincipal.userId;
                     let userRoles: string[] = [];
                     data.clientPrincipal.userRoles.map((role: string) =>
                         userRoles.push(role)
                     );
                     identity.clientPrincipal.identityProvider = identityProvider;
                     identity.clientPrincipal.userDetails = userDetails;
-                    identity.clientPrincipal.userId = userID;
+                    identity.clientPrincipal.userID = userID;
                     identity.clientPrincipal.userRoles = userRoles;
                     if(userID !== ""){
                         identity.loggedIn = 1;
