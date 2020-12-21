@@ -9,15 +9,15 @@
 
 .list-group-item {
     border: none !important;
-    background-color: whitesmoke !important;
+    background-color: white !important;
 }
 
 .popover-header {
-    background-color: whitesmoke !important;
+    background-color: white !important;
 }
 
 .bs-popover-auto[x-placement^=bottom]>.arrow::after, .bs-popover-bottom>.arrow::after {
-    border-bottom-color: whitesmoke !important;
+    border-bottom-color: white !important;
 }
 
 .logout-item {

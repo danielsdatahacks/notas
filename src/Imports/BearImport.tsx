@@ -2,6 +2,8 @@ import Graph from '../models/graph';
 import Link from '../models/link';
 import BaseNode from '../models/baseNode';
 import Node from '../models/node';
+import * as regex from '../Regex/regex';
+import {getHashtagsFromNoteText} from '../Imports/importUtil'
 
 export const bearImport = async (graph: Graph): Promise<Graph> => {
 
@@ -16,10 +18,10 @@ for await (const entry of dirHandle.values()) {
     let fileHandleInfo: FileSystemHandle = await dirHandle2.getFileHandle("info.json");
     let infoFile: File = await fileHandleInfo.getFile();
     //Regex expressions for the import
-    let linkRegEx: RegExp = /\[.+\]+\([a-zA-Z\:\/\-\?]+id=+[A-Za-z0-9\-]+\)/g;
-    let idRegEx: RegExp = /id=.+\)/g;
-    let linkNameRegEx: RegExp = /\[.+\]/g;
-    let hashtagRegEx: RegExp = /\B(\#[a-zA-Z/_\Ä\ä\Ö\ö\Ü\ü]+)(?!;)/g;
+    //let linkRegEx: RegExp = /\[.+\]+\([a-zA-Z\:\/\-\?]+id=+[A-Za-z0-9\-]+\)/g;
+    //let idRegEx: RegExp = /id=.+\)/g;
+    //let linkNameRegEx: RegExp = /\[.+\]/g;
+    //let hashtagRegEx: RegExp = /\B(\#[a-zA-Z/_\Ä\ä\Ö\ö\Ü\ü]+)(?!;)/g;
     //1. Get information of current note
     let infoJson: any = JSON.parse(await infoFile.text());
     let noteID: string = infoJson["net.shinyfrog.bear"]["uniqueIdentifier"];
@@ -28,57 +30,37 @@ for await (const entry of dirHandle.values()) {
     let noteText: string = await file.text();
     let noteName = noteText.slice(2, noteText.indexOf("\n"));
     let link: Link = {ID: noteID, Name: noteName};
-    //Update the global hashtagDictionary and collect hashtags for current note
     let hashtagDict: {[id: string]: BaseNode} = tempGraph.TopicDictionary;
-    let hashtagsOfCurrentNote: string[] = [];
-    let regExHashtagMatch: RegExpMatchArray | null = noteText.match(hashtagRegEx);
-    if(regExHashtagMatch !== null){
-      for(let i in regExHashtagMatch){
-        let hashtag: string = regExHashtagMatch[i];
-        //Check whether global hashtagDict has to be extended and collect hashtags for current note.
-        let hashtagIsNew: boolean = true;
-        for(let hashtagID in hashtagDict){
-          if(hashtagDict[hashtagID].Name === hashtag){
-            hashtagIsNew = false;
-            hashtagsOfCurrentNote.push(hashtagID);
-            hashtagDict[hashtagID].LinksTowards.push({ID: noteID, Name: ""});
-          }
-        }
-        if(hashtagIsNew){
-          let newHashtagID: string = (Object.keys(hashtagDict).length + 1).toString();
-          hashtagsOfCurrentNote.push(newHashtagID);
-          let newHashtagNode: Node = {
-            ID: newHashtagID,
-            Name: hashtag,
-            Text: "",
-            Hashtags: [],
-            X: Math.floor(Math.random() * Math.floor(15000)),
-            Y: Math.floor(Math.random() * Math.floor(15000)),
-            LinksTowards: [{ID: noteID, Name: ""}], //This will be computed later
-            LinksFrom: [] as Link[]  //This will be computed later
-          };
-          hashtagDict[newHashtagID] = newHashtagNode;
-        }
-      } 
-    }
+
+    //Update the global hashtagDictionary and collect hashtags for current note
+    let nodeHashtags = getHashtagsFromNoteText(noteID, noteText, hashtagDict);
+    let hashtagsOfCurrentNote = nodeHashtags.Hashtags;
+    hashtagDict = nodeHashtags.HashtagDict;
+    
     //2. Get linked notes as list https://regexr.com
     let linkIDs: Link[] = [];
-    noteText.match(linkRegEx)?.forEach((link: string) => {
+    noteText.match(regex.linkRegEx)?.forEach((link: string) => {
       //console.log(link);
       //Get ID of link
-      let idMatch: RegExpExecArray | null = idRegEx.exec(link);
+      let idMatch: RegExpExecArray | null = regex.idRegEx.exec(link);
       let newID: string | null = "";
       if(idMatch !== null){
         newID = idMatch[0];
       }
       //Get name of link
-      let linkNameMatch: RegExpExecArray | null = linkNameRegEx.exec(link);
+      let linkNameMatch: RegExpExecArray | null = regex.linkNameRegEx.exec(link);
       let newLinkName: string | null = "";
       if(linkNameMatch !== null){
         newLinkName = linkNameMatch[0];
       }
-      if(newID !== null && newID !== "" &&!(linkIDs.map(function(el){return el.ID}).includes(newID))){
-        linkIDs.push({ID: newID.slice(3,newID.length-1), Name: newLinkName});
+
+      //NewID should be of the form newID = "id=...)". So the length should be longer then four.
+      if(newID !== null && newID.length > 4)
+      {
+        newID = newID.slice(3,newID.length-1); //Take ... from id=...)
+        if(!(linkIDs.map(function(el){return el.ID}).includes(newID))){
+          linkIDs.push({ID: newID, Name: newLinkName});
+        }
       }
       // link.match(idRegEx)?.forEach((id: string) => {
       //   let newID: string = id.slice(3,id.length-1);
@@ -89,9 +71,11 @@ for await (const entry of dirHandle.values()) {
     });
     //console.log("New link");
     //Get plain note text
-    noteText = noteText.slice(noteText.indexOf("\n"), noteText.length);
-    noteText = noteText.replace(hashtagRegEx, '');
-    noteText = noteText.replace(linkRegEx, '');
+    //noteText = noteText.slice(noteText.indexOf("\n"), noteText.length);
+    // noteText = noteText.replace(hashtagRegEx, function (x) {
+    //   return "<span className=''hashtag''>{" + x + "}</span>";
+    // });
+    //noteText = noteText.replace(linkRegEx, '');
 
     //3. Create new node with connections. Or update existing node.
     if(!(noteID in tempGraph.NodeDictionary)){

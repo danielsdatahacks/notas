@@ -5,14 +5,17 @@
   "dependencies": {
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "@types/uuid": "^8.3.0",
     "@types/wicg-file-system-access": "^2020.9.1",
     "bootstrap": "^4.5.3",
+    "marked": "^1.2.6",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.0",
     "react-social-login-buttons": "^3.1.0",
     "typescript": "^4.0.3",
+    "uuid": "^8.3.2",
     "web-vitals": "^0.2.4",
     "workbox-background-sync": "^5.1.4",
     "workbox-broadcast-update": "^5.1.4",
@@ -54,6 +57,7 @@
     "@iconify-icons/ph": "^1.1.1",
     "@iconify/react": "^1.1.3",
     "@types/hammerjs": "^2.0.36",
+    "@types/marked": "^1.2.1",
     "gh-pages": "^3.1.0"
   }
 }

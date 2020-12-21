@@ -74,10 +74,12 @@ import Node from "../models/node";
 interface Props {
     id: string,
     Graph: Graph,
-    SelectedNode: Node, 
+    GraphViewBox: string,
+    SelectedNodeID: string, 
     HighlightedHashtag: string,
     FilterHashtag: string,
-    onClickNode(id: string): void
+    onClickNode(id: string): void,
+    setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
 
@@ -88,20 +90,21 @@ export default function NotasGraph(props: Props) {
     function onClickNode(event: any, id: string) {
         console.log("Test1" + id);
         props.onClickNode(id);
+        props.setShowSidebar(true);
     }
 
     return (
         <svg
             id={props.id}
             xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 15000 15000"
+            viewBox={props.GraphViewBox}
         >
             {
                 Object.keys(props.Graph.TopicDictionary).map((id: string) =>
                 (props.FilterHashtag === "" || props.Graph.TopicDictionary[id].Name === props.FilterHashtag) &&
-                    <g id={id}>
+                    <g key={"hg1" + id}>
                         <circle 
-                            key={id}
+                            key={"hc" + id}
                             cx={props.Graph.TopicDictionary[id].X.toString()} 
                             cy={props.Graph.TopicDictionary[id].Y.toString()}
                             r="150"
@@ -115,7 +118,7 @@ export default function NotasGraph(props: Props) {
                     (props.FilterHashtag === "" || props.Graph.NodeDictionary[id1].Hashtags.map(function(el){return props.Graph.TopicDictionary[el].Name}).includes(props.FilterHashtag)) &&
                         props.Graph.NodeDictionary[id1].LinksTowards.map((id2: Link) =>
                             <line
-                                key={id1 + id2.ID}
+                                key={"l" + id1 + id2.ID}
                                 x1={props.Graph.NodeDictionary[id1].X.toString()} 
                                 y1={props.Graph.NodeDictionary[id1].Y.toString()} 
                                 x2={props.Graph.NodeDictionary[id2.ID].X.toString()} 
@@ -128,20 +131,20 @@ export default function NotasGraph(props: Props) {
             {
                 Object.keys(props.Graph.NodeDictionary).map((id: string) =>
                     (props.FilterHashtag === "" || props.Graph.NodeDictionary[id].Hashtags.map(function(el){return props.Graph.TopicDictionary[el].Name}).includes(props.FilterHashtag)) &&
-                        <g id={id}>
+                        <g key={"ng" + id}>
                             <circle 
                                 onClick={(event:any) => onClickNode(event, id)}
-                                key={id}
+                                key={"cn" + id}
                                 cx={props.Graph.NodeDictionary[id].X.toString()} 
                                 cy={props.Graph.NodeDictionary[id].Y.toString()}
                                 r="50" 
                                 stroke={"whitesmoke"} 
                                 strokeWidth="4" 
                                 fill={props.Graph.NodeDictionary[id].Hashtags.map(function(el){return props.Graph.TopicDictionary[el].Name}).includes(props.HighlightedHashtag)? 
-                                    (id === props.SelectedNode.ID? "red" : "rgb(255,106,0)") : (id === props.SelectedNode.ID? "red" : "grey")} 
+                                    (id === props.SelectedNodeID? "red" : "rgb(255,106,0)") : (id === props.SelectedNodeID? "red" : "grey")} 
                             />
                             <text 
-                                id={id}
+                                key={"tn" + id}
                                 x={(props.Graph.NodeDictionary[id].X).toString()} 
                                 y={(props.Graph.NodeDictionary[id].Y+90).toString()} 
                                 style={{textAnchor: "middle", fontSize: "40", fill: "grey"}}
@@ -165,9 +168,9 @@ export default function NotasGraph(props: Props) {
             {
                 Object.keys(props.Graph.TopicDictionary).map((id: string) =>
                     (props.FilterHashtag === "" || props.Graph.TopicDictionary[id].Name === props.FilterHashtag) &&
-                    <g id={id}>
+                    <g key={"hg2" + id}>
                         <text 
-                            id={id}
+                            key={"ht" + id}
                             x={(props.Graph.TopicDictionary[id].X).toString()} 
                             y={(props.Graph.TopicDictionary[id].Y+400).toString()} 
                             style={{textAnchor: "middle", fontSize: "225"}}

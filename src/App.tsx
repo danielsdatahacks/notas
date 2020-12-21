@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 //import logo from './logo.svg';
+import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import './Stylings/App.css';
 import './Stylings/note.css';
 import './Stylings/dropdown.css';
@@ -19,11 +20,16 @@ import { Icon } from '@iconify/react';
 import downloadSimple from '@iconify-icons/ph/download-simple';
 import cloudArrowDown from '@iconify-icons/ph/cloud-arrow-down';
 import cloudArrowUp from '@iconify-icons/ph/cloud-arrow-up';
+import plusCircle from '@iconify-icons/ph/plus-circle';
 import funnelIcon from '@iconify-icons/ph/funnel';
 import {bearImport} from "./Imports/BearImport";
 import slidersIcon from '@iconify-icons/ph/sliders';
 import Identity from './models/identity';
 import Spinner from 'react-bootstrap/Spinner';
+import { v4 as uuidv4 } from 'uuid';
+import Toast from 'react-bootstrap/Toast';
+//import uuid from 'uuid';
+//import { textChangeRangeIsUnchanged } from 'typescript';
 
 
 //import Hammer from 'hammerjs';
@@ -38,10 +44,13 @@ function App(props: Props) {
   const [showAzureUploadSpinner, setAzureUploadSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
   const [showBearImportSpinner, setBearImportSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
   const [graph, setGraph]: [Graph, React.Dispatch<React.SetStateAction<Graph>>] = useState({ExternalUserID: "", Energy: 0, NodeDictionary: {}, TopicDictionary: {}});
-  const [selectedNode, selectNode]: [Node, React.Dispatch<React.SetStateAction<Node>>] = useState({ID: "", Name: "", Text: "", Hashtags: [] as string[], X: 0, Y: 0, LinksTowards: [] as Link[], LinksFrom: [] as Link[]});
+  const [selectedNodeID, selectNode]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   const [searchInput, setSearchInput]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   const [filterHashtag, setFilterHashtag]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   const [highlightedHashtag, setHighlightHashtag]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
+  const [showSidebar, setShowSidebar] = useState(true);
+  const [showCopyNoteToast, setShowCopyNoteToast] = useState(false);
+  const [graphViewBox, setGraphViewBox] = useState("0 0 15000 15000");
 
   // async function onClick() {
   //   let fileHandle: FileSystemFileHandle;
@@ -94,7 +103,8 @@ function App(props: Props) {
 
   function onClickNode(id: string) {
     if(id in graph.NodeDictionary) {
-        selectNode({...graph.NodeDictionary[id]});
+        selectNode(id);
+        //selectNode({...graph.NodeDictionary[id]});
     }
   }
 
@@ -103,8 +113,54 @@ function App(props: Props) {
     setHighlightHashtag(e.target.value);
   }
 
+  function onViewBoxChange(e: any) {
+    setGraphViewBox(e.target.value);
+  }
+
   function onSearchButtonClick() {
     setFilterHashtag(searchInput);
+  }
+
+  function onCloseCopyNoteToast() {
+    setShowCopyNoteToast(false);
+  }
+
+  function onAddNodeButtonClick() {
+    let id: string = uuidv4();
+    if(!(id in graph.NodeDictionary) ){
+      let text: string = "# Title \n\n Enter markdown text.";
+      let hashtags: string[] = [] as string[];
+      let name: string = "Test note";
+      let x: number = 15000;
+      let y: number = 50;
+      let linksFrom: Link[] = [] as Link[];
+      let linksTowards: Link[] = [] as Link[];
+
+      let newNode: Node = {ID: id, Text: text, Hashtags: hashtags, Name: name, X: x, Y: y, LinksFrom: linksFrom, LinksTowards: linksTowards};
+
+      setGraph({
+        ...graph,
+        Energy: 1000,
+        NodeDictionary: {
+          ...graph.NodeDictionary,
+          [id]: newNode
+        }
+      });
+
+      selectNode(id);
+    }
+
+    //var newNode: Node = {ID: "", Text:};
+    //newNode.ID = uuid();
+
+    //Text: string,
+    //Hashtags: string[]
+    //LinksFrom: Link[]
+    //ID: string,
+    //Name: string,
+    //X: number,
+    //Y: number,
+    //LinksTowards: Link[]
   }
 
   // function handlePinch(e: any) {
@@ -212,43 +268,65 @@ function App(props: Props) {
 
   return (
     <div className="App">
+      <div className="toast-container">
+        { showCopyNoteToast &&
+          <Toast  onClose={onCloseCopyNoteToast} autohide={true} delay={4000}>
+            <Toast.Header className="toast-header-custom">
+              <strong className="mr-auto">Copied link to note</strong>
+            </Toast.Header>
+            <Toast.Body className="toast-body-custom">Paste link into text of another note to link both notes.</Toast.Body>
+          </Toast>
+        }
+      </div>
       <div className="App-header">
         <div className="settings-container">
-          <OverlayTrigger trigger="click" placement="bottom" overlay={popover}>
+          <OverlayTrigger trigger={"click"} rootClose placement="bottom" overlay={popover} >
             <div className="download-logo-container">
               <Icon width="1.6em" icon={slidersIcon} color="rgb(253,107,33)" />
             </div>
           </OverlayTrigger> 
         </div>
-        <div className="searchbar-container">
-          <div className="searchbar-input-container">
-            <input 
-              onChange={onSearchInputChange}
-              className="form-control searchbar" 
-              type="text" 
-              placeholder="Enter hashtag" 
-              aria-label="Search" 
-              value={searchInput}
-            />
-          </div>
-          <div className="search-bar-end">
-            <div className="dropdown">
-              <div className="search-bar-end-icon-container" onClick={onSearchButtonClick}>
-                <Icon className="filter-logo" width="1.25em" icon={funnelIcon} color="rgb(253,107,33)"/>
+        <div className="tool-container">
+          <div className="searchbar-container">
+            <div className="searchbar-input-container">
+              <input 
+                onChange={onSearchInputChange}
+                className="form-control searchbar" 
+                type="text" 
+                placeholder="Enter hashtag" 
+                aria-label="Search" 
+                value={searchInput}
+              />
+            </div>
+            <div className="search-bar-end">
+              <div className="dropdown">
+                <div className="search-bar-end-icon-container" onClick={onSearchButtonClick}>
+                  <Icon className="filter-logo" width="1.25em" icon={funnelIcon} color="rgb(253,107,33)"/>
+                </div>
               </div>
             </div>
           </div>
+          <div className="add-node-button-container" onClick={onAddNodeButtonClick}>
+            <Icon width="1.6em" icon={plusCircle} color="rgb(253,107,33)" />
+          </div>
+          {/* <div style={{marginLeft: "2em"}}>
+            <input
+              onChange={onViewBoxChange}
+              value={graphViewBox}
+            />
+          </div> */}
         </div>
         <img className="notas-logo" src={NotasLogo} alt=""/>
       </div>
       <div className="App-main">
         <div className="App-graph">
-            <NotasGraph id={"notas-graph"} Graph={graph} FilterHashtag={filterHashtag} HighlightedHashtag={highlightedHashtag} SelectedNode={selectedNode} onClickNode={onClickNode}/>
+            <NotasGraph id={"notas-graph"} GraphViewBox={graphViewBox} Graph={graph} setShowSidebar={setShowSidebar} FilterHashtag={filterHashtag} HighlightedHashtag={highlightedHashtag} SelectedNodeID={selectedNodeID} onClickNode={onClickNode}/>
         </div>
-        <div className="App-sidebar">
-          {<Sidebar SelectedNode={selectedNode} HashtagDictionary={graph.TopicDictionary}/>
-          }
-        </div>
+        {showSidebar &&
+          <div className="App-sidebar">
+            <Sidebar Graph={graph} setCopyNoteToast={setShowCopyNoteToast} setShowSidebar={setShowSidebar} setGraph={setGraph} SelectedNodeID={selectedNodeID} HashtagDictionary={graph.TopicDictionary}/>
+          </div>
+        }
       </div>
     </div>
   );
