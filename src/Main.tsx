@@ -5,7 +5,7 @@ import Identity from './models/identity';
 
 
 export default function Main() {
-    const [identity, setIdentity]: [Identity, React.Dispatch<React.SetStateAction<Identity>>] = useState({loggedIn: 1, clientPrincipal: {identityProvider: "", userDetails: "", userID: "", userRoles: [] as string[]}});
+    const [identity, setIdentity]: [Identity, React.Dispatch<React.SetStateAction<Identity>>] = useState({loggedIn: 0, clientPrincipal: {identityProvider: "", userDetails: "", userID: "", userRoles: [] as string[]}});
 
     return (
         <React.Fragment>
