@@ -113,10 +113,6 @@ function App(props: Props) {
     setHighlightHashtag(e.target.value);
   }
 
-  function onViewBoxChange(e: any) {
-    setGraphViewBox(e.target.value);
-  }
-
   function onSearchButtonClick() {
     setFilterHashtag(searchInput);
   }
@@ -320,7 +316,7 @@ function App(props: Props) {
       </div>
       <div className="App-main">
         <div className="App-graph">
-            <NotasGraph id={"notas-graph"} GraphViewBox={graphViewBox} Graph={graph} setShowSidebar={setShowSidebar} FilterHashtag={filterHashtag} HighlightedHashtag={highlightedHashtag} SelectedNodeID={selectedNodeID} onClickNode={onClickNode}/>
+            <NotasGraph id={"notas-graph"} setGraphViewBox={setGraphViewBox} GraphViewBox={graphViewBox} Graph={graph} setShowSidebar={setShowSidebar} FilterHashtag={filterHashtag} HighlightedHashtag={highlightedHashtag} SelectedNodeID={selectedNodeID} onClickNode={onClickNode}/>
         </div>
         {showSidebar &&
           <div className="App-sidebar">

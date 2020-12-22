@@ -1,75 +1,7 @@
 import React from "react";
 import Graph from "../models/graph";
 import Link from "../models/link";
-import Node from "../models/node";
-
-//const graphData : Graph = {
-//    Energy: 10000000,
-//    NodeDictionary: {
-//        "id1": {
-//            ID: "id1",
-//            Text: "",
-//            X: 1101,
-//            Y: 1101,
-//            ConnectedNodes: ["id2"]
-//        },
-//        "id2": {
-//            ID: "id2",
-//            Text: "",
-//            X: 1202,
-//            Y: 1202,
-//            ConnectedNodes: ["id3"]
-//        },
-//        "id3": {
-//            ID: "id3",
-//            Text: "",
-//            X: 1003,
-//            Y: 1403,
-//            ConnectedNodes: []
-//        },"id4": {
-//            ID: "id4",
-//            Text: "",
-//            X: 1431,
-//            Y: 1241,
-//            ConnectedNodes: ["id2"]
-//        },"id5": {
-//            ID: "id6",
-//            Text: "",
-//            X: 1501,
-//            Y: 1701,
-//            ConnectedNodes: ["id2"]
-//        },"id6": {
-//            ID: "id6",
-//            Text: "",
-//            X: 1001,
-//            Y: 1451,
-//            ConnectedNodes: ["id2"]
-//        },
-//    },
-//    Links: 
-//        [
-//            {  
-//                StartID: "id1",
-//                EndID: "id2"
-//            },
-//            {  
-//                StartID: "id2",
-//                EndID: "id3"
-//            },
-//            {  
-//                StartID: "id4",
-//                EndID: "id2"
-//            },
-//            {  
-//                StartID: "id5",
-//                EndID: "id2"
-//            },
-//            {  
-//                StartID: "id6",
-//                EndID: "id2"
-//            }
-//        ]
-//}
+import Hammer from "react-hammerjs";
 
 interface Props {
     id: string,
@@ -79,11 +11,19 @@ interface Props {
     HighlightedHashtag: string,
     FilterHashtag: string,
     onClickNode(id: string): void,
+    setGraphViewBox: React.Dispatch<React.SetStateAction<string>>,
     setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>,
 }
 
+//Variables for graph navigation
+let isDragging: boolean = false;
+let firstXMin: number = 0;
+let firstYMin: number = 0;
+let xWidth: number = 0;
+let yWidth: number = 0;
+let panFactor = 15;
 
-//let timerID: any;
+
 
 export default function NotasGraph(props: Props) {
 
@@ -93,7 +33,32 @@ export default function NotasGraph(props: Props) {
         props.setShowSidebar(true);
     }
 
+    function handlePan(e: any) {
+        console.log(e);
+        if(!isDragging){
+            isDragging = true;
+            let viewBox = props.GraphViewBox.split(" ");
+            firstXMin = parseFloat(viewBox[0]);
+            firstYMin = parseFloat(viewBox[1]);
+            xWidth = parseFloat(viewBox[2]);
+            yWidth = parseFloat(viewBox[3]);
+        }
+
+        //Todo: compute the pan factor somehow.
+        let xMin = firstXMin - panFactor * e.deltaX;
+        let yMin = firstYMin - panFactor * e.deltaY;
+
+        props.setGraphViewBox(xMin.toString()+" "+yMin.toString()+" "+xWidth.toString()+" "+yWidth.toString());
+
+        if(e.isFinal){
+            isDragging = false;
+        }
+    }
+
     return (
+    <Hammer
+        onPan={handlePan}
+        >
         <svg
             id={props.id}
             xmlns="http://www.w3.org/2000/svg"
@@ -181,12 +146,6 @@ export default function NotasGraph(props: Props) {
                 )
             }
         </svg>
+    </Hammer>
     );
 }
-
-/*
-<line x1="400" y1="400" x2="200" y2="200" style={{stroke:"grey",strokeWidth:10}} />
-                <circle cx="400" cy="400" r="40" stroke="white" strokeWidth="3" fill="grey" />
-                <circle cx="200" cy="200" r="40" stroke="white" strokeWidth="3" fill="grey" />
-                <circle cx="600" cy="600" r="40" stroke="white" strokeWidth="3" fill="grey" />
-*/

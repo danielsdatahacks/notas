@@ -1,7 +1,6 @@
 import Graph from '../models/graph';
 import Link from '../models/link';
 import BaseNode from '../models/baseNode';
-import Node from '../models/node';
 import * as regex from '../Regex/regex';
 import {getHashtagsFromNoteText} from '../Imports/importUtil'
 

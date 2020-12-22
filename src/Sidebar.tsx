@@ -6,13 +6,12 @@ import marked from 'marked';
 import Graph from './models/graph';
 import * as regex from './Regex/regex'
 import {getHashtagsFromNoteText, getLinkedNodesFromText, updateGraphFromLinksOfNote, updateGraphFromHashtagsOfNote, updateNoteName, removeNoteFromGraph} from './Imports/importUtil'
-import { Icon, InlineIcon } from '@iconify/react';
+import { Icon } from '@iconify/react';
 import dotsThreeVertical from '@iconify-icons/ph/dots-three-vertical';
 import linkSimpleHorizontal from '@iconify-icons/ph/link-simple-horizontal';
 import trashIcon from '@iconify-icons/ph/trash';
 import xIcon from '@iconify-icons/ph/x';
 import { ListGroup, OverlayTrigger, Popover } from 'react-bootstrap';
-import Link from './models/link';
 
 interface Props {
     Graph: Graph,
