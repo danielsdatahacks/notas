@@ -21,15 +21,19 @@
     padding-right: 2em;
     padding-bottom: 2em;
     padding-top: 1em;
-    height: 100%;
+    height: calc(100% - 2.5em);
     overflow: scroll;
+    overflow-wrap: break-word;
   }
 
 .note-settings-bar{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 0.75em;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+    align-items: center;
+    height: 2.5em;
 }
 
 /* .a{
