@@ -174,10 +174,10 @@ function App(props: Props) {
     let xWidth = parseFloat(viewBox[2]);
     let yWidth = parseFloat(viewBox[3]);
 
-    let xMinNew = xMin - (xWidth)/(2 * zoomFactor);
+    let xMinNew = xMin + (xWidth) * (1 - 1/zoomFactor) / 2;
     let xWidthNew = xWidth / zoomFactor;
 
-    let yMinNew = yMin - (yWidth)/(2 * zoomFactor);
+    let yMinNew = xMin + (xWidth) * (1 - 1/zoomFactor) / 2;
     let yWidthNew = yWidth / zoomFactor;
 
     setGraphViewBox(xMinNew.toString()+" "+yMinNew.toString()+" "+xWidthNew.toString()+" "+yWidthNew.toString());
@@ -193,10 +193,10 @@ function App(props: Props) {
     let xWidth = parseFloat(viewBox[2]);
     let yWidth = parseFloat(viewBox[3]);
 
-    let xMinNew = xMin - (xWidth)/(2 * zoomFactor);
+    let xMinNew = xMin + (xWidth) * (1 - 1/zoomFactor) / 2;
     let xWidthNew = xWidth / zoomFactor;
 
-    let yMinNew = yMin - (yWidth)/(2 * zoomFactor);
+    let yMinNew = xMin + (xWidth) * (1 - 1/zoomFactor) / 2;
     let yWidthNew = yWidth / zoomFactor;
 
     setGraphViewBox(xMinNew.toString()+" "+yMinNew.toString()+" "+xWidthNew.toString()+" "+yWidthNew.toString());
@@ -344,11 +344,8 @@ function App(props: Props) {
           <div className="add-node-button-container" onClick={onAddNodeButtonClick}>
             <Icon width="1.6em" icon={plusCircle} color="rgb(253,107,33)" />
           </div>
-          {/* <div style={{marginLeft: "2em"}}>
-            <input
-              onChange={onViewBoxChange}
-              value={graphViewBox}
-            />
+          {/* <div style={{marginLeft: "2em", color: "black"}}>
+            {graphViewBox}
           </div> */}
         </div>
         <img className="notas-logo" src={NotasLogo} alt=""/>
