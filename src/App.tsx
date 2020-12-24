@@ -21,6 +21,7 @@ import downloadSimple from '@iconify-icons/ph/download-simple';
 import cloudArrowDown from '@iconify-icons/ph/cloud-arrow-down';
 import cloudArrowUp from '@iconify-icons/ph/cloud-arrow-up';
 import plusCircle from '@iconify-icons/ph/plus-circle';
+import minusCircle from '@iconify-icons/ph/minus-circle';
 import funnelIcon from '@iconify-icons/ph/funnel';
 import {bearImport} from "./Imports/BearImport";
 import slidersIcon from '@iconify-icons/ph/sliders';
@@ -162,6 +163,44 @@ function App(props: Props) {
   // function handlePinch(e: any) {
   //   console.log(e);
   // }
+
+  function handleZoomIn() {
+
+    let zoomFactor = 1.5;
+
+    let viewBox = graphViewBox.split(" ");
+    let xMin = parseFloat(viewBox[0]);
+    let yMin = parseFloat(viewBox[1]);
+    let xWidth = parseFloat(viewBox[2]);
+    let yWidth = parseFloat(viewBox[3]);
+
+    let xMinNew = xMin - (xWidth)/(2 * zoomFactor);
+    let xWidthNew = xWidth / zoomFactor;
+
+    let yMinNew = yMin - (yWidth)/(2 * zoomFactor);
+    let yWidthNew = yWidth / zoomFactor;
+
+    setGraphViewBox(xMinNew.toString()+" "+yMinNew.toString()+" "+xWidthNew.toString()+" "+yWidthNew.toString());
+  }
+
+  function handleZoomOut() {
+
+    let zoomFactor = 0.5;
+
+    let viewBox = graphViewBox.split(" ");
+    let xMin = parseFloat(viewBox[0]);
+    let yMin = parseFloat(viewBox[1]);
+    let xWidth = parseFloat(viewBox[2]);
+    let yWidth = parseFloat(viewBox[3]);
+
+    let xMinNew = xMin - (xWidth)/(2 * zoomFactor);
+    let xWidthNew = xWidth / zoomFactor;
+
+    let yMinNew = yMin - (yWidth)/(2 * zoomFactor);
+    let yWidthNew = yWidth / zoomFactor;
+
+    setGraphViewBox(xMinNew.toString()+" "+yMinNew.toString()+" "+xWidthNew.toString()+" "+yWidthNew.toString());
+  }
 
   function onClickAzureUpload() {
     setAzureUploadSpinner(1);
@@ -316,6 +355,12 @@ function App(props: Props) {
       </div>
       <div className="App-main">
         <div className="App-graph">
+            <div className="zoom-in" onClick={handleZoomIn}>
+              <Icon width="1.6em" icon={plusCircle} color="lightgrey" />
+            </div>
+            <div className="zoom-out" onClick={handleZoomOut}>
+              <Icon width="1.6em" icon={minusCircle} color="lightgrey" />
+            </div>
             <NotasGraph id={"notas-graph"} setGraphViewBox={setGraphViewBox} GraphViewBox={graphViewBox} Graph={graph} setShowSidebar={setShowSidebar} FilterHashtag={filterHashtag} HighlightedHashtag={highlightedHashtag} SelectedNodeID={selectedNodeID} onClickNode={onClickNode}/>
         </div>
         {showSidebar &&

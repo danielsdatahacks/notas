@@ -124,6 +124,18 @@
   flex-grow: 10;
 }
 
+.zoom-out {
+  position: absolute; 
+  bottom: 1em; 
+  left: 1em;
+}
+
+.zoom-in {
+  position: absolute; 
+  bottom: 3em; 
+  left: 1em;
+}
+
 .download-logo-container {
   display: flex;
 }
