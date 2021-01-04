@@ -16,6 +16,7 @@ export const getHashtagsFromNoteText = (noteID: string, noteText: string, hashta
     if(regExHashtagMatch !== null){
       for(let i in regExHashtagMatch){
         let hashtag: string = regExHashtagMatch[i];
+        hashtag = hashtag.slice(1,hashtag.length);
         //Check whether global hashtagDict has to be extended and collect hashtags for current note.
         let hashtagIsNew: boolean = true;
         for(let hashtagID in hashtagDictTemp){
@@ -35,6 +36,7 @@ export const getHashtagsFromNoteText = (noteID: string, noteText: string, hashta
             Hashtags: [],
             X: Math.floor(Math.random() * Math.floor(15000)),
             Y: Math.floor(Math.random() * Math.floor(15000)),
+            IsFixed: false,
             LinksTowards: [{ID: noteID, Name: ""}], //This will be computed later
             LinksFrom: [] as Link[]  //This will be computed later
           };
@@ -278,4 +280,91 @@ export const removeNoteFromGraph = (noteID: string, graph: Graph): Graph => {
     }
 
     return tempGraph;
+}
+
+//If filterHashtagID === "" all node positions will be unfixed.
+export const unfixTextNodes = (graph: Graph, filterHashtagID: string): Graph => {
+    let tempGraph = graph;
+
+    if(filterHashtagID === ""){
+        Object.keys(tempGraph.NodeDictionary).map((id: string) => {
+            if(tempGraph.NodeDictionary[id].IsFixed) {
+                tempGraph = {
+                    ...tempGraph,
+                    NodeDictionary: {
+                        ...tempGraph.NodeDictionary,
+                        [id]: {
+                            ...tempGraph.NodeDictionary[id],
+                            IsFixed: false
+                        }
+                    }
+                }
+            }
+        });
+    } else if (filterHashtagID !== "" && filterHashtagID in graph.TopicDictionary) {
+        for(let i: number = 0; i < graph.TopicDictionary[filterHashtagID].LinksTowards.length; i++){
+            let noteID = graph.TopicDictionary[filterHashtagID].LinksTowards[i].ID;
+            if(noteID in graph.NodeDictionary && graph.NodeDictionary[noteID].IsFixed){
+                tempGraph = {
+                    ...tempGraph,
+                    NodeDictionary: {
+                        ...tempGraph.NodeDictionary,
+                        [noteID]: {
+                            ...tempGraph.NodeDictionary[noteID],
+                            IsFixed : false
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //Increase energy so that nodes are rearranged.
+    tempGraph = {...tempGraph, Energy: 1000};
+
+    return tempGraph;
+}
+
+export const fixAllNodes = (graph: Graph): Graph | null => {
+    let tempGraph = graph;
+
+    let unfixedNodeExists = false;
+
+    Object.keys(tempGraph.NodeDictionary).map((id: string) => {
+        if(!tempGraph.NodeDictionary[id].IsFixed) {
+            unfixedNodeExists = true;
+            tempGraph = {
+                ...tempGraph,
+                NodeDictionary: {
+                    ...tempGraph.NodeDictionary,
+                    [id]: {
+                        ...tempGraph.NodeDictionary[id],
+                        IsFixed: true
+                    }
+                }
+            }
+        }
+    })
+
+    Object.keys(tempGraph.TopicDictionary).map((id: string) => {
+        if(!tempGraph.TopicDictionary[id].IsFixed) {
+            unfixedNodeExists = true;
+            tempGraph = {
+                ...tempGraph,
+                TopicDictionary: {
+                    ...tempGraph.TopicDictionary,
+                    [id]: {
+                        ...tempGraph.TopicDictionary[id],
+                        IsFixed: true
+                    }
+                }
+            }
+        }
+    })
+
+    if(unfixedNodeExists) {
+        return tempGraph;
+    } else {
+        return null;
+    }
 }

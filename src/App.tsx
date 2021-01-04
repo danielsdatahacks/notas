@@ -9,7 +9,7 @@ import Graph from './models/graph';
 import Node from './models/node';
 import NotasGraph from './Graphs/NotasGraph'
 import ForceTransform from './Graphs/SpringElectrical';
-import Sidebar from './Sidebar'
+import Sidebar from './Sidebar/Sidebar'
 //import BaseNode from './models/baseNode';
 import Link from './models/link';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -29,6 +29,9 @@ import Identity from './models/identity';
 import Spinner from 'react-bootstrap/Spinner';
 import { v4 as uuidv4 } from 'uuid';
 import Toast from 'react-bootstrap/Toast';
+import {SidebarView} from './models/sidebarViews';
+import { fixAllNodes } from './Imports/importUtil';
+
 //import uuid from 'uuid';
 //import { textChangeRangeIsUnchanged } from 'typescript';
 
@@ -36,7 +39,7 @@ import Toast from 'react-bootstrap/Toast';
 //import Hammer from 'hammerjs';
 //import '../src/Stylings/bear.css'
 interface Props {
-  identity: Identity
+  identity: Identity,
 }
 
 function App(props: Props) {
@@ -46,12 +49,13 @@ function App(props: Props) {
   const [showBearImportSpinner, setBearImportSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
   const [graph, setGraph]: [Graph, React.Dispatch<React.SetStateAction<Graph>>] = useState({ExternalUserID: "", Energy: 0, NodeDictionary: {}, TopicDictionary: {}});
   const [selectedNodeID, selectNode]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
-  const [searchInput, setSearchInput]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
-  const [filterHashtag, setFilterHashtag]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
+  //const [searchInput, setSearchInput]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
+  const [filterHashtagID, setFilterHashtagID]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   const [highlightedHashtag, setHighlightHashtag]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   const [showSidebar, setShowSidebar] = useState(true);
   const [showCopyNoteToast, setShowCopyNoteToast] = useState(false);
   const [graphViewBox, setGraphViewBox] = useState("0 0 15000 15000");
+  const [sidebarView, setSidebarView] = useState(SidebarView.Main);
 
   // async function onClick() {
   //   let fileHandle: FileSystemFileHandle;
@@ -74,48 +78,45 @@ function App(props: Props) {
   }
 
   useEffect(() => {
-
-    //Touch gestures
-    // const viewerImage = document.getElementById("notas-graph");
-    // if(viewerImage !== null){
-    //   const hammertime: HammerManager = new Hammer(viewerImage);
-    //   hammertime.get('pinch').set({ enable: true });
-
-    //   hammertime.on("pinch", e => {
-    //     console.log("I pinched!");
-    //     console.log(e);
-    //   });
-
-    //   hammertime.on("tap", e => {
-    //     console.log("I tapped!");
-    //     console.log(e);
-    //   });
-    // }
-    //console.log("useEffect");
-    //console.log(graph);
-
     //Force graph animation
     if(graph.Energy > 40){
-      //console.log("useEffect inside if");
       const timer = setTimeout(() => {setGraph({...ForceTransform(graph)});}, 40);
       return () => clearTimeout(timer);
-    };
+    } else {
+      //Fix all positions once everything is optimized.
+      let tempGraph = fixAllNodes(graph);
+      if(tempGraph !== null){
+        setGraph({...tempGraph});
+      }
+    }
   },[graph]);
 
   function onClickNode(id: string) {
     if(id in graph.NodeDictionary) {
         selectNode(id);
-        //selectNode({...graph.NodeDictionary[id]});
+        setSidebarView(SidebarView.NoteText);
     }
   }
 
-  function onSearchInputChange(e: any) {
-    setSearchInput(e.target.value);
-    setHighlightHashtag(e.target.value);
+  function onClickHashtag(id: string) {
+    if(id in graph.TopicDictionary) {
+        setFilterHashtagID(id);
+        setSidebarView(SidebarView.NotesList);
+    }
   }
 
-  function onSearchButtonClick() {
-    setFilterHashtag(searchInput);
+  // function onSearchInputChange(e: any) {
+  //   setSearchInput(e.target.value);
+  //   setHighlightHashtag(e.target.value);
+  // }
+
+  // function onSearchButtonClick() {
+  //   setFilterHashtagID(searchInput);
+  // }
+
+  function onClickNotasLogo() {
+    setShowSidebar(true);
+    setSidebarView(SidebarView.Main);
   }
 
   function onCloseCopyNoteToast() {
@@ -133,7 +134,7 @@ function App(props: Props) {
       let linksFrom: Link[] = [] as Link[];
       let linksTowards: Link[] = [] as Link[];
 
-      let newNode: Node = {ID: id, Text: text, Hashtags: hashtags, Name: name, X: x, Y: y, LinksFrom: linksFrom, LinksTowards: linksTowards};
+      let newNode: Node = {ID: id, Text: text, Hashtags: hashtags, Name: name, X: x, Y: y, IsFixed: false, LinksFrom: linksFrom, LinksTowards: linksTowards};
 
       setGraph({
         ...graph,
@@ -145,6 +146,7 @@ function App(props: Props) {
       });
 
       selectNode(id);
+      setSidebarView(SidebarView.NoteText);
     }
 
     //var newNode: Node = {ID: "", Text:};
@@ -313,14 +315,7 @@ function App(props: Props) {
           </Toast>
         }
       </div>
-      <div className="App-header">
-        <div className="settings-container">
-          <OverlayTrigger trigger={"click"} rootClose placement="bottom" overlay={popover} >
-            <div className="download-logo-container">
-              <Icon width="1.6em" icon={slidersIcon} color="rgb(253,107,33)" />
-            </div>
-          </OverlayTrigger> 
-        </div>
+      {/* <div className="App-header">
         <div className="tool-container">
           <div className="searchbar-container">
             <div className="searchbar-input-container">
@@ -341,30 +336,62 @@ function App(props: Props) {
               </div>
             </div>
           </div>
+        </div>
+        <img className="notas-logo" src={NotasLogo} alt=""/>
+      </div> */}
+      <div className="App-main">
+          {!showSidebar &&
+            <div className="notas-logo-container" onClick={onClickNotasLogo}>
+              <img className="notas-logo" src={NotasLogo} alt=""/>
+            </div>
+          }
+          <div className="zoom-in" onClick={handleZoomIn}>
+            <Icon width="1.6em" icon={plusCircle} color="lightgrey" />
+          </div>
+          <div className="zoom-out" onClick={handleZoomOut}> 
+            <Icon width="1.6em" icon={minusCircle} color="lightgrey" />
+          </div>
           <div className="add-node-button-container" onClick={onAddNodeButtonClick}>
             <Icon width="1.6em" icon={plusCircle} color="rgb(253,107,33)" />
           </div>
-          {/* <div style={{marginLeft: "2em", color: "black"}}>
-            {graphViewBox}
-          </div> */}
-        </div>
-        <img className="notas-logo" src={NotasLogo} alt=""/>
-      </div>
-      <div className="App-main">
-        <div className="App-graph">
-            <div className="zoom-in" onClick={handleZoomIn}>
-              <Icon width="1.6em" icon={plusCircle} color="lightgrey" />
-            </div>
-            <div className="zoom-out" onClick={handleZoomOut}>
-              <Icon width="1.6em" icon={minusCircle} color="lightgrey" />
-            </div>
-            <NotasGraph id={"notas-graph"} setGraphViewBox={setGraphViewBox} GraphViewBox={graphViewBox} Graph={graph} setShowSidebar={setShowSidebar} FilterHashtag={filterHashtag} HighlightedHashtag={highlightedHashtag} SelectedNodeID={selectedNodeID} onClickNode={onClickNode}/>
-        </div>
+          <div className="settings-container">
+            <OverlayTrigger trigger={"click"} rootClose placement="bottom" overlay={popover} >
+              <div className="download-logo-container">
+                <Icon width="1.6em" icon={slidersIcon} color="rgb(253,107,33)" />
+              </div>
+            </OverlayTrigger> 
+          </div>
         {showSidebar &&
           <div className="App-sidebar">
-            <Sidebar Graph={graph} setCopyNoteToast={setShowCopyNoteToast} setShowSidebar={setShowSidebar} setGraph={setGraph} SelectedNodeID={selectedNodeID} HashtagDictionary={graph.TopicDictionary}/>
+            <Sidebar 
+              setSidebarView={setSidebarView}
+              sidebarView={sidebarView}
+              onClickNode={onClickNode} 
+              Graph={graph} 
+              setCopyNoteToast={setShowCopyNoteToast} 
+              setShowSidebar={setShowSidebar} 
+              setGraph={setGraph} 
+              SelectedNodeID={selectedNodeID} 
+              HashtagDictionary={graph.TopicDictionary}  
+              filterHashtagID={filterHashtagID}
+              setFilterHashtagID={setFilterHashtagID}
+            />
           </div>
         }
+        <div id={"notas-graph"} className="App-graph">
+            <NotasGraph 
+              setGraphViewBox={setGraphViewBox} 
+              GraphViewBox={graphViewBox} 
+              Graph={graph} 
+              setGraph={setGraph}
+              setShowSidebar={setShowSidebar} 
+              FilterHashtagID={filterHashtagID} 
+              HighlightedHashtag={highlightedHashtag} 
+              SelectedNodeID={selectedNodeID} 
+              onClickNode={onClickNode}
+              onClickHashtag={onClickHashtag}
+            />
+        </div>
       </div>
     </div>
   );

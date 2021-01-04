@@ -90,6 +90,7 @@ for await (const entry of dirHandle.values()) {
                 Hashtags: hashtagsOfCurrentNote,
                 X: Math.floor(Math.random() * Math.floor(15000)),
                 Y: Math.floor(Math.random() * Math.floor(15000)),
+                IsFixed: false,
                 LinksTowards: linkIDs,
                 LinksFrom: []
               }
@@ -107,6 +108,7 @@ for await (const entry of dirHandle.values()) {
                 Hashtags: [...tempGraph.NodeDictionary[noteID].Hashtags, ...hashtagsOfCurrentNote],
                 X: tempGraph.NodeDictionary[noteID].X,
                 Y: tempGraph.NodeDictionary[noteID].Y,
+                IsFixed: false,
                 LinksTowards: [...tempGraph.NodeDictionary[noteID].LinksTowards, ...linkIDs],
                 LinksFrom: tempGraph.NodeDictionary[noteID].LinksFrom
               }
@@ -139,6 +141,7 @@ for await (const entry of dirHandle.values()) {
               Hashtags: [],
               X: Math.floor(Math.random() * Math.floor(15000)),
               Y: Math.floor(Math.random() * Math.floor(15000)),
+              IsFixed: false,
               LinksTowards: [] as Link[],
               LinksFrom: [link]
             }

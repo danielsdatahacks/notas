@@ -1,3 +1,9 @@
+:root {
+  /*Light mode variables*/
+  --lightgrey: lightgrey;
+  --orange: rgb(255,106,0);
+}
+
 .App {
   display: flex;
   flex-direction: column;
@@ -116,7 +122,19 @@
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: calc(100% - 3em);
+  height: 100%; /*calc(100% - 3em);*/
+}
+
+.notas-logo-container {
+  position: absolute;
+  top: 1em;
+  left: 1em;
+  display: flex;
+}
+
+.sidebar-notes-container{
+  display: flex;
+  flex-direction: column;
 }
 
 .App-graph {
@@ -124,35 +142,93 @@
   flex-grow: 10;
 }
 
+.sidebar-settings-container{
+  display: flex;
+  height: 0.9em;
+  align-items: center;
+}
+
+.custom-breadcrumb-seperator {
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  color: var(--lightgrey);
+}
+
+.custom-breadcrumb-item {
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  /* color: var(--orange); */
+  cursor: pointer;
+  align-items: center;
+  display: flex;
+}
+
+.custom-breadcrumb-item-start {
+  padding-right: 0.25em;
+  display: flex;
+  cursor: pointer;
+}
+
+.sidebar-list-object-container {
+  padding: 0.5em;
+  /* color: var(--orange); */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-list-object-text{
+  padding-left: 0.25em;
+}
+
+.sidebar-main-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-notas-logo-text {
+  margin-left: 0.5em;
+}
+
 .zoom-out {
   position: absolute; 
   bottom: 1em; 
-  left: 1em;
+  right: 1em;
+  cursor: pointer;
 }
 
 .zoom-in {
   position: absolute; 
   bottom: 3em; 
-  left: 1em;
+  right: 1em;
+  cursor: pointer;
 }
 
 .download-logo-container {
   display: flex;
+  cursor: pointer;
 }
 
 .add-node-button-container {
-  margin-left: 2em;
+  position: absolute;
+  top: 1em;
+  right: 3em;
+  cursor: pointer;
 }
 
 .settings-container {
+  position: absolute;
+  top: 1em;
+  right: 1em;
   display: flex;
   flex-direction: row;
+  cursor: pointer;
 }
 
 .azure-upload-container {
   display: flex;
   margin-right: 1em;
-  color: rgb(255,106,0);
+  color: var(--orange);
 }
 
 .App-sidebar {
@@ -160,7 +236,7 @@
   flex-grow: 3;
   flex-basis: 10em;
   /* margin-top: 1em; */
-  border: 1px solid lightgrey;
+  border-right: 1px solid lightgrey;
   overflow: hidden;
   height: 100%;
   /* border-top-left-radius: 10px;
@@ -186,7 +262,7 @@
 }
 
 .notas-logo {
-  height: 1.25em;
+  height: 0.9em;
   width: auto;
   /*box-shadow: 0px 0px 10px #fff;*/
 }

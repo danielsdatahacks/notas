@@ -26,6 +26,7 @@ namespace NotasGraph
         public string Name {get; set;}
         public decimal X {get; set;}
         public decimal Y {get; set;}
+        public bool IsFixed {get; set;}
         public List<Link> LinksTowards {get; set;}
     }
 

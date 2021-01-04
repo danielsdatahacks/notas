@@ -5,5 +5,6 @@ export default interface BaseNode {
     Name: string,
     X: number,
     Y: number,
+    IsFixed: boolean,
     LinksTowards: Link[]
 }
