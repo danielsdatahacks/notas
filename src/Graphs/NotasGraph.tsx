@@ -182,6 +182,7 @@ export default function NotasGraph(props: Props) {
             xmlns="http://www.w3.org/2000/svg"
             viewBox={props.GraphViewBox}
             onMouseDown={handlePanStart}
+            onTouchStart={handlePanStart}
         >
             {
                 Object.keys(props.Graph.TopicDictionary).map((id: string) =>

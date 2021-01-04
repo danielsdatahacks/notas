@@ -98,6 +98,7 @@ namespace Notas.Function
                                 node.Text = reader.GetFieldValue<string>("Text");
                                 node.X = reader.GetFieldValue<decimal>("PositionX");
                                 node.Y = reader.GetFieldValue<decimal>("PositionY");
+                                node.IsFixed = true;
                                 node.Hashtags = new List<string>();
                                 node.LinksTowards = new List<Link>();
                                 node.LinksFrom = new List<Link>();
@@ -109,6 +110,7 @@ namespace Notas.Function
                                 node.Name = reader.GetFieldValue<string>("Name");
                                 node.X = reader.GetFieldValue<decimal>("PositionX");
                                 node.Y = reader.GetFieldValue<decimal>("PositionY");
+                                node.IsFixed = true;
                                 node.LinksTowards = new List<Link>();
                                 graph.TopicDictionary.TryAdd(node.ID, node);
                             }
