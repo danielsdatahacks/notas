@@ -102,7 +102,8 @@ export default function NotasGraph(props: Props) {
                             [id]: {
                                 ...props.Graph.NodeDictionary[id],
                                 X: newX,
-                                Y: newY
+                                Y: newY,
+                                IsFixed: true
                             }
                         }
                     });
@@ -110,17 +111,6 @@ export default function NotasGraph(props: Props) {
             
                 if(e.isFinal){
                     isDragging = false;
-                    //Fix position after node has been moved
-                    props.setGraph({
-                        ...props.Graph,
-                        NodeDictionary: {
-                            ...props.Graph.NodeDictionary,
-                            [id]: {
-                                ...props.Graph.NodeDictionary[id],
-                                IsFixed: true
-                            }
-                        }
-                    });
                 }
             }
         } else if (dragMode === DragMode.Hashtag) {
@@ -138,7 +128,8 @@ export default function NotasGraph(props: Props) {
                             [id]: {
                                 ...props.Graph.TopicDictionary[id],
                                 X: newX,
-                                Y: newY
+                                Y: newY,
+                                IsFixed: true
                             }
                         }
                     });
@@ -146,17 +137,6 @@ export default function NotasGraph(props: Props) {
             
                 if(e.isFinal){
                     isDragging = false;
-                    //Fix position after node has been moved.
-                    props.setGraph({
-                        ...props.Graph,
-                        TopicDictionary: {
-                            ...props.Graph.TopicDictionary,
-                            [id]: {
-                                ...props.Graph.TopicDictionary[id],
-                                IsFixed: true
-                            }
-                        }
-                    });
                 }
             }
 
@@ -186,23 +166,21 @@ export default function NotasGraph(props: Props) {
         >
             {
                 Object.keys(props.Graph.TopicDictionary).map((id: string) =>
-                (props.FilterHashtagID === "" || props.Graph.TopicDictionary[id].ID === props.FilterHashtagID) &&
                     <g id={"h" + id} key={"hg1" + id}>
                         <circle 
                             id={"h" + id}
-                            // onClick={() => props.onClickHashtag(id)}
+                            onClick={() => props.onClickHashtag(id)}
                             key={"hc" + id}
                             cx={props.Graph.TopicDictionary[id].X.toString()} 
                             cy={props.Graph.TopicDictionary[id].Y.toString()}
-                            r="150"
-                            fill={"rgb(255,106,0)"} 
+                            r="100"
+                            fill={(props.FilterHashtagID === "" || props.Graph.TopicDictionary[id].ID === props.FilterHashtagID)? "rgba(255,106,0,1)" : "rgba(255,106,0,0.2)"} 
                         />
                     </g>
                 )
             }
             {
                 Object.keys(props.Graph.NodeDictionary).map((id1: string) =>
-                    (props.FilterHashtagID === "" || props.Graph.NodeDictionary[id1].Hashtags.includes(props.FilterHashtagID)) &&
                         props.Graph.NodeDictionary[id1].LinksTowards.map((id2: Link) =>
                             <line
                                 key={"l" + id1 + id2.ID}
@@ -210,14 +188,13 @@ export default function NotasGraph(props: Props) {
                                 y1={props.Graph.NodeDictionary[id1].Y.toString()} 
                                 x2={props.Graph.NodeDictionary[id2.ID].X.toString()} 
                                 y2={props.Graph.NodeDictionary[id2.ID].Y.toString()} 
-                                style={{stroke:"grey",strokeWidth:4}} 
+                                style={{stroke:(props.FilterHashtagID === "" || props.Graph.NodeDictionary[id1].Hashtags.includes(props.FilterHashtagID))? "rgb(128,128,128)" : "rgba(128,128,128,0.2)",strokeWidth:4}} 
                             />
                         )
                 )
             }
             {
                 Object.keys(props.Graph.NodeDictionary).map((id: string) =>
-                    (props.FilterHashtagID === "" || props.Graph.NodeDictionary[id].Hashtags.includes(props.FilterHashtagID)) &&
                         <g id={"n" + id} key={"ng" + id}>
                             <circle 
                                 id={"n" + id}
@@ -226,16 +203,15 @@ export default function NotasGraph(props: Props) {
                                 cx={props.Graph.NodeDictionary[id].X.toString()} 
                                 cy={props.Graph.NodeDictionary[id].Y.toString()}
                                 r="50" 
-                                stroke={"whitesmoke"} 
+                                stroke={"white"} 
                                 strokeWidth="4" 
-                                fill={props.Graph.NodeDictionary[id].Hashtags.map(function(el){return props.Graph.TopicDictionary[el].Name}).includes(props.HighlightedHashtag)? 
-                                    (id === props.SelectedNodeID? "red" : "rgb(255,106,0)") : (id === props.SelectedNodeID? "red" : "grey")} 
+                                fill={(props.FilterHashtagID === "" || props.Graph.NodeDictionary[id].Hashtags.includes(props.FilterHashtagID))? (id === props.SelectedNodeID? "red" : "rgb(128,128,128)") : (id === props.SelectedNodeID? "red" : "rgba(128,128,128,0.2)")}
                             />
                             <text 
                                 key={"tn" + id}
                                 x={(props.Graph.NodeDictionary[id].X).toString()} 
-                                y={(props.Graph.NodeDictionary[id].Y+90).toString()} 
-                                style={{textAnchor: "middle", fontSize: "40", fill: "grey"}}
+                                y={(props.Graph.NodeDictionary[id].Y+110).toString()} 
+                                style={{textAnchor: "middle", fontSize: "60", fill: (props.FilterHashtagID === "" || props.Graph.NodeDictionary[id].Hashtags.includes(props.FilterHashtagID))? "rgb(128,128,128)" : (id === props.SelectedNodeID? "rgb(128,128,128)" : "rgba(128,128,128,0.2)")}}
                             >
                                 {props.Graph.NodeDictionary[id].Name}
                             </text>
@@ -255,13 +231,13 @@ export default function NotasGraph(props: Props) {
             }
             {
                 Object.keys(props.Graph.TopicDictionary).map((id: string) =>
-                    (props.FilterHashtagID === "" || props.Graph.TopicDictionary[id].ID === props.FilterHashtagID) &&
                     <g key={"hg2" + id}>
                         <text 
                             key={"ht" + id}
                             x={(props.Graph.TopicDictionary[id].X).toString()} 
-                            y={(props.Graph.TopicDictionary[id].Y+400).toString()} 
-                            style={{textAnchor: "middle", fontSize: "225"}}
+                            y={(props.Graph.TopicDictionary[id].Y+200).toString()} 
+                            style={{textAnchor: "middle", fontSize: "100", fill: (props.FilterHashtagID === "" || props.Graph.TopicDictionary[id].ID === props.FilterHashtagID)? "rgb(128,128,128)" : "rgba(128,128,128,0.2)"}}
+
                         >
                             {props.Graph.TopicDictionary[id].Name}
                         </text>

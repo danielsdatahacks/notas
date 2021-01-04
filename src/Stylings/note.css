@@ -20,8 +20,8 @@
     padding-left: 2em;
     padding-right: 2em;
     padding-bottom: 2em;
-    padding-top: 1em;
-    height: calc(100% - 2.5em);
+    margin-top: 2em;
+    height: 100%;
     overflow: scroll;
     overflow-wrap: break-word;
   }

@@ -126,7 +126,7 @@ function App(props: Props) {
   function onAddNodeButtonClick() {
     let id: string = uuidv4();
     if(!(id in graph.NodeDictionary) ){
-      let text: string = "# Title \n\n Enter markdown text.";
+      let text: string = "# Test note \n\n Enter markdown text.";
       let hashtags: string[] = [] as string[];
       let name: string = "Test note";
       let x: number = 15000;

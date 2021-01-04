@@ -191,7 +191,8 @@ export const updateNoteName = (noteID: string, noteName: string, graph: Graph): 
             NodeDictionary: {
                 ...tempGraph.NodeDictionary,
                 [noteID]: {
-                    ...tempGraph.NodeDictionary[noteID]
+                    ...tempGraph.NodeDictionary[noteID],
+                    Name: noteName
                 }
             }
         }
