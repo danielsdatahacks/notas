@@ -81,6 +81,21 @@ namespace Notas.Function
                 )
                 ";
 
+                //SQL query to delete nodes and links
+                var SQL_NODE_LINK_DELETION = @"
+                delete l
+                from links l
+                inner join nodes ns on ns.NodeID = l.StartNodeID
+                inner join nodes ne on ne.NodeID = l.EndNodeID
+                inner join @Strings s on s.String = ns.ExternalID or s.String = ne.ExternalID
+                where l.GraphID = @GraphID
+
+                delete n
+                from nodes n
+                inner join @Strings s on s.String = n.ExternalID
+                where n.GraphID = @GraphID
+                ";
+
                 //SQL query to insert and update
                 var SQL_NODE_UPSERT = @"
                 insert into dbo.Nodes (ExternalID, Name, Text, GraphID, PositionX, PositionY, Type, EditDate)
@@ -125,44 +140,6 @@ namespace Notas.Function
                         where lo.StartNodeID = ns.NodeID and lo.EndNodeID = ne.NodeID and lo.GraphID = l.GraphID
                     )";
 
-                // var SQL_UPSERT_HASHTAGS = @"
-                //     --Insert statement
-                //     insert into dbo.hashtags (ExternalID, Name, GraphID, EditDate)
-                //     select
-                //     hn.ExternalID,
-                //     hn.Name,
-                //     hn.GraphID,
-                //     GETUTCDATE()
-                //     from @Hashtags hn
-                //     where not exists (
-                //         select 1 
-                //         from hashtags h
-                //         where h.ExternalID = hn.ExternalID and h.GraphID = hn.GraphID
-                //     )
-
-                //     --Update statement
-                //     update h
-                //     set h.Name = hn.Name
-                //     from hashtags h
-                //     inner join @Hashtags hn on hn.ExternalID = h.ExternalID
-                //     where hn.Name <> h.Name and h.GraphID = hn.GraphID
-                // ";
-
-                // var SQL_INSERT_HASHTAGNODES = @"
-                //     --Insert statement
-                //     insert into dbo.hashtagnodes (HashtagID, NodeID, EditDate)
-                //     select
-                //     h.HashtagID,
-                //     n.NodeID,
-                //     GETUTCDATE()
-                //     from @HasthtagNodes hn
-                //     inner join hashtags h on h.ExternalID = hn.HasthtagExternalID and h.GraphID = hn.GraphID
-                //     inner join nodes n on n.ExternalID = hn.NodeExternalID and h.GraphID = hn.GraphID
-                //     where not exists (
-                //         select 1 
-                //         from hashtagnodes ho
-                //         where ho.HashtagID = h.HashtagID and ho.NodeID = n.NodeID
-                // )";
 
                 using (SqlConnection conn = new SqlConnection(connection)){
                     conn.Open();
@@ -191,6 +168,25 @@ namespace Notas.Function
                             graphID = (int)cmd.ExecuteScalar();
                         }
                         log.LogInformation("Created new user and graph");
+
+
+                        //Delete links and nodes
+                        var dl = new DataTable();
+                        dl.Columns.Add("String", typeof(string));
+                        foreach(var noteID in graph.DeletedNodeIDs){
+                            dl.Rows.Add(noteID);
+                        }
+
+                        summary += String.Format("Trying to delete {0} note nodes. \n", dl.Rows.Count);
+                        log.LogInformation(summary);
+
+                        cmd.CommandText = SQL_NODE_LINK_DELETION;
+                        cmd.Parameters.Add("@GraphID", SqlDbType.VarChar).Value = graphID;
+                        var deleteTvpParameter = cmd.Parameters.AddWithValue("@Strings", dl);
+                        deleteTvpParameter.SqlDbType = SqlDbType.Structured;
+                        deleteTvpParameter.TypeName = "dbo.Strings";
+                        cmd.ExecuteNonQuery();
+                        cmd.Parameters.Remove(deleteTvpParameter);
 
                         //Upsert nodes
                         var dtn = new DataTable();

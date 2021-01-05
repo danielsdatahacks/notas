@@ -47,7 +47,7 @@ function App(props: Props) {
   const [showAzureDownloadSpinner, setAzureDownloadSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
   const [showAzureUploadSpinner, setAzureUploadSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
   const [showBearImportSpinner, setBearImportSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
-  const [graph, setGraph]: [Graph, React.Dispatch<React.SetStateAction<Graph>>] = useState({ExternalUserID: "", Energy: 0, NodeDictionary: {}, TopicDictionary: {}});
+  const [graph, setGraph]: [Graph, React.Dispatch<React.SetStateAction<Graph>>] = useState({ExternalUserID: "", Energy: 0, DeletedNodeIDs: [] as string[], NodeDictionary: {}, TopicDictionary: {}});
   const [selectedNodeID, selectNode]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   //const [searchInput, setSearchInput]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   const [filterHashtagID, setFilterHashtagID]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");

@@ -45,8 +45,7 @@ function Sidebar(props: Props) {
   function onClickDeleteNote() {
     let tempGraph = removeNoteFromGraph(props.SelectedNodeID, props.Graph);
     props.setGraph({
-      ...tempGraph,
-      Energy: 1000
+      ...tempGraph
     });
 
     props.setShowSidebar(false);

@@ -42,6 +42,7 @@ namespace Notas.Function
 
                 var graph = new Graph();
                 graph.Energy = 1000;
+                graph.DeletedNodeIDs = new List<string>();
                 graph.NodeDictionary = new Dictionary<string, Node>();
                 graph.TopicDictionary = new Dictionary<string, BaseNode>();
 

@@ -32,7 +32,7 @@ for await (const entry of dirHandle.values()) {
     let hashtagDict: {[id: string]: BaseNode} = tempGraph.TopicDictionary;
 
     //Update the global hashtagDictionary and collect hashtags for current note
-    let nodeHashtags = getHashtagsFromNoteText(noteID, noteText, hashtagDict);
+    let nodeHashtags = getHashtagsFromNoteText(noteID, noteText, tempGraph);
     let hashtagsOfCurrentNote = nodeHashtags.Hashtags;
     hashtagDict = nodeHashtags.HashtagDict;
     

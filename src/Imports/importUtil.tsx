@@ -6,11 +6,12 @@ import * as regex from '../Regex/regex'
 import Graph from "../models/graph";
 
 //This function extracts the hashtags from the noteText and updates the global hashtagDict if necessary.
-export const getHashtagsFromNoteText = (noteID: string, noteText: string, hashtagDict: {[id: string]: BaseNode}): NodeHashtags => {
+export const getHashtagsFromNoteText = (noteID: string, noteText: string, graph: Graph): NodeHashtags => {
 
     let nodeHashtags: NodeHashtags = {HashtagDict: {}, Hashtags: [] as string []};
 
-    let hashtagDictTemp = hashtagDict;
+    let hashtagDictTemp = graph.TopicDictionary; //Current hashtags.
+    let previousHashtagsOfNoteTemp = graph.NodeDictionary[noteID].Hashtags;
     let hashtagsOfCurrentNote: string[] = [];
     let regExHashtagMatch: RegExpMatchArray | null = noteText.match(regex.hashtagRegEx);
     if(regExHashtagMatch !== null){
@@ -19,13 +20,16 @@ export const getHashtagsFromNoteText = (noteID: string, noteText: string, hashta
         hashtag = hashtag.slice(1,hashtag.length);
         //Check whether global hashtagDict has to be extended and collect hashtags for current note.
         let hashtagIsNew: boolean = true;
-        for(let hashtagID in hashtagDictTemp){
-          if(hashtagDictTemp[hashtagID].Name === hashtag){
-            hashtagIsNew = false;
-            hashtagsOfCurrentNote.push(hashtagID);
-            hashtagDictTemp[hashtagID].LinksTowards.push({ID: noteID, Name: ""});
-          }
-        }
+        Object.keys(hashtagDictTemp).forEach(function(hashtagID) {
+            if(hashtagDictTemp[hashtagID].Name === hashtag){
+                hashtagIsNew = false;
+                hashtagsOfCurrentNote.push(hashtagID);
+                //Only add note when it does not exist already.
+                if(!hashtagDictTemp[hashtagID].LinksTowards.map(function(el) {return el.ID}).includes(noteID)){
+                    hashtagDictTemp[hashtagID].LinksTowards.push({ID: noteID, Name: ""});
+                }
+              }
+        });
         if(hashtagIsNew){
           let newHashtagID: string = (Object.keys(hashtagDictTemp).length + 1).toString();
           hashtagsOfCurrentNote.push(newHashtagID);
@@ -44,6 +48,28 @@ export const getHashtagsFromNoteText = (noteID: string, noteText: string, hashta
         }
       } 
     }
+
+    //Check whether a hashtag from the global hashtagDict has to be removed.
+    hashtagsOfCurrentNote.forEach(function(hashtagID) {
+        const index = previousHashtagsOfNoteTemp.indexOf(hashtagID);
+        if (index > -1) {
+            previousHashtagsOfNoteTemp.splice(index, 1);
+        }
+    });
+    previousHashtagsOfNoteTemp.forEach(function(hashtagID) {
+        //In global hashtag dict remove the links towards the current note.
+        if(hashtagID in hashtagDictTemp){
+            const index = hashtagDictTemp[hashtagID].LinksTowards.map(function(el) {return el.ID}).indexOf(noteID);
+            if (index > -1) {
+                hashtagDictTemp[hashtagID].LinksTowards.splice(index, 1);
+            }
+
+            //If the hashtag has no note anymore the hashtag can be deleted entirely.
+            if(hashtagDictTemp[hashtagID].LinksTowards.length === 0) {
+                delete hashtagDictTemp[hashtagID];
+            }
+        }
+    });
 
     nodeHashtags.HashtagDict = hashtagDictTemp;
     nodeHashtags.Hashtags = hashtagsOfCurrentNote;
@@ -278,6 +304,9 @@ export const removeNoteFromGraph = (noteID: string, graph: Graph): Graph => {
                 }
             }
         }
+
+        //Store deleted noteID in the deleted list
+        tempGraph.DeletedNodeIDs.push(noteID);
     }
 
     return tempGraph;

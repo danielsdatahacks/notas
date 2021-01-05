@@ -42,7 +42,7 @@ function SidebarNoteText(props: Props) {
             tempGraph = updateGraphFromLinksOfNote(selectedNode.ID, {ID: selectedNode.ID, Name: noteName}, linkedNodes, tempGraph)
     
             //Get the hashtags from the node text
-            let nodeHashtags = getHashtagsFromNoteText(props.SelectedNodeID, selectedNode.Text, props.Graph.TopicDictionary);
+            let nodeHashtags = getHashtagsFromNoteText(props.SelectedNodeID, selectedNode.Text, props.Graph);
             tempGraph = updateGraphFromHashtagsOfNote(selectedNode.ID, nodeHashtags, tempGraph);
     
             //Update the graph

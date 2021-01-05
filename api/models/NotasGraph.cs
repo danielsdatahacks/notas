@@ -8,6 +8,8 @@ namespace NotasGraph
 
         public decimal Energy { get; set; }
 
+        public List<string> DeletedNodeIDs {get; set;}
+
         public Dictionary<string, Node> NodeDictionary { get; set; }
 
         public Dictionary<string, BaseNode> TopicDictionary { get; set; }

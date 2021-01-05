@@ -5,6 +5,7 @@ import BaseNode from "./baseNode";
 export default interface Graph {
     ExternalUserID: string,
     Energy: number,
+    DeletedNodeIDs: string[],
     NodeDictionary:  {[id: string]: Node},
     TopicDictionary: {[id: string]: BaseNode}
 }
