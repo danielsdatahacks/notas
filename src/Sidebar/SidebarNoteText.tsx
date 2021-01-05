@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { getHashtagsFromNoteText, getLinkedNodesFromText, updateGraphFromHashtagsOfNote, updateGraphFromLinksOfNote, updateNoteName } from '../Imports/importUtil';
+import { updateHashtagsFromNoteText, getLinkedNodesFromText, updateGraphFromLinksOfNote, updateNoteName } from '../Imports/importUtil';
 import Graph from '../models/graph';
 import * as regex from '../Regex/regex';
 import marked from 'marked';
@@ -42,9 +42,8 @@ function SidebarNoteText(props: Props) {
             tempGraph = updateGraphFromLinksOfNote(selectedNode.ID, {ID: selectedNode.ID, Name: noteName}, linkedNodes, tempGraph)
     
             //Get the hashtags from the node text
-            let nodeHashtags = getHashtagsFromNoteText(props.SelectedNodeID, selectedNode.Text, props.Graph);
-            tempGraph = updateGraphFromHashtagsOfNote(selectedNode.ID, nodeHashtags, tempGraph);
-    
+            tempGraph = updateHashtagsFromNoteText(props.SelectedNodeID, selectedNode.Text, tempGraph);
+            
             //Update the graph
             props.setGraph({
               ...tempGraph,

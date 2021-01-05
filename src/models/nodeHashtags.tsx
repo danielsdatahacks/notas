@@ -1,6 +1,7 @@
 import BaseNode from "./baseNode";
+import Graph from "./graph";
 
 export default interface NodeHashtags {
-    HashtagDict: {[id: string]: BaseNode},
+    Graph: Graph,
     Hashtags: string[]
 }

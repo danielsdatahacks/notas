@@ -2,7 +2,7 @@ import Graph from '../models/graph';
 import Link from '../models/link';
 import BaseNode from '../models/baseNode';
 import * as regex from '../Regex/regex';
-import {getHashtagsFromNoteText} from '../Imports/importUtil'
+import {getHashtagsOfNoteAndUpdatedGlobalHashtagDict} from '../Imports/importUtil'
 
 export const bearImport = async (graph: Graph): Promise<Graph> => {
 
@@ -32,9 +32,9 @@ for await (const entry of dirHandle.values()) {
     let hashtagDict: {[id: string]: BaseNode} = tempGraph.TopicDictionary;
 
     //Update the global hashtagDictionary and collect hashtags for current note
-    let nodeHashtags = getHashtagsFromNoteText(noteID, noteText, tempGraph);
+    let nodeHashtags = getHashtagsOfNoteAndUpdatedGlobalHashtagDict(noteID, noteText, tempGraph);
     let hashtagsOfCurrentNote = nodeHashtags.Hashtags;
-    hashtagDict = nodeHashtags.HashtagDict;
+    hashtagDict = nodeHashtags.Graph.TopicDictionary;
     
     //2. Get linked notes as list https://regexr.com
     let linkIDs: Link[] = [];
@@ -105,11 +105,11 @@ for await (const entry of dirHandle.values()) {
                 ID: noteID,
                 Name: noteName,
                 Text: noteText,
-                Hashtags: [...tempGraph.NodeDictionary[noteID].Hashtags, ...hashtagsOfCurrentNote],
+                Hashtags: hashtagsOfCurrentNote,
                 X: tempGraph.NodeDictionary[noteID].X,
                 Y: tempGraph.NodeDictionary[noteID].Y,
                 IsFixed: false,
-                LinksTowards: [...tempGraph.NodeDictionary[noteID].LinksTowards, ...linkIDs],
+                LinksTowards: linkIDs,
                 LinksFrom: tempGraph.NodeDictionary[noteID].LinksFrom
               }
         }

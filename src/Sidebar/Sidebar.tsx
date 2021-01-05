@@ -1,11 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import BaseNode from '../models/baseNode';
 import '../Stylings/note.css';
-//import './Stylings/bear.css';
-import marked from 'marked';
 import Graph from '../models/graph';
-import * as regex from '../Regex/regex'
-import {getHashtagsFromNoteText, getLinkedNodesFromText, updateGraphFromLinksOfNote, updateGraphFromHashtagsOfNote, updateNoteName, removeNoteFromGraph, unfixTextNodes} from '../Imports/importUtil'
+import {removeNoteFromGraph, unfixTextNodes} from '../Imports/importUtil'
 import { Icon } from '@iconify/react';
 import dotsThreeVertical from '@iconify-icons/ph/dots-three-vertical';
 import linkSimpleHorizontal from '@iconify-icons/ph/link-simple-horizontal';
