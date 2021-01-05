@@ -45,7 +45,7 @@ function Sidebar(props: Props) {
       ...tempGraph
     });
 
-    props.setShowSidebar(false);
+    props.setSidebarView(SidebarView.NotesList);
   }
 
   function copyLinkToClipboard() {

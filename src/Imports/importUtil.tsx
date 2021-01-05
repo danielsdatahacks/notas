@@ -339,13 +339,20 @@ export const removeNoteFromGraph = (noteID: string, graph: Graph): Graph => {
                 const index = hashtagLinksTowards.map(function(el){return el.ID}).indexOf(noteID);
                 if (index > -1) {
                     hashtagLinksTowards.splice(index, 1);
-                    tempGraph = {
-                        ...tempGraph,
-                        TopicDictionary: {
-                            ...tempGraph.TopicDictionary,
-                            [hashtags[i]]: {
-                                ...tempGraph.TopicDictionary[hashtags[i]],
-                                LinksTowards: hashtagLinksTowards
+
+                    //Remove entire hashtag if necessary
+                    if(hashtagLinksTowards.length === 0){
+                        tempGraph.DeletedNodeIDs.push(hashtags[i]);
+                        delete tempGraph.TopicDictionary[hashtags[i]];
+                    } else {
+                        tempGraph = {
+                            ...tempGraph,
+                            TopicDictionary: {
+                                ...tempGraph.TopicDictionary,
+                                [hashtags[i]]: {
+                                    ...tempGraph.TopicDictionary[hashtags[i]],
+                                    LinksTowards: hashtagLinksTowards
+                                }
                             }
                         }
                     }
