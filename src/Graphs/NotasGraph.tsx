@@ -41,46 +41,36 @@ export default function NotasGraph(props: Props) {
             let hashtagID: string = e.target.id.slice(1, e.target.id.length);
             if(hashtagID in props.Graph.TopicDictionary){
                 //Initialize drag of the node
-                if(!isDragging){
-                    isDragging = true;
-                    dragMode = DragMode.Hashtag;
-                    id = hashtagID;
-                    let viewBox = props.GraphViewBox.split(" ");
-                    xStart = props.Graph.TopicDictionary[hashtagID].X; //Initial x position
-                    yStart = props.Graph.TopicDictionary[hashtagID].Y; //Initial y position
-                    xWidth = parseFloat(viewBox[2]);
-                    yWidth = parseFloat(viewBox[3]);
-                }
+                dragMode = DragMode.Hashtag;
+                id = hashtagID;
+                let viewBox = props.GraphViewBox.split(" ");
+                xStart = props.Graph.TopicDictionary[hashtagID].X; //Initial x position
+                yStart = props.Graph.TopicDictionary[hashtagID].Y; //Initial y position
+                xWidth = parseFloat(viewBox[2]);
+                yWidth = parseFloat(viewBox[3]);
             }
         } 
         else if(e.target.id[0] === "n"){
             let noteID: string = e.target.id.slice(1, e.target.id.length);
             if(noteID in props.Graph.NodeDictionary){
                 //Initialize drag of the node
-                if(!isDragging){
-                    isDragging = true;
-                    dragMode = DragMode.Note;
-                    id = noteID;
-                    let viewBox = props.GraphViewBox.split(" ");
-                    xStart = props.Graph.NodeDictionary[noteID].X; //Initial x position
-                    yStart = props.Graph.NodeDictionary[noteID].Y; //Initial y position
-                    xWidth = parseFloat(viewBox[2]);
-                    yWidth = parseFloat(viewBox[3]);
-                }
-            }
-        } else {
-            //Initialize drag of the whole graph
-            if(!isDragging){
-                console.log("Initializing drag of whole graph.");
-                isDragging = true;
-                dragMode = DragMode.Graph;
-                id = "";
+                dragMode = DragMode.Note;
+                id = noteID;
                 let viewBox = props.GraphViewBox.split(" ");
-                xStart = parseFloat(viewBox[0]); //Initial xMin
-                yStart = parseFloat(viewBox[1]); //Initial yMin
+                xStart = props.Graph.NodeDictionary[noteID].X; //Initial x position
+                yStart = props.Graph.NodeDictionary[noteID].Y; //Initial y position
                 xWidth = parseFloat(viewBox[2]);
                 yWidth = parseFloat(viewBox[3]);
             }
+        } else {
+            //Initialize drag of the whole graph
+            dragMode = DragMode.Graph;
+            id = "";
+            let viewBox = props.GraphViewBox.split(" ");
+            xStart = parseFloat(viewBox[0]); //Initial xMin
+            yStart = parseFloat(viewBox[1]); //Initial yMin
+            xWidth = parseFloat(viewBox[2]);
+            yWidth = parseFloat(viewBox[3]);
         }
     }
 
@@ -108,10 +98,6 @@ export default function NotasGraph(props: Props) {
                         }
                     });
                 }
-            
-                if(e.isFinal){
-                    isDragging = false;
-                }
             }
         } else if (dragMode === DragMode.Hashtag) {
 
@@ -134,22 +120,13 @@ export default function NotasGraph(props: Props) {
                         }
                     });
                 }
-            
-                if(e.isFinal){
-                    isDragging = false;
-                }
             }
 
         } else if(dragMode === DragMode.Graph) {
-            console.log("Dragging whole graph.");
             if(svgWidth !== undefined) {
                 let xMin = xStart - xWidth * e.deltaX / svgWidth;
                 let yMin = yStart - xWidth * e.deltaY / svgWidth;
                 props.setGraphViewBox(xMin.toString()+" "+yMin.toString()+" "+xWidth.toString()+" "+yWidth.toString());
-            }
-    
-            if(e.isFinal){
-                isDragging = false;
             }
         }
     }

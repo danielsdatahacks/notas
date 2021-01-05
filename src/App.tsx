@@ -91,6 +91,12 @@ function App(props: Props) {
     }
   },[graph]);
 
+  useEffect(() => {
+    if(props.identity.loggedIn === 1){
+      onClickAzureDownload();
+    }
+  },[props.identity])
+
   function onClickNode(id: string) {
     if(id in graph.NodeDictionary) {
         selectNode(id);
@@ -246,10 +252,12 @@ function App(props: Props) {
           console.log(data);
           setAzureDownloadSpinner(0);
           if(typeof(data) == typeof(graph)){
+            //If graph is empty we should use a getting started graph!
             setGraph(data);
           }
         })
         .catch((e) => {
+          //If graph is empty we should use a getting started graph!
           console.log(e);
           setAzureDownloadSpinner(0);
         });
