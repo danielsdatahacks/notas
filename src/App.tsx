@@ -31,6 +31,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Toast from 'react-bootstrap/Toast';
 import {SidebarView} from './models/sidebarViews';
 import { fixAllNodes } from './Imports/importUtil';
+import { getAutomaticTypeDirectiveNames } from 'typescript';
 
 //import uuid from 'uuid';
 //import { textChangeRangeIsUnchanged } from 'typescript';
@@ -263,7 +264,7 @@ function App(props: Props) {
         });
     } else {
       //Show some error. User is not authenticated.
-      setAzureUploadSpinner(0);
+      setAzureDownloadSpinner(0);
     }
   }
 
@@ -365,13 +366,19 @@ function App(props: Props) {
           <div className="settings-container">
             <OverlayTrigger trigger={"click"} rootClose placement="bottom" overlay={popover} >
               <div className="download-logo-container">
-                <Icon width="1.6em" icon={slidersIcon} color="rgb(253,107,33)" />
+                {(showBearImportSpinner === 1 || showAzureUploadSpinner === 1 || showAzureDownloadSpinner === 1) &&
+                    <Spinner className="notas-spinner-large" animation="border"/>
+                }
+                {(showBearImportSpinner === 0 && showAzureUploadSpinner === 0 && showAzureDownloadSpinner === 0) &&
+                  <Icon width="1.6em" icon={slidersIcon} color="rgb(253,107,33)" />
+                }
               </div>
             </OverlayTrigger> 
           </div>
         {showSidebar &&
           <div className="App-sidebar">
             <Sidebar 
+              onClickAzureUpload={onClickAzureUpload}
               setSidebarView={setSidebarView}
               sidebarView={sidebarView}
               onClickNode={onClickNode} 

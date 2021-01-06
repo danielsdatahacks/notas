@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useRef , useEffect, useLayoutEffect} from 'react';
 import { updateHashtagsFromNoteText, getLinkedNodesFromText, updateGraphFromLinksOfNote, updateNoteName } from '../Imports/importUtil';
 import Graph from '../models/graph';
 import * as regex from '../Regex/regex';
@@ -7,7 +7,8 @@ import marked from 'marked';
 interface Props {
     Graph: Graph,
     SelectedNodeID: string,
-    setGraph: React.Dispatch<React.SetStateAction<Graph>>
+    setGraph: React.Dispatch<React.SetStateAction<Graph>>,
+    onClickAzureUpload(): void
 }
 
 function SidebarNoteText(props: Props) {
@@ -17,7 +18,16 @@ function SidebarNoteText(props: Props) {
 
     let markdownInput: HTMLTextAreaElement | null;
 
-    useEffect(() => {
+    //https://kentcdodds.com/blog/useeffect-vs-uselayouteffect
+    const firstUpdate = useRef(true);
+    useLayoutEffect(() => {
+
+        //To make sure the rest of the function is not called on the first render!
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+          }
+
         console.log("Edit mode changed.");
         if(inEditMode){
           //Switch to edit mode
@@ -46,9 +56,11 @@ function SidebarNoteText(props: Props) {
             
             //Update the graph
             props.setGraph({
-              ...tempGraph,
-              Energy: 1000
+              ...tempGraph
             });
+
+            //Auto save in the cloud after editing a note.
+            props.onClickAzureUpload();
     
             //Get raw markup from node text.
             let rawMarkup = marked(selectedNode.Text);

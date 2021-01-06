@@ -217,6 +217,7 @@
   top: 1em;
   right: 3em;
   cursor: pointer;
+  display: flex;
 }
 
 .settings-container {
@@ -261,7 +262,13 @@
 }
 
 .notas-spinner {
-  color: rgb(253,107,33)
+  color: rgb(253,107,33);
+}
+
+.notas-spinner-large {
+  color: rgb(253,107,33);
+  height: 1.6em !important;
+  width: 1.6em !important;
 }
 
 .notas-logo {

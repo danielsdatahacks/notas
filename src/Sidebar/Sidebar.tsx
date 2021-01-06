@@ -30,7 +30,8 @@ interface Props {
     setSidebarView: React.Dispatch<React.SetStateAction<SidebarView>>,
     sidebarView: SidebarView,
     filterHashtagID: string,
-    setFilterHashtagID: React.Dispatch<React.SetStateAction<string>>
+    setFilterHashtagID: React.Dispatch<React.SetStateAction<string>>,
+    onClickAzureUpload(): void
 }
 
 function Sidebar(props: Props) {
@@ -159,15 +160,16 @@ function Sidebar(props: Props) {
             }
             {props.sidebarView === SidebarView.NotesList &&
               <SidebarNotes 
-                filterHashtagID={props.filterHashtagID}
+                filterHashtagID={props.filterHashtagID} 
                 onClickNode={props.onClickNode} 
                 setSidebarView={props.setSidebarView} 
                 NodeDictionary={props.Graph.NodeDictionary}
-                TopicDictionary={props.Graph.TopicDictionary}
+                TopicDictionary={props.Graph.TopicDictionary} 
               />
             }
             {props.sidebarView === SidebarView.NoteText &&
               <SidebarNoteText 
+                onClickAzureUpload={props.onClickAzureUpload}
                 Graph={props.Graph} 
                 SelectedNodeID={props.SelectedNodeID} 
                 setGraph={props.setGraph}
