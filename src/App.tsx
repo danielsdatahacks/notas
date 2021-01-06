@@ -302,8 +302,8 @@ function App(props: Props) {
           console.log(data);
           setAzureDownloadSpinner(0);
           if(typeof(data) == typeof(graph)){
-            if(data.NodeDictionary.length === 0){
-
+            if(Object.keys(data.NodeDictionary).length === 0){
+              //Keep the graph from the start.
             } else {
               setGraph(data);
             }
