@@ -9,4 +9,4 @@ export const idRegEx: RegExp = /id=.+\)/g;
 export const linkNameRegEx: RegExp = /\[.+\]/g;
 
 //Regex identifying hashtags
-export const hashtagRegEx: RegExp = /\B(\#[a-zA-Z/_\Ä\ä\Ö\ö\Ü\ü]+)(?!;)/g;
+export const hashtagRegEx: RegExp = /\B(\#[a-zA-Z0-9/_/'\-\Ä\ä\Ö\ö\Ü\ü]+)(?!;)/g;

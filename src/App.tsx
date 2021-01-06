@@ -43,19 +43,68 @@ interface Props {
   identity: Identity,
 }
 
+const gettingStartedGraph: Graph = {
+  ExternalUserID: "",  
+  Energy: 1000,
+  DeletedNodeIDs: [] as string[],
+  NodeDictionary: {
+    ["0"]: {
+      ID: "0",
+      Name: "Getting started",
+      Text: "# Welcome to Notas\n\n#GettingStarted #Notas\n\nNotas combines the features of note taking and mind maps into a single application.\n\nEvery note, tag and its connections are visualized in one graph.\n\nCheck out [Features of Notas](notasid=1) to get an overview of the main features.\n\nRead this article to learn more about the advantages of Notas features: https://writingcooperative.com/zettelkasten-how-one-german-scholar-was-so-freakishly-productive-997e4e0ca125",
+      X: 1,
+      Y: 0,
+      Hashtags: ["2", "3"],
+      LinksFrom: [] as Link[],
+      LinksTowards: [{ID: "1", Name: ""}],
+      IsFixed: false
+
+    },
+    ["1"]: {
+      ID: "1",
+      Name: "Features of Notas",
+      Text: `# Features of Notas\n\n#GettingStarted #Notas\n\n### Tagging\n\nTagging notes is like putting them into folders, but better. Each note can have more than one tag that you can use to categorize your note. Simply write a hashtag in the text of your note to create a tag. Click on a hashtag in the graph or in the sidebar to get a list of all notes with that tag.\n\n### Cloud\n\nYour notes are stored securely in the cloud. Everytime you start Notas your notes are downloaded from the cloud. All changes to the notes are automatically uploaded.\n\n### Connecting the dots\n\nStore a train of thoughts or a flow chart by creating notes and connecting them. Click on the three dots in the sidebar to copy a link to a note. Paste that link into the text of another note to create a connection.\n\n### Navigate in the graph\n- zoom in and out of the graph\n- drag the whole graph see different parts of the graph\n- drag and drop nodes to change their position\n- click on a node to see its entire text in the sidebar\n- click on a hashtag to see a list of notes with that tag"`,
+      X: 0,
+      Y: 0,
+      Hashtags: ["2", "3"],
+      LinksFrom: [{ID: "0", Name: ""}],
+      LinksTowards: [] as Link[],
+      IsFixed: false
+    }
+  },
+  TopicDictionary: {
+    ["2"]: {
+      ID: "2",
+      Name: "GettingStarted",
+      IsFixed: true,
+      LinksTowards: [{ID: "1", Name: ""}, {ID: "0", Name: ""}],
+      X: 9426,
+      Y: 6101
+    },
+    ["3"]: {
+      ID: "3",
+      Name: "Notas",
+      IsFixed: true,
+      LinksTowards: [{ID: "1", Name: ""}, {ID: "0", Name: ""}],
+      X: 6776,
+      Y: 6381
+    }
+  }
+}
+
 function App(props: Props) {
 
   const [showAzureDownloadSpinner, setAzureDownloadSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
   const [showAzureUploadSpinner, setAzureUploadSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
   const [showBearImportSpinner, setBearImportSpinner]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(0);
-  const [graph, setGraph]: [Graph, React.Dispatch<React.SetStateAction<Graph>>] = useState({ExternalUserID: "", Energy: 0, DeletedNodeIDs: [] as string[], NodeDictionary: {}, TopicDictionary: {}});
+  const [graph, setGraph]: [Graph, React.Dispatch<React.SetStateAction<Graph>>] = useState(gettingStartedGraph);
   const [selectedNodeID, selectNode]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   //const [searchInput, setSearchInput]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   const [filterHashtagID, setFilterHashtagID]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   const [highlightedHashtag, setHighlightHashtag]: [string, React.Dispatch<React.SetStateAction<string>>] = useState("");
   const [showSidebar, setShowSidebar] = useState(true);
   const [showCopyNoteToast, setShowCopyNoteToast] = useState(false);
-  const [graphViewBox, setGraphViewBox] = useState("0 0 15000 15000");
+  const [graphViewBox, setGraphViewBox] = useState("5526 4635 5925 5925");
   const [sidebarView, setSidebarView] = useState(SidebarView.Main);
 
   // async function onClick() {
@@ -253,8 +302,11 @@ function App(props: Props) {
           console.log(data);
           setAzureDownloadSpinner(0);
           if(typeof(data) == typeof(graph)){
-            //If graph is empty we should use a getting started graph!
-            setGraph(data);
+            if(data.NodeDictionary.length === 0){
+
+            } else {
+              setGraph(data);
+            }
           }
         })
         .catch((e) => {

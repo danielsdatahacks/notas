@@ -195,7 +195,7 @@ export default function NotasGraph(props: Props) {
                         </g>
                 )
             }
-            {
+            {/* {
                 <circle 
                     key={"center"}
                     cx={7500} 
@@ -205,7 +205,7 @@ export default function NotasGraph(props: Props) {
                     strokeWidth="2" 
                     fill="red" 
                 />
-            }
+            } */}
             {
                 Object.keys(props.Graph.TopicDictionary).map((id: string) =>
                     <g key={"hg2" + id}>
